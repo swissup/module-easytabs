@@ -1,4 +1,4 @@
-# Review Reminder
+# Easy Tabs
 
 ### Installation
 
