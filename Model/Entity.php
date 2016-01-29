@@ -2,11 +2,16 @@
 namespace Swissup\Easytabs\Model;
 
 use Swissup\Easytabs\Api\Data\EntityInterface;
-use Magento\Framework\Object\IdentityInterface;
+use Magento\Framework\DataObject\IdentityInterface;
 
 class Entity extends \Magento\Framework\Model\AbstractModel
     implements EntityInterface, IdentityInterface
 {
+    /**
+     * Tab's Statuses
+     */
+    const STATUS_ENABLED = 1;
+    const STATUS_DISABLED = 0;
     /**
      * cache tag
      */
@@ -32,6 +37,19 @@ class Entity extends \Magento\Framework\Model\AbstractModel
     protected function _construct()
     {
         $this->_init('Swissup\Easytabs\Model\ResourceModel\Entity');
+    }
+
+    /**
+     * Prepare tabs statuses.
+     *
+     * @return array
+     */
+    public function getAvailableStatuses()
+    {
+        return [
+            self::STATUS_ENABLED => __('Enabled'),
+            self::STATUS_DISABLED => __('Disabled')
+        ];
     }
 
     /**
@@ -336,5 +354,15 @@ class Entity extends \Magento\Framework\Model\AbstractModel
     public function setUpdatedAt($updatedAt)
     {
         return $this->setData(self::UPDATED_AT, $updatedAt);
+    }
+
+    /**
+     * Receive page store ids
+     *
+     * @return int[]
+     */
+    public function getStores()
+    {
+        return $this->hasData('stores') ? $this->getData('stores') : $this->getData('store_id');
     }
 }

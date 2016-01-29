@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Swissup\Easytabs\Api\Data\EntityInterface" type="Swissup\Easytabs\Model\Entity" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="easytabs_index_listing_data_source" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Swissup\Easytabs\Model\ResourceModel\Entity\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">swissup_easytabs_entity</argument>
+            <argument name="eventPrefix" xsi:type="string">easytabs_index_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">easytabs_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity</argument>
+        </arguments>
+    </type>
+    <virtualType name="EasytabsGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="EasytabsGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Swissup\Easytabs\Model\ResourceModel\Entity\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">EasytabsGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

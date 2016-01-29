@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Swissup_Core::swissup">
+                    <resource id="Swissup_Easytabs::easytabs" title="Easy Tabs" sortOrder="0">
+                        <resource id="Swissup_Easytabs::save" title="Save" sortOrder="10" />
+                        <resource id="Swissup_Easytabs::delete" title="Delete" sortOrder="20" />
+                        <resource id="Swissup_Easytabs::status" title="Change Status" sortOrder="30" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
