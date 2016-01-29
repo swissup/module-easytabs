@@ -1,9 +1,9 @@
 <?php
-namespace Swissup\Easytabs\Model\Resource;
+namespace Swissup\Easytabs\Model\ResourceModel;
 /**
  * Easytabs Entity mysql resource
  */
-class Entity extends \Magento\Framework\Model\Resource\Db\AbstractDb
+class Entity extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     /**
      * Initialize resource model
