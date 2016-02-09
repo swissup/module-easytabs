@@ -40,7 +40,6 @@ class InstallSchema implements InstallSchemaInterface
             )
             ->addColumn('title', Table::TYPE_TEXT, 100, ['nullable' => false], 'Tab title')
             ->addColumn('alias', Table::TYPE_TEXT, 100, ['nullable' => false], 'Tab alias')
-            ->addColumn('block_type', Table::TYPE_TEXT, 100, ['nullable' => false], 'Tab content type')
             ->addColumn('block', Table::TYPE_TEXT, 100, ['nullable' => false], 'Tab block name')
             ->addColumn('sort_order', Table::TYPE_SMALLINT, null, ['nullable' => true, 'default' => '0'], 'Tab sort order')
             ->addColumn('status', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '0'], 'Tab status')

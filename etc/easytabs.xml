@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="easytabs_html" class="Swissup\Easytabs\Block\Tab\Html" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Html content</label>
+        <description>Insert any html content in tab</description>
+        <parameters>
+            <parameter name="widget_content" xsi:type="text" required="true" visible="true">
+                <label translate="true">Content</label>
+                <value></value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_template" class="Swissup\Easytabs\Block\Tab\Template" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Custom Block</label>
+        <description>Create custom tab based on custom block and template</description>
+        <parameters>
+            <parameter name="widget_block" xsi:type="text" required="true" visible="true">
+                <label translate="true">Block</label>
+                <value></value>
+            </parameter>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value></value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_attribute" class="Swissup\Easytabs\Block\Tab\Attribute" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Product attribute</label>
+        <description>Create tab based on product attribute</description>
+        <parameters>
+            <parameter name="widget_identifier" xsi:type="select" required="true" visible="true" source_model="Swissup\Easytabs\Model\Product\Attribute\Collection">
+                <label translate="true">Attribute Code</label>
+            </parameter>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/catalog/product/attribute.phtml</value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_product_description" class="Swissup\Easytabs\Block\Tab\Product\Description" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Product Desription</label>
+        <description>Show product desription in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/catalog/product/view/description.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_product_additional" class="Swissup\Easytabs\Block\Tab\Product\Additional" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Additional Information</label>
+        <description>Show product additional information in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/catalog/product/view/attributes.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_product_upsell" class="Swissup\Easytabs\Block\Tab\Product\Upsell" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">We Also Recommend</label>
+        <description>Show we also recommend (upsell) products in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>catalog/product/list/upsell.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_product_related" class="Swissup\Easytabs\Block\Tab\Product\Related" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Related Products</label>
+        <description>Show related products in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/catalog/product/related.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_product_tags" class="Swissup\Easytabs\Block\Tab\Product\Tags" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Product Tags ({{eval code="getCount()"}})</label>
+        <description>Show product tags in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/tag/product/list.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_product_review" class="Swissup\Easytabs\Block\Tab\Product\Review" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Product's Reviews ({{eval  code="getReviewsCollection()->count()"}})</label>
+        <description>Show product reviews in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/review/product/view/list.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+                <value></value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="easytabs_cms" class="Swissup\Easytabs\Block\Tab\Cms" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">CMS Static Block</label>
+        <description>Show CMS static block content in tab</description>
+        <parameters>
+            <parameter name="widget_identifier" xsi:type="block" required="true" visible="true">
+                <label translate="true">Identifier</label>
+                <block class="Magento\Cms\Block\Adminhtml\Block\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Block...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>tab/cms.phtml</value>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

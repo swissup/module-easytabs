@@ -30,4 +30,17 @@
             <argument name="filterPool" xsi:type="object" shared="false">EasytabsGridFilterPool</argument>
         </arguments>
     </virtualType>
+    <type name="Swissup\Easytabs\Model\Config\Reader">
+        <arguments>
+            <argument name="fileName" xsi:type="string">easytabs.xml</argument>
+            <argument name="schemaLocator" xsi:type="object">Magento\Widget\Model\Config\SchemaLocator</argument>
+            <argument name="fileResolver" xsi:type="object">Magento\Widget\Model\Config\FileResolver</argument>
+        </arguments>
+    </type>
+    <type name="Swissup\Easytabs\Model\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Swissup\Easytabs\Model\Config\Reader\Proxy</argument>
+            <argument name="cacheId" xsi:type="string">widget_config</argument>
+        </arguments>
+    </type>
 </config>
