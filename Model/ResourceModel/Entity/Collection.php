@@ -181,4 +181,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         $this->joinStoreRelationTable('swissup_easytabs_store', 'tab_id');
     }
+    /**
+     * Filter collection by status
+     *
+     * @return $this
+     */
+    public function addStatusFilter($status)
+    {
+        $this->getSelect()
+            ->where('main_table.status = ?', $status);
+        return $this;
+    }
 }

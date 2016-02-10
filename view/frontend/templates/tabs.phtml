@@ -1,33 +1,39 @@
+<?php
+    $tabs = [];
+    foreach ($block->getTabs() as $_index => $_tab) {
+        if (!($childHtml = $block->getChildHtml($_tab['alias']))
+            || $block->isEmptyString($childHtml)) {
+
+            continue;
+        }
+        $_tab['child_html'] = $childHtml;
+        $_tab['title'] = $block->getTabTitle($_tab);
+
+        $tabs[$_index] = $_tab;
+    }
+?>
 <div class="product info detailed">
     <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
-        <?php
-            $html = "
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            ";
-            if (!trim($html)) {
-                continue;
-            }
-            $alias = 'test';
-            $label = 'Test tab';
-        ?>
-        <div class="data item title"
-            aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
-            data-role="collapsible" id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
-            <a class="data switch"
-               tabindex="-1"
-               data-toggle="switch"
-               href="#<?php /* @escapeNotVerified */ echo $alias; ?>"
-               id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
-                <?php /* @escapeNotVerified */ echo $label; ?>
-            </a>
-        </div>
-        <div class="data item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content">
-            <?php /* @escapeNotVerified */ echo $html; ?>
-        </div>
+        <?php foreach ($tabs as $_index => $_tab) : ?>
+            <?php
+                $html = $_tab['child_html'];
+                $alias = $_tab['alias'];
+                $label = $_tab['title'];
+            ?>
+            <div class="data item title"
+                aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
+                data-role="collapsible" id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
+                <a class="data switch"
+                   tabindex="-1"
+                   data-toggle="switch"
+                   href="#<?php /* @escapeNotVerified */ echo $alias; ?>"
+                   id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
+                    <?php /* @escapeNotVerified */ echo $label; ?>
+                </a>
+            </div>
+            <div class="data item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content">
+                <?php /* @escapeNotVerified */ echo $html; ?>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
