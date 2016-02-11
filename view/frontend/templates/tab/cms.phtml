@@ -1,0 +1,11 @@
+<?php
+    $id = $block->getCmsBlockId();
+    if (empty($id)) {
+        return;
+    }
+
+    echo $this->getLayout()
+        ->createBlock('Magento\Cms\Block\Block')
+        ->setBlockId($id)
+        ->toHtml();
+?>

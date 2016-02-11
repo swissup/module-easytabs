@@ -96,7 +96,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
             }
         } else {
             $block = $this->getLayout()
-                ->createBlock($block, $alias, $attributes)
+                ->createBlock($block, $alias, ['data' => $attributes])
                 ->setTemplate($template);
         }
 

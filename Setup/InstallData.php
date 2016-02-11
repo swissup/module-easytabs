@@ -54,7 +54,7 @@ class InstallData implements InstallDataInterface
                 'stores' => [0]
             ],
             [
-                'title' => '{{eval code="getTitle()"}}',
+                'title' => '{{eval code="getTabTitle()"}}',
                 'alias' => 'reviews',
                 'block' => 'Swissup\Easytabs\Block\Tab\Product\Review',
                 'sort_order' => 20,

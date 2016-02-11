@@ -156,7 +156,7 @@
             </parameter>
             <parameter name="widget_template" xsi:type="text" required="true" visible="true">
                 <label translate="true">Template</label>
-                <value>tab/cms.phtml</value>
+                <value>Swissup_Easytabs::tab/cms.phtml</value>
             </parameter>
         </parameters>
     </widget>

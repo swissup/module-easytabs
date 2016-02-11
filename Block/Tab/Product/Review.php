@@ -14,4 +14,10 @@ class Review extends \Magento\Review\Block\Product\Review
         }
         return parent::_prepareLayout();
     }
+
+    public function getTabTitle()
+    {
+        $this->setTabTitle();
+        return $this->getTitle();
+    }
 }
