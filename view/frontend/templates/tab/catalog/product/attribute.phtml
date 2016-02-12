@@ -1,0 +1,21 @@
+<?php
+    $attributeCode = $block->getAttributeCode();
+    $product = $block->getProduct();
+    if (!$attributeCode || !$product) {
+        return;
+    }
+    $attribute = $product->getResource()->getAttribute($attributeCode);
+    if (!$attribute) {
+        return;
+    }
+    $content = $attribute->getFrontend()->getValue($product);
+    if (empty($content)) {
+        return;
+    }
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    ?>
+    <div class="product attibute">
+    <?php echo $_helper->productAttribute(
+        $block->getProduct(), $content, $attributeCode
+    )?>
+    </div>
