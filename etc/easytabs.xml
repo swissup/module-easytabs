@@ -79,33 +79,39 @@
             </parameter>
         </parameters>
     </widget>
-    <widget id="easytabs_product_upsell" class="Swissup\Easytabs\Block\Tab\Product\Upsell" is_email_compatible="false"
+    <widget id="easytabs_product_upsell" class="Magento\Catalog\Block\Product\ProductList\Upsell" is_email_compatible="false"
         placeholder_image="" ttl="86400">
         <label translate="true">We Also Recommend</label>
         <description>Show we also recommend (upsell) products in tab</description>
         <parameters>
             <parameter name="widget_template" xsi:type="text" required="true" visible="true">
                 <label translate="true">Template</label>
-                <value>catalog/product/list/upsell.phtml</value>
+                <value>Magento_Catalog::product/list/items.phtml</value>
             </parameter>
             <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
                 <label translate="true">Unset</label>
-                <value></value>
+                <value>product.info.upsell</value>
+            </parameter>
+            <parameter name="block_arguments" xsi:type="text" required="false" visible="false">
+                <value>type:upsell</value>
             </parameter>
         </parameters>
     </widget>
-    <widget id="easytabs_product_related" class="Swissup\Easytabs\Block\Tab\Product\Related" is_email_compatible="false"
+    <widget id="easytabs_product_related" class="Magento\Catalog\Block\Product\ProductList\Related" is_email_compatible="false"
         placeholder_image="" ttl="86400">
         <label translate="true">Related Products</label>
         <description>Show related products in tab</description>
         <parameters>
             <parameter name="widget_template" xsi:type="text" required="true" visible="true">
                 <label translate="true">Template</label>
-                <value>tab/catalog/product/related.phtml</value>
+                <value>Magento_Catalog::product/list/items.phtml</value>
             </parameter>
             <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
                 <label translate="true">Unset</label>
-                <value></value>
+                <value>catalog.product.related</value>
+            </parameter>
+            <parameter name="block_arguments" xsi:type="text" required="false" visible="false">
+                <value>type:related</value>
             </parameter>
         </parameters>
     </widget>

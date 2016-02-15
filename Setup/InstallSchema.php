@@ -48,6 +48,7 @@ class InstallSchema implements InstallSchemaInterface
             ->addColumn('widget_identifier', Table::TYPE_TEXT, 100, ['nullable' => true], 'Content id/code')
             ->addColumn('widget_block', Table::TYPE_TEXT, 100, ['nullable' => true], 'Widget block name')
             ->addColumn('widget_content', Table::TYPE_TEXT, null, ['nullable' => true], 'Widget content')
+            ->addColumn('block_arguments', Table::TYPE_TEXT, null, ['nullable' => true], 'Widget block arguments')
             ->addColumn('created_at', Table::TYPE_TIMESTAMP, null,
                 [
                     'nullable' => false,

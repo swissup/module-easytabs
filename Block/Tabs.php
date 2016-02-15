@@ -95,6 +95,14 @@ class Tabs extends \Magento\Framework\View\Element\Template
                 return false;
             }
         } else {
+            if ($attributes['block_arguments']) {
+                $args = explode(',', $attributes['block_arguments']);
+                unset($attributes['block_arguments']);
+                foreach ($args as $arg) {
+                    $arg = explode(':', $arg);
+                    $attributes[$arg[0]] = $arg[1];
+                }
+            }
             $block = $this->getLayout()
                 ->createBlock($block, $alias, ['data' => $attributes])
                 ->setTemplate($template);
