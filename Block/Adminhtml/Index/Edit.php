@@ -72,10 +72,10 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
 
         $this->_formScripts[] = "
             function toggleEditor() {
-                if (tinyMCE.getInstanceById('block_content') == null) {
-                    tinyMCE.execCommand('mceAddControl', false, 'block_content');
+                if (tinyMCE.getInstanceById('widget_content') == null) {
+                    tinyMCE.execCommand('mceAddControl', false, 'widget_content');
                 } else {
-                    tinyMCE.execCommand('mceRemoveControl', false, 'block_content');
+                    tinyMCE.execCommand('mceRemoveControl', false, 'widget_content');
                 }
             }
         ";

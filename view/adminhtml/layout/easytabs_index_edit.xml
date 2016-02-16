@@ -5,8 +5,5 @@
         <referenceContainer name="content">
             <block class="Swissup\Easytabs\Block\Adminhtml\Index\Edit" name="easytabs_index_edit"/>
         </referenceContainer>
-        <referenceContainer name="js">
-            <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::catalog/wysiwyg/js.phtml"/>
-        </referenceContainer>
     </body>
 </page>

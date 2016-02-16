@@ -6,9 +6,9 @@
         <label translate="true">Html content</label>
         <description>Insert any html content in tab</description>
         <parameters>
-            <parameter name="widget_content" xsi:type="text" required="true" visible="true">
+            <parameter name="widget_content_placeholder" xsi:type="block" required="false" visible="false">
                 <label translate="true">Content</label>
-                <value></value>
+                <block class="Swissup\Easytabs\Block\Adminhtml\Widget\Form\Renderer\Fieldset\Element\Editor"></block>
             </parameter>
             <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
                 <label translate="true">Unset</label>
