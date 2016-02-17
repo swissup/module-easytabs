@@ -40,7 +40,7 @@
     <type name="Swissup\Easytabs\Model\Config\Data">
         <arguments>
             <argument name="reader" xsi:type="object">Swissup\Easytabs\Model\Config\Reader\Proxy</argument>
-            <argument name="cacheId" xsi:type="string">widget_config</argument>
+            <argument name="cacheId" xsi:type="string">easytabs_widget_config</argument>
         </arguments>
     </type>
 </config>
