@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Swissup_Easytabs::easytabs" title="Easy Tabs" module="Swissup_Easytabs" sortOrder="100" parent="Swissup_Core::swissup" action="easytabs/index" resource="Swissup_Easytabs::easytabs"/>
+        <add id="Swissup_Easytabs::easytabs" title="EasyTabs" module="Swissup_Easytabs" sortOrder="506" parent="Swissup_Core::general" action="easytabs/index" resource="Swissup_Easytabs::easytabs"/>
     </menu>
 </config>
