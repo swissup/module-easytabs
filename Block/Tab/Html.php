@@ -10,35 +10,27 @@ class Html extends \Magento\Framework\View\Element\Template
      * @var \Magento\Cms\Model\Template\FilterProvider
      */
     protected $filterProvider;
-    /**
-     * Store manager
-     *
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    protected $storeManager;
+
     /**
      * Constructor
      *
      * @param \Magento\Framework\View\ElementTemplate\Context $context
      * @param \Magento\Cms\Model\Template\FilterProvider $filterProvider
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Cms\Model\Template\FilterProvider $filterProvider,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
         array $data = []
     )
     {
         $this->filterProvider = $filterProvider;
-        $this->storeManager = $storeManager;
         parent::__construct($context, $data);
     }
 
     protected function _toHtml()
     {
-        $storeId = $this->storeManager->getStore()->getId();
+        $storeId = $this->_storeManager->getStore()->getId();
         $html = $this->filterProvider->getBlockFilter()
             ->setStoreId($storeId)
             ->filter($this->getWidgetContent());
