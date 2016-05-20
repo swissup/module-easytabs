@@ -26,7 +26,9 @@ define(['jquery', 'Magento_Ui/js/modal/alert'], function($, alert) {
                 url: url,
                 showLoader: true,
                 data: {
-                    widget: JSON.stringify(params)
+                    widget: JSON.stringify(params),
+                    isAjax: 'true',
+                    form_key: FORM_KEY
                 }
             })
             .done(self.insertHtml)
