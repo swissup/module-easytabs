@@ -12,6 +12,10 @@ use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory;
 class MassDelete extends \Magento\Backend\App\Action
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::delete';
+    /**
      * @var Filter
      */
     protected $filter;

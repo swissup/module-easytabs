@@ -14,6 +14,11 @@ class MassDisable extends AbstractMassStatus
     const ID_FIELD = 'tab_id';
 
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::status';
+
+    /**
      * Resource collection
      *
      * @var string

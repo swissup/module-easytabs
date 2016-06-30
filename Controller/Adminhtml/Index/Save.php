@@ -4,12 +4,9 @@ namespace Swissup\Easytabs\Controller\Adminhtml\Index;
 class Save extends \Magento\Backend\App\Action
 {
     /**
-     * {@inheritdoc}
+     * Admin resource
      */
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('Swissup_Easytabs::save');
-    }
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::save';
 
     /**
      * Save action
