@@ -6,7 +6,19 @@ class Review extends \Magento\Review\Block\Product\Review
     protected function _prepareLayout()
     {
         $layout = $this->getLayout();
-        $reviewForm = $layout->createBlock('Magento\Review\Block\Form', 'product.review.form');
+        $reviewForm = $layout->createBlock(
+            'Magento\Review\Block\Form',
+            'product.review.form',
+            ['data' =>
+                ['jsLayout' =>
+                    ['components' =>
+                        ['review-form' =>
+                            ['component' => 'Magento_Review/js/view/review']
+                        ]
+                    ]
+                ]
+            ]
+        );
         if ($reviewForm) {
             $this->setChild('review_form', $reviewForm);
             $layout->addContainer('product.review.form.fields.before', 'Review Form Fields Before');
