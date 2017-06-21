@@ -1,8 +1,14 @@
 {
     "name": "swissup/easytabs",
     "description": "Easy Tabs extension from Swissup",
+    "keywords": [
+        "tabs",
+        "easytabs",
+        "product tabs",
+        "homepage tabs"
+    ],
     "type": "magento2-module",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": "OSL-3.0",
     "require": {
         "swissup/core": "*"
@@ -11,6 +17,16 @@
         "files": [ "registration.php" ],
         "psr-4": {
             "Swissup\\Easytabs\\": ""
+        }
+    },
+    "extra": {
+        "swissup": {
+            "links": {
+                "store"    : "https://swissuplabs.com/product-tabs-magento-2-extension.html",
+                "download" : "https://swissuplabs.com/subscription/customer/products/",
+                "docs"     : "http://docs.swissuplabs.com/m2/extensions/easytabs/",
+                "changelog": "http://docs.swissuplabs.com/m2/extensions/easytabs/changelog/"
+            }
         }
     }
 }
