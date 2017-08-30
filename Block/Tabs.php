@@ -22,6 +22,10 @@ class Tabs extends \Magento\Framework\View\Element\Template
      */
     protected $tabsCollectionFactory;
     /**
+     * @var \Magento\Framework\Json\EncoderInterface
+     */
+    protected $jsonEncoder;
+    /**
      * Constructor
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -33,11 +37,13 @@ class Tabs extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory $tabsCollectionFactory,
         \Swissup\Easytabs\Model\Template\Filter $templateFilter,
+        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         array $data = []
     )
     {
         $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->templateFilter = $templateFilter;
+        $this->jsonEncoder = $jsonEncoder;
         parent::__construct($context, $data);
     }
 
@@ -168,5 +174,24 @@ class Tabs extends \Magento\Framework\View\Element\Template
         $processor = $this->templateFilter->setScope($scope);
 
         return $processor->filter($tab['title']);
+    }
+
+    public function getOptionsAsJson()
+    {
+        $options = $this->getVar('options');
+        foreach ($options as &$opt) {
+            // try convert value to number
+            if (is_numeric($opt)) {
+                $opt = (int)$opt;
+            }
+            // try convert value to boolean
+            if (in_array($opt, ['true', 'false'], true)) {
+                $value = filter_var($opt, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                if (isset($value)) {
+                    $opt = $value;
+                }
+            }
+        }
+        return $this->jsonEncoder->encode($options);
     }
 }
