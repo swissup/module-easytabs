@@ -175,23 +175,4 @@ class Tabs extends \Magento\Framework\View\Element\Template
 
         return $processor->filter($tab['title']);
     }
-
-    public function getOptionsAsJson()
-    {
-        $options = $this->getVar('options');
-        foreach ($options as &$opt) {
-            // try convert value to number
-            if (is_numeric($opt)) {
-                $opt = (int)$opt;
-            }
-            // try convert value to boolean
-            if (in_array($opt, ['true', 'false'], true)) {
-                $value = filter_var($opt, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-                if (isset($value)) {
-                    $opt = $value;
-                }
-            }
-        }
-        return $this->jsonEncoder->encode($options);
-    }
 }
