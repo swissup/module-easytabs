@@ -192,4 +192,30 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             ->where('main_table.status = ?', $status);
         return $this;
     }
+
+
+    /**
+     * [addProductTabFilter description]
+     */
+    public function addProductTabFilter()
+    {
+        // OR condition
+        $this->addFieldToFilter(
+                'widget_tab',
+                [
+                    ['is' => new \Zend_Db_Expr('NULL')],
+                    ['eq' => 0]
+                ]
+            );
+        return $this;
+    }
+
+    /**
+     * [addWidgetTabFilter description]
+     */
+    public function addWidgetTabFilter()
+    {
+        $this->addFieldToFilter('widget_tab', ['eq' => '1']);
+        return $this;
+    }
 }
