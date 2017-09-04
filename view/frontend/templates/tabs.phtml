@@ -13,7 +13,7 @@
     }
 ?>
 <div class="product info detailed">
-    <div class="product data items" data-mage-init='{"tabs": <?php echo $block->getVar('options'); ?>}'>
+    <div class="product data items" data-mage-init='{"tabs": <?php echo $block->getInitOptions(); ?>}'>
         <?php foreach ($tabs as $_index => $_tab) : ?>
             <?php
                 $html = $_tab['child_html'];

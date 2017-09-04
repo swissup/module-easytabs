@@ -1,17 +1,17 @@
 <?php
 namespace Swissup\Easytabs\Block;
 
-class ProductTabs extends Tabs
+class WidgetTabs extends Tabs implements \Magento\Widget\Block\BlockInterface
 {
     protected function _getCollection()
     {
         $collection = parent::_getCollection();
-        $collection->addProductTabFilter();
+        $collection->addWidgetTabFilter();
         return $collection;
     }
 
     public function getInitOptions()
     {
-        return $this->getVar('options');
+        return '{"collapsible": false, "openedState": "active"}';
     }
 }

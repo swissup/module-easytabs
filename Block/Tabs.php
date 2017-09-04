@@ -175,4 +175,9 @@ class Tabs extends \Magento\Framework\View\Element\Template
 
         return $processor->filter($tab['title']);
     }
+
+    public function getInitOptions()
+    {
+        return '{}';
+    }
 }
