@@ -3,9 +3,9 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="content">
-            <block class="Swissup\Easytabs\Block\Adminhtml\Index\Edit" name="easytabs_index_edit">
+            <block class="Swissup\Easytabs\Block\Adminhtml\Index\Edit" name="easytabs_widget_edit">
                 <arguments>
-                    <argument name="widget_tab" xsi:type="string">0</argument>
+                    <argument name="widget_tab" xsi:type="string">1</argument>
                 </arguments>
             </block>
         </referenceContainer>

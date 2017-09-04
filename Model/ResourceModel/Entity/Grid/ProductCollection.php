@@ -4,11 +4,13 @@ namespace Swissup\Easytabs\Model\ResourceModel\Entity\Grid;
 /**
  * Collection for displaying grid of tabs
  */
-class WidgetCollection extends Collection
+class ProductCollection extends Collection
 {
     protected function _beforeLoad()
     {
-        $this->addWidgetTabFilter();
+        $this->addProductTabFilter();
+        // \Zend_Debug::dump($this->getSelect()->__toString());
+        // \Zend_Debug::dump(__METHOD__);die;
         return parent::_beforeLoad();
     }
 }

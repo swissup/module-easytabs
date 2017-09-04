@@ -146,4 +146,27 @@ class Collection extends EntityCollection implements SearchResultInterface
     {
         return $this;
     }
+
+    /**
+     * [addProductTabFilter description]
+     */
+    public function addProductTabFilter()
+    {
+        // OR condition
+        return $this->addFieldToFilter(
+                'widget_tab',
+                [
+                    ['is' => new \Zend_Db_Expr('NULL')],
+                    ['eq' => 0]
+                ]
+            );
+    }
+
+    /**
+     * [addWidgetTabFilter description]
+     */
+    public function addWidgetTabFilter()
+    {
+        return $this->addFieldToFilter('widget_tab', ['eq' => '1']);
+    }
 }

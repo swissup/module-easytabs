@@ -130,7 +130,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
                 'jquery',
                 'tabOptions'
             ], function ($, tabOptions) {
-                tabOptions.init('" . $this->getUrl("easytabs/*/loadOptions") . "', " . $values . ");
+                tabOptions.init('" . $this->getUrl("easytabs/index/loadOptions") . "', " . $values . ");
             });
         ";
         return parent::_prepareLayout();

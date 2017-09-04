@@ -5,7 +5,7 @@
             <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing_data_source</item>
             <item name="deps" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing_data_source</item>
         </item>
-        <item name="spinner" xsi:type="string">easytabs_index_columns</item>
+        <item name="spinner" xsi:type="string">easytabs_widget_columns</item>
         <item name="acl" xsi:type="string">Swissup_Easytabs::easytabs</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
@@ -53,7 +53,7 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="columnsData" xsi:type="array">
-                        <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_index_columns</item>
+                        <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_widget_columns</item>
                     </item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
                     <item name="displayArea" xsi:type="string">dataGridActions</item>
@@ -75,7 +75,7 @@
         <filters name="listing_filters">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="columnsProvider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_index_columns</item>
+                    <item name="columnsProvider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_widget_columns</item>
                     <item name="storageConfig" xsi:type="array">
                         <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.listing_top.bookmarks</item>
                         <item name="namespace" xsi:type="string">current.filters</item>
@@ -91,7 +91,7 @@
                     <item name="childDefaults" xsi:type="array">
                         <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.listing_top.listing_filters</item>
                         <item name="imports" xsi:type="array">
-                            <item name="visible" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_index_columns.${ $.index }:visible</item>
+                            <item name="visible" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_widget_columns.${ $.index }:visible</item>
                         </item>
                     </item>
                 </item>
@@ -112,7 +112,7 @@
         <massaction name="listing_massaction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_index_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_widget_columns.ids</item>
                     <item name="indexField" xsi:type="string">tab_id</item>
                 </item>
             </argument>
@@ -121,7 +121,7 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">delete</item>
                         <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="easytabs/index/massDelete"/>
+                        <item name="url" xsi:type="url" path="easytabs/widget/massDelete"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Delete items</item>
                             <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
@@ -134,7 +134,7 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">enable</item>
                         <item name="label" xsi:type="string" translate="true">Enable</item>
-                        <item name="url" xsi:type="url" path="easytabs/index/massEnable"/>
+                        <item name="url" xsi:type="url" path="easytabs/widget/massEnable"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Enable items</item>
                         </item>
@@ -146,7 +146,7 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">disable</item>
                         <item name="label" xsi:type="string" translate="true">Disable</item>
-                        <item name="url" xsi:type="url" path="easytabs/index/massDisable"/>
+                        <item name="url" xsi:type="url" path="easytabs/widget/massDisable"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Disable items</item>
                         </item>
@@ -161,12 +161,12 @@
                         <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.listing_top.bookmarks</item>
                         <item name="namespace" xsi:type="string">current.paging</item>
                     </item>
-                    <item name="selectProvider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_index_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_widget_columns.ids</item>
                 </item>
             </argument>
         </paging>
     </container>
-    <columns name="easytabs_index_columns">
+    <columns name="easytabs_widget_columns">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="storageConfig" xsi:type="array">
@@ -175,7 +175,7 @@
                 </item>
                 <item name="childDefaults" xsi:type="array">
                     <item name="fieldAction" xsi:type="array">
-                        <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_index_columns.actions</item>
+                        <item name="provider" xsi:type="string">easytabs_widget_listing.easytabs_widget_listing.easytabs_widget_columns.actions</item>
                         <item name="target" xsi:type="string">applyAction</item>
                         <item name="params" xsi:type="array">
                             <item name="0" xsi:type="string">edit</item>
@@ -291,7 +291,7 @@
                 </item>
             </argument>
         </column>
-        <actionsColumn name="actions" class="Swissup\Easytabs\Ui\Component\Listing\Column\EasytabsActions">
+        <actionsColumn name="actions" class="Swissup\Easytabs\Ui\Component\Listing\Column\WidgetActions">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="indexField" xsi:type="string">tab_id</item>

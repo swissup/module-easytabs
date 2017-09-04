@@ -52,6 +52,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      */
     protected function _prepareForm()
     {
+
         /** @var \Swissup\Easytabs\Model\Data $model */
         $model = $this->_coreRegistry->registry('easytab');
 
@@ -82,6 +83,9 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         if ($model->getTabId()) {
             $fieldset->addField('tab_id', 'hidden', ['name' => 'tab_id']);
+        } else {
+            // set new tab enabled by default
+            $model->setStatus(1);
         }
 
         $fieldset->addField(
@@ -197,6 +201,17 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             $model->setStoreId($this->_storeManager->getStore(true)->getId());
         }
 
+        // add hidden field `widget_tab`
+        // '0' - product tab
+        // '1' - wiidget tab
+        // values set in layout for parent block
+        $fieldset->addField(
+            'widget_tab',
+            'hidden',
+            [ 'name' => 'widget_tab' ]
+        );
+        $model->setWidgetTab($this->getParentBlock()->getWidgetTab());
+
         $form->setValues($model->getData());
         $form->setUseContainer(true);
         $this->setForm($form);
@@ -209,10 +224,15 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      */
     protected function _getBlockTypes()
     {
+        $showProductTabs = !$this->getParentBlock()->getWidgetTab();
         $tabs = $this->tabsOptionsFactory->create()->getTabsArray();
         $types = [];
         foreach ($tabs as $tab) {
-            $types[$tab['type']] = $tab['name'];
+            if (in_array($tab['code'], ['easytabs_cms', 'easytabs_template', 'easytabs_html'])
+                || $showProductTabs)
+            {
+                $types[$tab['type']] = $tab['name'];
+            }
         }
         return $types;
     }
