@@ -2,11 +2,11 @@
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
     <widget id="swissup_easytabs" class="Swissup\Easytabs\Block\WidgetTabs" is_email_compatible="false"
-        placeholder_image="Swissup_Testimonials::images/list.png" ttl="86400">
+        placeholder_image="Swissup_Easytabs::images/widget.gif" ttl="86400">
         <label translate="true">Easytabs</label>
         <description><![CDATA[List of tabs from "Swissup" &rarr; "Easytabs" &rarr; "Widget Tabs"]]></description>
         <parameters>
-            <parameter name="tabs" xsi:type="text" visible="true">
+            <parameter name="filter_tabs" xsi:type="text" visible="true">
                 <label translate="true">Tabs to show</label>
                 <description></description>
             </parameter>
