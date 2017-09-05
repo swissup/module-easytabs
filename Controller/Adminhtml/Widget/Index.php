@@ -37,7 +37,7 @@ class Index extends \Magento\Backend\App\Action
         $resultPage->setActiveMenu('Swissup_Easytabs::easytabs');
         $resultPage->addBreadcrumb(__('Easy Tabs'), __('Easy Tabs'));
         $resultPage->addBreadcrumb(__('Manage Easy Tabs'), __('Manage Easy Tabs'));
-        $resultPage->getConfig()->getTitle()->prepend(__('Easy Tabs'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Widget Tabs'));
 
         return $resultPage;
     }
