@@ -6,7 +6,7 @@
         <label translate="true">Easytabs</label>
         <description><![CDATA[List of tabs from "Swissup" &rarr; "Easytabs" &rarr; "Widget Tabs"]]></description>
         <parameters>
-            <parameter name="filter_tabs" xsi:type="text" visible="true">
+            <parameter name="filter_tabs" xsi:type="multiselect" source_model="Swissup\Easytabs\Model\Config\Source\WidgetTabs" visible="true">
                 <label translate="true">Tabs to show</label>
                 <description></description>
             </parameter>
