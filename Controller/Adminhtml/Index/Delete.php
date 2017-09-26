@@ -6,7 +6,7 @@ class Delete extends \Magento\Backend\App\Action
     /**
      * Admin resource
      */
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::delete';
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_delete';
     /**
      * Core registry
      *

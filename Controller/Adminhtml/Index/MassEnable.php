@@ -16,7 +16,7 @@ class MassEnable extends AbstractMassStatus
     /**
      * Admin resource
      */
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::status';
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_status';
 
     /**
      * Resource collection

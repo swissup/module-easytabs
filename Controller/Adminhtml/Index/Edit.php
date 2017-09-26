@@ -8,7 +8,7 @@ class Edit extends Action
     /**
      * Admin resource
      */
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs';
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_save';
     /**
      * Core registry
      *
