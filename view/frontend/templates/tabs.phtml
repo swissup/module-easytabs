@@ -11,18 +11,45 @@
 
         $tabs[$_index] = $_tab;
     }
+
+    $dataClass = 'data';
+    // $block->setTabsLayout('expanded');
+    if ($isExpanded = ($block->getTabsLayout() == 'expanded')) {
+        $dataClass = 'data-expanded';
+    }
 ?>
+<style>
+    .product.data-expanded {
+        display:  flex;
+        flex-flow: row wrap;
+        border-bottom: 1px solid #ccc;
+    }
+    .product.data-expanded .item.title,
+    .product.data-expanded .item.content {
+        border-top: 1px solid #ccc;
+        box-sizing: border-box;
+        padding: 0 .5rem;
+        width: 25%;
+    }
+    .product.data-expanded .item.content {
+        padding: 2rem .5rem;
+        width: 75%;
+    }
+</style>
 <div class="product info detailed">
-    <div class="product data items" data-mage-init='{"tabs": <?php echo $block->getInitOptions(); ?>}'>
+    <div class="product <?php echo $dataClass; ?> items"<?php if (!$isExpanded): ?> data-mage-init='{"tabs": <?php echo $block->getInitOptions(); ?>}'<?php endif ?>>
         <?php foreach ($tabs as $_index => $_tab) : ?>
             <?php
                 $html = $_tab['child_html'];
                 $alias = $_tab['alias'];
                 $label = $_tab['title'];
             ?>
-            <div class="data item title"
+            <div class="<?php echo $dataClass; ?> item title"
                 aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
                 data-role="collapsible" id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
+            <?php if ($isExpanded): ?>
+                <h2 class="title"><?php /* @escapeNotVerified */ echo $label; ?></h2>
+            <?php else: ?>
                 <a class="data switch"
                    tabindex="-1"
                    data-toggle="switch"
@@ -30,8 +57,9 @@
                    id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
                     <?php /* @escapeNotVerified */ echo $label; ?>
                 </a>
+            <?php endif ?>
             </div>
-            <div class="data item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content">
+            <div class="<?php echo $dataClass; ?> item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content">
                 <?php /* @escapeNotVerified */ echo $html; ?>
             </div>
         <?php endforeach; ?>
