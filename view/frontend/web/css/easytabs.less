@@ -1,0 +1,39 @@
+.product.data.items {
+
+    .fieldset .review-legend.legend strong {
+        display: inline;
+        margin-left: .5em;
+    }
+
+    &.expanded {
+        display:  flex;
+        flex-flow: row wrap;
+        border-bottom: 1px solid #ccc;
+
+        > .item.title,
+        > .item.content {
+            border: none;
+            border-top: 1px solid #ccc;
+            float: none;
+            margin: 0;
+            padding: 0 .5rem;
+            width: 25%;
+        }
+
+        > .item.content {
+            padding: 2rem .5rem;
+            width: 75%;
+        }
+    }
+
+}
+
+.data.expanded.title .counter {
+    &::before {
+        content: '(';
+    }
+
+    &::after {
+        content: ')';
+    }
+}
