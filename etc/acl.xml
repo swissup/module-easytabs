@@ -18,6 +18,15 @@
                         </resource>
                     </resource>
                 </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Swissup_Core::swissup_config" title="Swissup" sortOrder="297">
+                                <resource id="Swissup_Easytabs::Easytabs_config" title="Easytabs" sortOrder="574"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>

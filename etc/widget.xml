@@ -10,6 +10,10 @@
                 <label translate="true">Tabs to show</label>
                 <description></description>
             </parameter>
+            <parameter name="tabs_layout" xsi:type="select" source_model="Swissup\Easytabs\Model\Config\Source\Layout" visible="true">
+                <label translate="true">Layout</label>
+                <description></description>
+            </parameter>
             <parameter name="template" xsi:type="text" visible="false">
                 <label translate="true">Template</label>
                 <value>Swissup_Easytabs::tabs.phtml</value>
