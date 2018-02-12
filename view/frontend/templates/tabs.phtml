@@ -15,7 +15,7 @@
     $dataClass = 'data';
     // $block->setTabsLayout('expanded');
     if ($isExpanded = ($block->getTabsLayout() == 'expanded')) {
-        $dataClass = 'data-expanded';
+        $dataClass = 'data-expanded active';
     }
 ?>
 <style>
@@ -35,6 +35,12 @@
         padding: 2rem .5rem;
         width: 75%;
     }
+    .data-expanded.title .counter::before {
+        content: '(';
+    }
+    .data-expanded.title .counter::after {
+        content: ')';
+    }
 </style>
 <div class="product info detailed">
     <div class="product <?php echo $dataClass; ?> items"<?php if (!$isExpanded): ?> data-mage-init='{"tabs": <?php echo $block->getInitOptions(); ?>}'<?php endif ?>>
@@ -46,7 +52,12 @@
             ?>
             <div class="<?php echo $dataClass; ?> item title"
                 aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
-                data-role="collapsible" id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
+                <?php if ($isExpanded): ?>
+                    role="tab"
+                <?php else: ?>
+                    data-role="collapsible"
+                <?php endif ?>
+                id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
             <?php if ($isExpanded): ?>
                 <h2 class="title"><?php /* @escapeNotVerified */ echo $label; ?></h2>
             <?php else: ?>
