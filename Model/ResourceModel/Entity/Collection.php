@@ -61,7 +61,10 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             $connection = $this->getConnection();
             $select = $connection->select()->from(['swissup_easytabs_store' => $this->getTable($tableName)])
                 ->where('swissup_easytabs_store.' . $columnName . ' IN (?)', $items);
-            $result = $connection->fetchPairs($select);
+            $result = [];
+            foreach ($connection->fetchAll($select) as $row) {
+                $result[$row['tab_id']][] = $row['store_id'];
+            }
             if ($result) {
                 foreach ($this as $item) {
                     $entityId = $item->getData($columnName);
@@ -73,12 +76,12 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
                         $storeId = current($stores)->getId();
                         $storeCode = key($stores);
                     } else {
-                        $storeId = $result[$item->getData($columnName)];
+                        $storeId = reset($result[$item->getData($columnName)]);
                         $storeCode = $this->storeManager->getStore($storeId)->getCode();
                     }
                     $item->setData('_first_store_id', $storeId);
                     $item->setData('store_code', $storeCode);
-                    $item->setData('store_id', [$result[$entityId]]);
+                    $item->setData('store_id', $result[$entityId]);
                 }
             }
         }
