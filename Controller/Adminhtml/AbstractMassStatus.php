@@ -1,14 +1,21 @@
 <?php
 namespace Swissup\Easytabs\Controller\Adminhtml;
 
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Backend\App\Action\Context;
+use Magento\Ui\Component\MassAction\Filter;
+use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory;
 
 /**
  * Class AbstractMassStatus
  */
 class AbstractMassStatus extends \Magento\Backend\App\Action
 {
+    /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_status';
+
     /**
      * Field id
      */
@@ -20,26 +27,41 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
     const REDIRECT_URL = '*/*/';
 
     /**
-     * Resource collection
-     *
-     * @var string
+     * @var Filter
      */
-    protected $collection = 'Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection';
+    protected $filter;
 
     /**
-     * Model
-     *
-     * @var string
+     * @var CollectionFactory
      */
-    protected $model = 'Magento\Framework\Model\AbstractModel';
-
+    protected $tabsCollectionFactory;
 
     /**
      * Item status
      *
-     * @var bool
+     * @var int
      */
     protected $status = 1;
+
+    /**
+     * Tab type: 0 - product, 1 - widget
+     *
+     * @var int
+     */
+    protected $type = 0;
+
+    /**
+     * @param Context $context
+     * @param Filter $filter
+     * @param CollectionFactory $collectionFactory
+     */
+    public function __construct(Context $context, Filter $filter, CollectionFactory $collectionFactory)
+    {
+        $this->filter = $filter;
+        $this->collectionFactory = $collectionFactory;
+        parent::__construct($context);
+    }
+
     /**
      * Execute action
      *
@@ -48,86 +70,23 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        $selected = $this->getRequest()->getParam('selected');
-        $excluded = $this->getRequest()->getParam('excluded');
-        try {
-            if (isset($excluded)) {
-                if (!empty($excluded) && $excluded != "false") {
-                    $this->excludedSetStatus($excluded);
-                } else {
-                    $this->setStatusAll();
-                }
-            } elseif (!empty($selected)) {
-                $this->selectedSetStatus($selected);
-            } else {
-                $this->messageManager->addError(__('Please select item(s).'));
-            }
-        } catch (\Exception $e) {
-            $this->messageManager->addError($e->getMessage());
+        $collection = $this->filter->getCollection($this->collectionFactory->create());
+        if ($this->type == 1) {
+            $collection->addWidgetTabFilter();
+        } else {
+            $collection->addProductTabFilter();
         }
+
+        foreach ($collection as $item) {
+            $item->setStatus($this->status);
+            $item->save();
+        }
+
+        $this->messageManager->addSuccess(__(static::SUCCESS_MESSAGE, $collection->getSize()));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        return $resultRedirect->setPath(static::REDIRECT_URL);
-    }
 
-    /**
-     * Set status to all
-     *
-     * @return void
-     * @throws \Exception
-     */
-    protected function setStatusAll()
-    {
-        /** @var AbstractCollection $collection */
-        $collection = $this->_objectManager->get($this->collection);
-        $this->setStatus($collection);
-    }
-
-    /**
-     * Set status to all but the not selected
-     *
-     * @param array $excluded
-     * @return void
-     * @throws \Exception
-     */
-    protected function excludedSetStatus(array $excluded)
-    {
-        /** @var AbstractCollection $collection */
-        $collection = $this->_objectManager->get($this->collection);
-        $collection->addFieldToFilter(static::ID_FIELD, ['nin' => $excluded]);
-        $this->setStatus($collection);
-    }
-
-    /**
-     * Set status to selected items
-     *
-     * @param array $selected
-     * @return void
-     * @throws \Exception
-     */
-    protected function selectedSetStatus(array $selected)
-    {
-        /** @var AbstractCollection $collection */
-        $collection = $this->_objectManager->get($this->collection);
-        $collection->addFieldToFilter(static::ID_FIELD, ['in' => $selected]);
-        $this->setStatus($collection);
-    }
-
-    /**
-     * Set status to collection items
-     *
-     * @param AbstractCollection $collection
-     * @return void
-     */
-    protected function setStatus(AbstractCollection $collection)
-    {
-        foreach ($collection->getAllIds() as $id) {
-            /** @var \Magento\Framework\Model\AbstractModel $model */
-            $model = $this->_objectManager->get($this->model);
-            $model->load($id);
-            $model->setStatus($this->status);
-            $model->save();
-        }
+        return $resultRedirect->setPath(self::REDIRECT_URL);
     }
 }

@@ -1,41 +1,17 @@
 <?php
 namespace Swissup\Easytabs\Controller\Adminhtml\Index;
 
-use Swissup\Easytabs\Controller\Adminhtml\AbstractMassStatus;
-
 /**
  * Class MassDisable
  */
-class MassDisable extends AbstractMassStatus
+class MassDisable extends \Swissup\Easytabs\Controller\Adminhtml\AbstractMassStatus
 {
-    /**
-     * Field id
-     */
-    const ID_FIELD = 'tab_id';
+    const SUCCESS_MESSAGE = 'A total of %1 record(s) have been disabled.';
 
     /**
-     * Admin resource
-     */
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_status';
-
-    /**
-     * Resource collection
-     *
-     * @var string
-     */
-    protected $collection = 'Swissup\Easytabs\Model\ResourceModel\Entity\Collection';
-
-    /**
-     * Easytabs model
-     *
-     * @var string
-     */
-    protected $model = 'Swissup\Easytabs\Model\Entity';
-
-    /**
-     * Easytabs disable status
+     * Tab disable status
      *
      * @var int
      */
-    protected $status = 0;
+    protected $status = \Swissup\Easytabs\Model\Entity::STATUS_DISABLED;
 }
