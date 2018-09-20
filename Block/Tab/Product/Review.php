@@ -18,9 +18,10 @@ class Review extends \Magento\Review\Block\Product\Review
             $this->reviewFormBlockMap['default'];
 
         $layout = $this->getLayout();
+        $blockName = 'easytab.product.' . $this->getNameInLayout();
         $reviewForm = $layout->createBlock(
             $formBlock,
-            'product.review.form',
+            $blockName,
             ['data' =>
                 ['jsLayout' =>
                     ['components' =>
@@ -33,8 +34,9 @@ class Review extends \Magento\Review\Block\Product\Review
         );
         if ($reviewForm) {
             $this->setChild('review_form', $reviewForm);
-            $layout->addContainer('product.review.form.fields.before', 'Review Form Fields Before');
-            $layout->setChild('product.review.form', 'product.review.form.fields.before', 'form_fields_before');
+            $containerName = $blockName . '.fields.before';
+            $layout->addContainer($containerName, 'Review Form Fields Before');
+            $layout->setChild($blockName, $containerName, 'form_fields_before');
         }
 
         return parent::_prepareLayout();
