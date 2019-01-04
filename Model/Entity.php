@@ -363,6 +363,6 @@ class Entity extends \Magento\Framework\Model\AbstractModel
      */
     public function getStores()
     {
-        return $this->hasData('stores') ? $this->getData('stores') : $this->getData('store_id');
+        return $this->hasData('stores') ? $this->getData('stores', []) : $this->getData('store_id', []);
     }
 }
