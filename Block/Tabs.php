@@ -38,12 +38,16 @@ class Tabs extends \Magento\Framework\View\Element\Template
         \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory $tabsCollectionFactory,
         \Swissup\Easytabs\Model\Template\Filter $templateFilter,
         \Magento\Framework\Json\EncoderInterface $jsonEncoder,
+        \Magento\Framework\Module\FullModuleList $fullModuleList,
+        \Magento\Framework\Module\Manager $moduleManager,
         array $data = []
     )
     {
         $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->templateFilter = $templateFilter;
         $this->jsonEncoder = $jsonEncoder;
+        $this->fullModuleList = $fullModuleList;
+        $this->moduleManager = $moduleManager;
         parent::__construct($context, $data);
     }
 
@@ -109,9 +113,28 @@ class Tabs extends \Magento\Framework\View\Element\Template
                     $attributes[$arg[0]] = $arg[1];
                 }
             }
-            $block = $this->getLayout()
-                ->createBlock($block, $alias, ['data' => $attributes])
-                ->setTemplate($template);
+
+            // when custom block type is set then check if its module enabled
+            if (isset($attributes['widget_block'])) {
+                $moduleName = $this->extractModuleName($attributes['widget_block']);
+                if ($this->fullModuleList->getOne($moduleName) // module with such name exists
+                    && !$this->moduleManager->isEnabled($moduleName) // module disabled
+                ) {
+                    // don't add tab since module disabled
+                    return;
+                }
+            }
+
+            try {
+                $block = $this->getLayout()
+                    ->createBlock($block, $alias, ['data' => $attributes])
+                    ->setTemplate($template);
+            } catch (\Exception $e) {
+                $this->_logger->critical(
+                    "Swissup_Easytabs can't create tab '{$alias}' - {$e->getMessage()}"
+                );
+                return;
+            }
         }
 
         $tab = array(
