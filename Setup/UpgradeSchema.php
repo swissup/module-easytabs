@@ -34,6 +34,19 @@ class UpgradeSchema implements UpgradeSchemaInterface
                 );
         }
 
+        if (version_compare($context->getVersion(), '1.5.0', '<')) {
+            $installer->getConnection()
+                ->addColumn(
+                    $installer->getTable('swissup_easytabs_entity'),
+                    'conditions_serialized',
+                    array(
+                        'type' => Table::TYPE_TEXT,
+                        'length' => null,
+                        'comment' => 'Conditions Serialized'
+                    )
+                );
+        }
+
         $setup->endSetup();
 
     }

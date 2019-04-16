@@ -4,7 +4,7 @@ namespace Swissup\Easytabs\Model;
 use Swissup\Easytabs\Api\Data\EntityInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 
-class Entity extends \Magento\Framework\Model\AbstractModel
+class Entity extends \Magento\Rule\Model\AbstractModel
     implements EntityInterface, IdentityInterface
 {
     /**
@@ -30,12 +30,42 @@ class Entity extends \Magento\Framework\Model\AbstractModel
     protected $_eventPrefix = 'easytabs_entity';
 
     /**
+     * @var \Swissup\Easytabs\Model\Rule\Condition\CombineFactory
+     */
+    protected $combineFactory;
+
+    /**
+     * @var \Magento\CatalogRule\Model\Rule\Action\CollectionFactory
+     */
+    protected $actionCollectionFactory;
+
+    /**
+     * @var \Magento\Framework\Registry
+     */
+    protected $registry;
+
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+
+    /**
      * Initialize resource model
      *
      * @return void
      */
     protected function _construct()
     {
+        // combineFactory and actionCollectionFactory passed to __construct via di.xml
+        // they have to be saved into protected properties because load() overrides _data
+        $this->combineFactory = $this->getData('combineFactory');
+        $this->actionCollectionFactory = $this->getData('actionCollectionFactory');
+        $this->registry = $this->getData('registry');
+        $this->customerSession = $this->getData('customerSession');
+        $this->unsetData('combineFactory');
+        $this->unsetData('actionCollectionFactory');
+        $this->unsetData('registry');
+        $this->unsetData('customerSession');
         $this->_init('Swissup\Easytabs\Model\ResourceModel\Entity');
     }
 
@@ -369,5 +399,62 @@ class Entity extends \Magento\Framework\Model\AbstractModel
             $stores = (array) $stores;
         }
         return $stores;
+    }
+
+    /**
+     * Getter for rule conditions collection
+     *
+     * @return
+     */
+    public function getConditionsInstance()
+    {
+        return $this->combineFactory->create();
+    }
+
+    /**
+     * Getter for rule actions collection
+     *
+     * @return
+     */
+    public function getActionsInstance()
+    {
+        return $this->actionCollectionFactory->create();
+    }
+
+    /**
+     * @param string $formName
+     * @return string
+     */
+    public function getConditionsFieldSetId($formName = '')
+    {
+        return $formName . 'rule_conditions_fieldset_' . $this->getId();
+    }
+
+    /**
+     * Get current product from registry
+     *
+     * @return \Magento\Catalog\Api\Data\ProductInterface|null
+     */
+    public function getProduct()
+    {
+        if (!$this->registry) {
+            return null;
+        }
+
+        return $this->registry->registry('product');
+    }
+
+    /**
+     * Get current customer from customer session
+     *
+     * @return \Magento\Customer\Model\Customer|null
+     */
+    public function getCustomer()
+    {
+        if (!$this->customerSession) {
+            return null;
+        }
+
+        return $this->customerSession->getCustomer();
     }
 }

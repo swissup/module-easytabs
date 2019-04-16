@@ -52,4 +52,14 @@
             <argument name="cacheId" xsi:type="string">easytabs_widget_config</argument>
         </arguments>
     </type>
+    <type name="Swissup\Easytabs\Model\Entity">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="combineFactory" xsi:type="object">Swissup\Easytabs\Model\Rule\Condition\CombineFactory</item>
+                <item name="actionCollectionFactory" xsi:type="object">Magento\CatalogRule\Model\Rule\Action\CollectionFactory</item>
+                <item name="registry" xsi:type="object">Magento\Framework\Registry</item>
+                <item name="customerSession" xsi:type="object">Magento\Customer\Model\Session</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

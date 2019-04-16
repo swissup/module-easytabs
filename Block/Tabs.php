@@ -4,6 +4,7 @@ namespace Swissup\Easytabs\Block;
 use Swissup\Easytabs\Api\Data\EntityInterface;
 use Swissup\Easytabs\Model\Entity as TabsModel;
 use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
+use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory as TabsCollectionFactory;
 
 class Tabs extends \Magento\Framework\View\Element\Template
 {
@@ -11,38 +12,54 @@ class Tabs extends \Magento\Framework\View\Element\Template
      * @var Swissup\Easytabs\Model\Template\Filter
      */
     protected $templateFilter;
+
     /**
      * Array of tabs
      * @var array
      */
     protected $_tabs = [];
+
     /**
      * Get tabs collection
      * @var \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory
      */
     protected $tabsCollectionFactory;
+
     /**
      * @var \Magento\Framework\Json\EncoderInterface
      */
     protected $jsonEncoder;
+
+    /**
+     * @var \Magento\Framework\Module\FullModuleList
+     */
+    protected $fullModuleList;
+
+    /**
+     * @var \Magento\Framework\Module\Manager
+     */
+    protected $moduleManager;
+
     /**
      * Constructor
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory $tabsCollectionFactory
-     * @param \Swissup\Easytabs\Model\Template\Filter $templateFilter
-     * @param array $data
+     * @param TabsCollectionFactory                            $tabsCollectionFactory
+     * @param \Swissup\Easytabs\Model\Template\Filter          $templateFilter
+     * @param \Magento\Framework\Json\EncoderInterface         $jsonEncoder
+     * @param \Magento\Framework\Module\FullModuleList         $fullModuleList
+     * @param \Magento\Framework\Module\Manager                $moduleManager
+     * @param array                                            $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory $tabsCollectionFactory,
+        TabsCollectionFactory $tabsCollectionFactory,
         \Swissup\Easytabs\Model\Template\Filter $templateFilter,
         \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         \Magento\Framework\Module\FullModuleList $fullModuleList,
         \Magento\Framework\Module\Manager $moduleManager,
         array $data = []
-    )
-    {
+    ) {
         $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->templateFilter = $templateFilter;
         $this->jsonEncoder = $jsonEncoder;
@@ -64,6 +81,11 @@ class Tabs extends \Magento\Framework\View\Element\Template
     protected function _prepareLayout()
     {
         foreach ($this->_getCollection() as $tab) {
+            $isMatchConditions = $tab->validate($tab);
+            if (!$isMatchConditions) {
+                continue;
+            }
+
             $this->addTab(
                 $tab->getAlias(),
                 $tab->getTitle(),
@@ -82,6 +104,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
                 }
             }
         }
+
         return parent::_prepareLayout();
     }
 

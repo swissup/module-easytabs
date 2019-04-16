@@ -10,17 +10,31 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      * @var \Magento\Store\Model\System\Store
      */
     protected $systemStore;
+
     /**
      * @var \Swissup\Easytabs\Model\TabsFactory
      */
     protected $tabsOptionsFactory;
+
     /**
-     * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Framework\Data\FormFactory $formFactory
-     * @param \Magento\Store\Model\System\Store $systemStore
-     * @param \Swissup\Easytabs\Model\TabsFactory $tabsOptionsFactory
-     * @param array $data
+     * @var \Magento\Rule\Block\Conditions
+     */
+    protected $conditions;
+
+    /**
+     * @var \Magento\Backend\Block\Widget\Form\Renderer\Fieldset
+     */
+    protected $rendererFieldset;
+
+    /**
+     * @param \Magento\Backend\Block\Template\Context              $context
+     * @param \Magento\Framework\Registry                          $registry
+     * @param \Magento\Framework\Data\FormFactory                  $formFactory
+     * @param \Magento\Store\Model\System\Store                    $systemStore
+     * @param \Swissup\Easytabs\Model\TabsFactory                  $tabsOptionsFactory
+     * @param \Magento\Rule\Block\Conditions                       $conditions
+     * @param \Magento\Backend\Block\Widget\Form\Renderer\Fieldset $rendererFieldset
+     * @param array                                                $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
@@ -28,12 +42,17 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Store\Model\System\Store $systemStore,
         \Swissup\Easytabs\Model\TabsFactory $tabsOptionsFactory,
+        \Magento\Rule\Block\Conditions $conditions,
+        \Magento\Backend\Block\Widget\Form\Renderer\Fieldset $rendererFieldset,
         array $data = []
     ) {
         $this->systemStore = $systemStore;
         $this->tabsOptionsFactory = $tabsOptionsFactory;
+        $this->conditions = $conditions;
+        $this->rendererFieldset = $rendererFieldset;
         parent::__construct($context, $registry, $formFactory, $data);
     }
+
     /**
      * Init form
      *
@@ -45,6 +64,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $this->setId('easytab_form');
         $this->setTitle(__('Tab Information'));
     }
+
     /**
      * Prepare form
      *
@@ -78,7 +98,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         );
 
         $form->setHtmlIdPrefix('easytab_');
-
         $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Tab Information')]);
 
         if ($model->getTabId()) {
@@ -203,7 +222,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         // add hidden field `widget_tab`
         // '0' - product tab
-        // '1' - wiidget tab
+        // '1' - widget tab
         // values set in layout for parent block
         $fieldset->addField(
             'widget_tab',
@@ -212,12 +231,70 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         );
         $model->setWidgetTab($this->getParentBlock()->getWidgetTab());
 
+        $this->_addConditionsFieldset($form, $model);
+
         $form->setValues($model->getData());
         $form->setUseContainer(true);
         $this->setForm($form);
 
         return parent::_prepareForm();
     }
+
+    /**
+     * Add fieldset with conditions to form
+     *
+     * @param \Magento\Framework\Data\Form      $form
+     * @param \Magento\Rule\Model\AbstractModel $model
+     * @param string                            $fieldsetId
+     * @param string                            $formName
+     */
+    protected function _addConditionsFieldset(
+        \Magento\Framework\Data\Form $form,
+        \Magento\Rule\Model\AbstractModel $model,
+        $fieldsetId = 'conditions_fieldset',
+        $formName = 'easytabs_index_edit'
+    ) {
+        $conditionsFieldSetId = $model->getConditionsFieldSetId($formName);
+        $newChildUrl = $this->getUrl(
+            'easytabs/index/newConditionHtml/form/' . $conditionsFieldSetId,
+            ['form_namespace' => $formName]
+        );
+
+        $renderer = $this->rendererFieldset->setTemplate('Magento_CatalogRule::promo/fieldset.phtml')
+            ->setNewChildUrl($newChildUrl)
+            ->setFieldSetId($conditionsFieldSetId);
+
+        $fieldset = $form->addFieldset(
+            $fieldsetId,
+            [
+                'legend' => '<span style="font-size: 1.8rem">' . __('Conditions') . '</span>'
+            ]
+        )->setRenderer($renderer);
+
+        $fieldset->addField(
+            'condition_notice',
+            'label',
+            [
+                'label' => __('Don\'t add any condition when tab is always visible.'),
+                'name' => 'condition_notice'
+            ]
+        );
+
+        $fieldset->addField(
+            'conditions',
+            'text',
+            [
+                'name' => 'conditions',
+                'label' => __('Conditions'),
+                'title' => __('Conditions'),
+                'required' => true,
+                'data-form-part' => $formName
+            ]
+        )
+            ->setRule($model)
+            ->setRenderer($this->conditions);
+    }
+
     /**
      * Get Easy Tabs block types as array
      * @return Array

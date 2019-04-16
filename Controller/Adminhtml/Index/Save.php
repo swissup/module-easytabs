@@ -32,7 +32,12 @@ class Save extends \Magento\Backend\App\Action
             }
             unset($data['block_type']);
 
-            $model->setData($data);
+            if (isset($data['rule'])) {
+                $data['conditions'] = $data['rule']['conditions'];
+                unset($data['rule']);
+            }
+
+            $model->loadPost($data);
 
             if (isset($data['parameters'])) {
                 $model->addData($data['parameters']);
