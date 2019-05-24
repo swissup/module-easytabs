@@ -19,13 +19,22 @@ class InstallData implements InstallDataInterface
     private $tabFactory;
 
     /**
+     * @var \Magento\Framework\App\State
+     */
+    private $appState;
+
+    /**
      * Init
      *
-     * @param TabFactory $tabFactory
+     * @param TabFactory                   $tabFactory
+     * @param \Magento\Framework\App\State $appState
      */
-    public function __construct(TabFactory $tabFactory)
-    {
+    public function __construct(
+        TabFactory $tabFactory,
+        \Magento\Framework\App\State $appState
+    ) {
         $this->tabFactory = $tabFactory;
+        $this->appState = $appState;
     }
 
     /**
@@ -63,11 +72,16 @@ class InstallData implements InstallDataInterface
                 'stores' => [0]
             ]
         ];
+
         /**
          * Insert default tabs
          */
         foreach ($tabs as $data) {
-            $this->tabFactory->create()->setData($data)->save();
+            $tabModel = $this->tabFactory->create()->setData($data);
+            $this->appState->emulateAreaCode(
+                \Magento\Framework\App\Area::AREA_ADMINHTML,
+                [$tabModel, 'save']
+            );
         }
 
     }
