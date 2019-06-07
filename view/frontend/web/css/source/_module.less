@@ -1,0 +1,55 @@
+& when (@media-common = true) {
+    .product.data.items {
+
+        .fieldset .review-legend.legend strong {
+            display: inline;
+            margin-left: .5em;
+        }
+
+        &.expanded {
+            border-bottom: 1px solid @tab-control__border-color;
+
+            > .item.title,
+            > .item.content {
+                border: none;
+                float: none;
+                margin: 0;
+            }
+
+            > .item.title {
+                border-top: 1px solid @tab-control__border-color;
+            }
+        }
+
+    }
+
+    .data.expanded .title .counter {
+        &::before {
+            content: '(';
+        }
+
+        &::after {
+            content: ')';
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product.data.items {
+        &.expanded {
+            display: flex;
+            flex-flow: row wrap;
+
+            > .item.title {
+                width: 25%;
+                padding: 0 .5rem;
+            }
+
+            > .item.content {
+                border-top: 1px solid @tab-control__border-color;
+                width: ~'calc(75% - 1px)';
+                padding: 2rem .5rem;
+            }
+        }
+    }
+}
