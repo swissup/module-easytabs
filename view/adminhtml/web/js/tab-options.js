@@ -1,38 +1,59 @@
-define(['jquery', 'Magento_Ui/js/modal/alert'], function($, alert) {
+/* global FORM_KEY */
+define([
+    'jquery',
+    'Magento_Ui/js/modal/alert'
+], function ($, alert) {
+    'use strict';
+
     var self,
         url,
         formValues;
 
     return {
-        init: function(ajaxCallUrl, values) {
+        /**
+         * @param  {String} ajaxCallUrl
+         * @param  {Object} values
+         */
+        init: function (ajaxCallUrl, values) {
             self = this;
             url = ajaxCallUrl;
             formValues = values;
 
-            $('#easytab_block_type').on('change', function() {
+            $('#easytab_block_type').on('change', function () {
                 var value = $(this).val();
+
                 self.load(value);
                 $('#easytab_block').val(value);
             });
             self.load($('#easytab_block_type').val());
         },
-        load: function(type) {
-            var params = { widget_type: type };
-            if (formValues && formValues['block'] == type) {
-                params['values'] = formValues;
+
+        /**
+         * Load widget options
+         *
+         * @param  {String} type
+         */
+        load: function (type) {
+            var params = {
+                'widget_type': type
+            };
+
+            if (formValues && formValues.block === type) {
+                params.values = formValues;
             }
+
             $.ajax({
-                method: "POST",
+                method: 'POST',
                 url: url,
                 showLoader: true,
                 data: {
                     widget: JSON.stringify(params),
                     isAjax: 'true',
-                    form_key: FORM_KEY
+                    'form_key': FORM_KEY
                 }
             })
             .done(self.insertHtml)
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
@@ -42,21 +63,30 @@ define(['jquery', 'Magento_Ui/js/modal/alert'], function($, alert) {
                 });
             });
         },
-        insertHtml: function(html) {
+
+        /**
+         * @param  {String} html
+         */
+        insertHtml: function (html) {
             if ($('.entry-edit.form-inline').length > 1) {
                 $('.entry-edit.form-inline').last().remove();
             }
             $('#easytab_base_fieldset').after(html);
             self.showWidgetDescription();
         },
-        showWidgetDescription: function() {
-            var widgetEl = $('#easytab_block_type');
-            var noteCnt = widgetEl.parent().find('small');
-            var descrCnt = $('#widget-description-' + (widgetEl.prop('selectedIndex') + 1));
-            if (noteCnt != undefined) {
-                var description = (descrCnt != undefined ? descrCnt.html() : '');
+
+        /**
+         * Show widget description
+         */
+        showWidgetDescription: function () {
+            var widgetEl = $('#easytab_block_type'),
+                noteCnt = widgetEl.parent().find('small'),
+                descrCnt = $('#widget-description-' + (widgetEl.prop('selectedIndex') + 1)),
+                description = descrCnt !== undefined ? descrCnt.html() : '';
+
+            if (noteCnt !== undefined) {
                 noteCnt.html(description);
             }
         }
-    }
+    };
 });

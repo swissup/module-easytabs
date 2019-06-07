@@ -1,25 +1,22 @@
 define([
     'jquery'
-], function($) {
+], function ($) {
     'use strict';
 
-    return function(config) {
-        $(function() {
-            var tabsContainer = $(config.tabsSelector);
-            var links = $(config.linksSelector);
+    return function (config) {
+        var tabsContainer = $(config.tabsSelector);
 
-            links.on('click', function(event) {
-                event.preventDefault();
+        $(config.linksSelector).on('click', function (event) {
+            var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
 
-                var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
-                tabsContainer.children('[data-role="content"]').each(function(index) {
-                    if (this.id == anchor) {
-                        tabsContainer.tabs('activate', index);
-                        $('html, body').animate({
-                            scrollTop: $(this).offset().top - 50
-                        }, 300);
-                    }
-                });
+            event.preventDefault();
+            $('[data-role="content"]', tabsContainer).each(function (index) {
+                if (this.id === anchor) {
+                    tabsContainer.tabs('activate', index);
+                    $('html, body').animate({
+                        scrollTop: $(this).offset().top - 50
+                    }, 300);
+                }
             });
         });
     };
