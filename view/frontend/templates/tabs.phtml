@@ -1,17 +1,5 @@
 <?php
-    $tabs = [];
-    foreach ($block->getTabs() as $_index => $_tab) {
-        if (!($childHtml = $block->getChildHtml($_tab['alias']))
-            || $block->isEmptyString($childHtml)) {
-
-            continue;
-        }
-        $_tab['child_html'] = $childHtml;
-        $_tab['title'] = $block->getTabTitle($_tab);
-
-        $tabs[$_index] = $_tab;
-    }
-
+    $tabs = $block->prepareTabsData();
     $isExpanded = ($block->getTabsLayout() == 'expanded');
 ?>
 <div class="product info detailed">

@@ -226,4 +226,26 @@ class Tabs extends \Magento\Framework\View\Element\Template
     {
         return '{}';
     }
+
+    /**
+     * Prepare tabs data for template
+     *
+     * @return array
+     */
+    public function prepareTabsData()
+    {
+        $tabs = [];
+        foreach ($this->getTabs() as $_index => $_tab) {
+            if (!($childHtml = $this->getChildHtml($_tab['alias']))
+                || $this->isEmptyString($childHtml)) {
+                continue;
+            }
+
+            $_tab['child_html'] = $childHtml;
+            $_tab['title'] = $this->getTabTitle($_tab);
+            $tabs[$_index] = $_tab;
+        }
+
+        return $tabs;
+    }
 }
