@@ -3,6 +3,7 @@
 namespace Swissup\Easytabs\Model\Rule\Condition;
 
 use Swissup\SeoTemplates\Model\Template;
+use Swissup\Easytabs\Model\Rule\Condition\General as ConditionGeneral;
 
 class Combine extends \Magento\Rule\Model\Condition\Combine
 {
@@ -17,18 +18,27 @@ class Combine extends \Magento\Rule\Model\Condition\Combine
     protected $registry;
 
     /**
-     * @param \Magento\Rule\Model\Condition\Context $context
+     * @var \Magento\Framework\Module\Manager
+     */
+    private $moduleManager;
+
+    /**
+     * @param \Magento\Rule\Model\Condition\Context                    $context
      * @param \Magento\CatalogRule\Model\Rule\Condition\ProductFactory $conditionFactory
-     * @param array $data
+     * @param \Magento\Framework\Registry                              $registry
+     * @param \Magento\Framework\Module\Manager                        $moduleManager
+     * @param array                                                    $data
      */
     public function __construct(
         \Magento\Rule\Model\Condition\Context $context,
         \Magento\CatalogRule\Model\Rule\Condition\ProductFactory $conditionFactory,
         \Magento\Framework\Registry $registry,
+        \Magento\Framework\Module\Manager $moduleManager,
         array $data = []
     ) {
         $this->productFactory = $conditionFactory;
         $this->registry = $registry;
+        $this->moduleManager = $moduleManager;
         parent::__construct($context, $data);
         $this->setType(\Swissup\Easytabs\Model\Rule\Condition\Combine::class);
     }
@@ -48,6 +58,23 @@ class Combine extends \Magento\Rule\Model\Condition\Combine
                     ]
                 ]
             );
+
+        if ($this->moduleManager->isOutputEnabled('Swissup_Amp')) {
+            $conditions = array_merge_recursive(
+                $conditions,
+                [
+                    [
+                        'label' => __('General'),
+                        'value' => [
+                            [
+                                'label' => __('Swissup AMP'),
+                                'value' => ConditionGeneral::class . '|' . ConditionGeneral::AMP_FLAG
+                            ]
+                        ]
+                    ]
+                ]
+            );
+        }
 
         $conditions = array_merge_recursive(
             $conditions,
