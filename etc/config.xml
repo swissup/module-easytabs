@@ -7,5 +7,35 @@
                 <layout>collapsed</layout>
             </product_tabs>
         </swissup_easytabs>
+        <swissup_amp>
+            <whitelist>
+                <layout_updates>
+                    <swissup_easytabs>Swissup_Easytabs</swissup_easytabs>
+                </layout_updates>
+                <block_types>
+                    <swissup_easytabs>
+                        <tabs>
+                            <class>Swissup\Easytabs\Block\ProductTabs</class>
+                        </tabs>
+                        <tab_template>
+                            <class>Swissup\Easytabs\Block\Tab\Template</class>
+                        </tab_template>
+                        <tab_html>
+                            <class>Swissup\Easytabs\Block\Tab\Html</class>
+                        </tab_html>
+                    </swissup_easytabs>
+                </block_types>
+            </whitelist>
+            <includes>
+                <blocks>
+                    <swissup_easytabs_product>
+                        <class>Swissup\Easytabs\Block\ProductTabs</class>
+                         <styles>
+                            <product_tabs>Swissup_Easytabs::easytabs.scss</product_tabs>
+                        </styles>
+                    </swissup_easytabs_product>
+                </blocks>
+            </includes>
+        </swissup_amp>
     </default>
 </config>

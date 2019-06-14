@@ -1,0 +1,17 @@
+<?php
+    $tabs = $block->prepareTabsData();
+?>
+<div class="product info detailed">
+    <amp-accordion class="collateral-tabs" animate>
+    <?php foreach ($tabs as $_index => $_tab) : ?>
+        <section expanded>
+            <h4 id="#product_tabs_<?= $_tab['alias'] ?>" class="tab">
+                <?= $_tab['title']?>
+            </h4>
+            <div id="product_tabs_<?= $_tab['alias'] ?>_contents" class="tab-container">
+                <div class="tab-content"><?= $_tab['child_html']; ?></div>
+            </div>
+        </section>
+    <?php endforeach; ?>
+    </amp-accordion>
+</div>

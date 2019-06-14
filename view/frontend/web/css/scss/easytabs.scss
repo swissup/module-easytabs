@@ -1,0 +1,30 @@
+$esytabs__expanded-icon: '\f077' !default;
+$esytabs__collapsed-icon: '\f078' !default;
+
+amp-accordion.collateral-tabs {
+    .tab {
+        position: relative;
+
+        &::after {
+            @include icon-fa(
+                $icon: $esytabs__collapsed-icon,
+                $width: auto,
+                $pos: ''
+            );
+            position: absolute;
+            right: 15px;
+        }
+
+        &[aria-expanded=true]::after {
+            content: $esytabs__expanded-icon;
+        }
+    }
+
+    .additional-attributes {
+        margin-bottom: 10px;
+
+        > caption { // hide caption of additional info table
+            display: none;
+        }
+    }
+}
