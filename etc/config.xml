@@ -16,6 +16,7 @@
                     <swissup_easytabs>
                         <tabs>
                             <class>Swissup\Easytabs\Block\ProductTabs</class>
+                            <template>swissupamp/tabs.phtml</template>
                         </tabs>
                         <tab_template>
                             <class>Swissup\Easytabs\Block\Tab\Template</class>
