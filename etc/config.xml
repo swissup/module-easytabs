@@ -23,6 +23,10 @@
                         <tab_html>
                             <class>Swissup\Easytabs\Block\Tab\Html</class>
                         </tab_html>
+                        <widget_tabs>
+                            <class>Swissup\Easytabs\Block\WidgetTabs</class>
+                            <template>swissupamp/tabs.phtml</template>
+                        </widget_tabs>
                     </swissup_easytabs>
                 </block_types>
             </whitelist>
@@ -34,6 +38,12 @@
                             <product_tabs>Swissup_Easytabs::easytabs.scss</product_tabs>
                         </styles>
                     </swissup_easytabs_product>
+                    <swissup_easytabs_widget>
+                        <class>Swissup\Easytabs\Block\WidgetTabs</class>
+                        <styles>
+                            <widget_tabs>Swissup_Easytabs::easytabs.scss</widget_tabs>
+                        </styles>
+                    </swissup_easytabs_widget>
                 </blocks>
             </includes>
         </swissup_amp>
