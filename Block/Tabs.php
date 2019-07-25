@@ -217,6 +217,10 @@ class Tabs extends \Magento\Framework\View\Element\Template
             return $tab['title'];
         }
         $scope = $this->getChildBlock($tab['alias']);
+        if ($scope->getTabBlock()) {
+            $scope = $scope->getTabBlock();
+        }
+
         $processor = $this->templateFilter->setScope($scope);
 
         return $processor->filter($tab['title']);

@@ -29,14 +29,7 @@ class Template extends \Magento\Framework\View\Element\Template
     {
         return $this->getChildBlock($this->getNameInLayout() . '_tab');
     }
-    public function getCount()
-    {
-        $block = $this->getTabBlock();
-        if ($block instanceof \Magento\Framework\View\Element\Template) {
-            return $block->getCount();
-        }
-        return;
-    }
+
     /**
      * Return unique ID(s) for each object in system
      *
