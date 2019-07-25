@@ -67,6 +67,10 @@ class Combine extends \Magento\Rule\Model\Condition\Combine
                         'label' => __('General'),
                         'value' => [
                             [
+                                'label' => __('Product Type'),
+                                'value' => ConditionGeneral::class . '|' . ConditionGeneral::PRODUCT_TYPE
+                            ],
+                            [
                                 'label' => __('Swissup AMP'),
                                 'value' => ConditionGeneral::class . '|' . ConditionGeneral::AMP_FLAG
                             ]

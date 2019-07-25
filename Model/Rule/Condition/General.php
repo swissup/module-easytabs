@@ -9,22 +9,32 @@ class General extends \Magento\Rule\Model\Condition\AbstractCondition
 {
     const AMP_FLAG = 'swissup_amp_flag';
 
+    const PRODUCT_TYPE = 'product_type';
+
     /**
      * @var \Magento\Framework\Module\Manager
      */
     private $moduleManager;
 
     /**
-     * @param \Magento\Framework\Module\Manager $moduleManager
-     * @param Context                           $context
-     * @param array                             $data
+     * @var \Magento\Catalog\Model\Product\Type
+     */
+    private $productType;
+
+    /**
+     * @param \Magento\Framework\Module\Manager   $moduleManager
+     * @param \Magento\Catalog\Model\Product\Type $productType
+     * @param Context                             $context
+     * @param array                               $data
      */
     public function __construct(
         \Magento\Framework\Module\Manager $moduleManager,
+        \Magento\Catalog\Model\Product\Type $productType,
         Context $context,
         array $data = []
     ) {
         $this->moduleManager = $moduleManager;
+        $this->productType = $productType;
         parent::__construct($context, $data);
     }
     /**
@@ -32,7 +42,9 @@ class General extends \Magento\Rule\Model\Condition\AbstractCondition
      */
     public function getValueElementType()
     {
-        if ($this->getAttribute() == self::AMP_FLAG) {
+        if ($this->getAttribute() == self::AMP_FLAG
+            || $this->getAttribute() == self::PRODUCT_TYPE
+        ) {
             return 'select';
         }
 
@@ -55,6 +67,8 @@ class General extends \Magento\Rule\Model\Condition\AbstractCondition
                     'label' => __('Disabled')
                 ]
             ];
+        } elseif ($this->getAttribute() == self::PRODUCT_TYPE) {
+            return $this->productType->toOptionArray();
         }
 
         return parent::getValueSelectOptions();
@@ -66,7 +80,10 @@ class General extends \Magento\Rule\Model\Condition\AbstractCondition
      */
     public function loadAttributeOptions()
     {
-        $options = [self::AMP_FLAG => 'Swissup AMP'];
+        $options = [
+            self::PRODUCT_TYPE => __('Product Type'),
+            self::AMP_FLAG => __('Swissup AMP')
+        ];
         $this->setAttributeOption($options);
         return parent::loadAttributeOptions();
     }
@@ -85,6 +102,13 @@ class General extends \Magento\Rule\Model\Condition\AbstractCondition
                 if ($helperAmp->canUseAmp()) {
                     $attributeValue = '1';
                 }
+            }
+
+            return $this->validateAttribute($attributeValue);
+        } elseif ($this->getAttribute() == self::PRODUCT_TYPE) {
+            $attributeValue = null;
+            if ($product = $tab->getProduct()) {
+                $attributeValue = $product->getTypeId();
             }
 
             return $this->validateAttribute($attributeValue);
