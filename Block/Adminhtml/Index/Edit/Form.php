@@ -301,18 +301,24 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
      */
     protected function _getBlockTypes()
     {
+        $allowedWidgetTabs = [
+            'easytabs_cms',
+            'easytabs_template',
+            'easytabs_html',
+            'easytabs_product_review'
+        ];
         $showProductTabs = !$this->getParentBlock()->getWidgetTab();
         $tabs = $this->tabsOptionsFactory->create()->getTabsArray();
         $types = [];
         foreach ($tabs as $tab) {
-            if (in_array($tab['code'], ['easytabs_cms', 'easytabs_template', 'easytabs_html'])
-                || $showProductTabs)
-            {
+            if (in_array($tab['code'], $allowedWidgetTabs) || $showProductTabs) {
                 $types[$tab['type']] = $tab['name'];
             }
         }
+
         return $types;
     }
+
     /**
      * Prepare widgets select after element HTML
      *

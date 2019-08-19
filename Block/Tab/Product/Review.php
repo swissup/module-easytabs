@@ -3,6 +3,9 @@ namespace Swissup\Easytabs\Block\Tab\Product;
 
 class Review extends \Magento\Review\Block\Product\Review
 {
+    /**
+     * @var array
+     */
     protected $reviewFormBlockMap =
     [
         'default' => 'Magento\Review\Block\Form',
@@ -12,6 +15,10 @@ class Review extends \Magento\Review\Block\Product\Review
 
     protected function _prepareLayout()
     {
+        if (!$this->getProductId()) {
+            return parent::_prepareLayout();
+        }
+
         $currentAction = $this->getRequest()->getFullActionName();
         $formBlock = array_key_exists($currentAction, $this->reviewFormBlockMap) ?
             $this->reviewFormBlockMap[$currentAction] :
@@ -47,5 +54,17 @@ class Review extends \Magento\Review\Block\Product\Review
         $this->setTabTitle();
 
         return $this->getTitle();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _toHtml()
+    {
+        if (!$this->getProductId()) {
+            return '';
+        }
+
+        return parent::_toHtml();
     }
 }
