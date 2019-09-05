@@ -9,6 +9,11 @@ use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory as TabsCollect
 class Tabs extends \Magento\Framework\View\Element\Template
 {
     /**
+     * {@inheritdocs}
+     */
+    protected $_template = 'tabs.phtml';
+
+    /**
      * @var Swissup\Easytabs\Model\Template\Filter
      */
     protected $templateFilter;
@@ -78,34 +83,46 @@ class Tabs extends \Magento\Framework\View\Element\Template
             ->addStoreFilter($storeId);
     }
 
+    /**
+     * {@inheritdocs}
+     */
     protected function _prepareLayout()
     {
-        foreach ($this->_getCollection() as $tab) {
-            $isMatchConditions = $tab->validate($tab);
-            if (!$isMatchConditions) {
-                continue;
-            }
+        $this->_buildTabs();
 
-            $this->addTab(
-                $tab->getAlias(),
-                $tab->getTitle(),
-                $tab->getBlock(),
-                $tab->getWidgetTemplate(),
-                $tab->getData()
-            );
+        return parent::_prepareLayout();
+    }
 
-            $unsets = (string) $tab->getWidgetUnset();
-            $unsets = explode(',', $unsets);
-            $layout = $this->getLayout();
-            foreach ($unsets as $blockName) {
-                $block = $layout->getBlock($blockName);
-                if ($block) {
-                    $layout->unsetElement($blockName);
+    /**
+     * Build tabs. It does not rebuild existing ones.
+     */
+    private function _buildTabs() {
+        if (!$this->_tabs) {
+            foreach ($this->_getCollection() as $tab) {
+                $isMatchConditions = $tab->validate($tab);
+                if (!$isMatchConditions) {
+                    continue;
+                }
+
+                $this->addTab(
+                    $tab->getAlias(),
+                    $tab->getTitle(),
+                    $tab->getBlock(),
+                    $tab->getWidgetTemplate(),
+                    $tab->getData()
+                );
+
+                $unsets = (string) $tab->getWidgetUnset();
+                $unsets = explode(',', $unsets);
+                $layout = $this->getLayout();
+                foreach ($unsets as $blockName) {
+                    $block = $layout->getBlock($blockName);
+                    if ($block) {
+                        $layout->unsetElement($blockName);
+                    }
                 }
             }
         }
-
-        return parent::_prepareLayout();
     }
 
     /**
@@ -192,6 +209,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
 
     public function getTabs()
     {
+        $this->_buildTabs();
         usort($this->_tabs, array($this, '_sort'));
         return $this->_tabs;
     }
