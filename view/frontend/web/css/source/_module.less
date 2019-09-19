@@ -7,7 +7,7 @@
         }
 
         &.expanded {
-            border-bottom: 1px solid @tab-control__border-color;
+            border-bottom: @tab-control__border-width solid @tab-control__border-color;
 
             > .item.title,
             > .item.content {
@@ -17,7 +17,7 @@
             }
 
             > .item.title {
-                border-top: 1px solid @tab-control__border-color;
+                border-top: @tab-control__border-width solid @tab-control__border-color;
             }
         }
 
@@ -46,7 +46,7 @@
             }
 
             > .item.content {
-                border-top: 1px solid @tab-control__border-color;
+                border-top: @tab-control__border-width solid @tab-control__border-color;
                 width: ~'calc(75% - 1px)';
                 padding: 2rem .5rem;
             }
