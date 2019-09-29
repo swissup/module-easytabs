@@ -15,6 +15,11 @@ class Save extends \Magento\Backend\App\Action
      */
     public function execute()
     {
+        $tmp = $this->getRequest()->getPost('parameters');
+        if(isset($tmp['widget_identifier'])){
+            $tmp['widget_identifier'] = implode(';',$tmp['widget_identifier']);
+            $this->getRequest()->setPostValue('parameters', $tmp);
+        }
         $data = $this->getRequest()->getPostValue();
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
