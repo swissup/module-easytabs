@@ -13,6 +13,12 @@ class Entity extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      * @var \Magento\Framework\Stdlib\DateTime
      */
     protected $dateTime;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $_serializableFields = ['widget_identifier' => [null, []]];
+
     /**
      * Store manager
      *
@@ -147,5 +153,23 @@ class Entity extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         );
         $binds = [':tab_id' => (int)$id];
         return $connection->fetchCol($select, $binds);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function _unserializeField(
+        \Magento\Framework\DataObject $object,
+        $field,
+        $defaultValue = null
+    ) {
+        try {
+            parent::_unserializeField($object, $field, $defaultValue);
+        } catch (\InvalidArgumentException $e) {
+            // I don't want create upgrade data for field `widget_identifier`.
+            // So I just catch unserialize exception and make array from value.
+            $value = $object->getData($field);
+            $object->setData($field, [$value]);
+        }
     }
 }
