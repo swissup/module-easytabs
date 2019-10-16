@@ -104,6 +104,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
                     continue;
                 }
 
+                $tab->getResource()->unserializeFields($tab);
                 $this->addTab(
                     $tab->getAlias(),
                     $tab->getTitle(),
