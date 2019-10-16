@@ -1,42 +1,8 @@
-<?php
-    $attributeCode = $block->getAttributeCode();
-    
-    $product = $block->getProduct();  
-    if (!$attributeCode || !$product) {
-        return;
+<?php foreach ($block->getAttributeCodes() as $attributeCode):
+    $html = $block->renderAttribute($attributeCode);
+    if (!$html) {
+        continue;
     }
-    $attributeCodes = explode(';',$attributeCode);
-    foreach($attributeCodes as $attributeCode){
-        $attribute = $product->getResource()->getAttribute($attributeCode);
-    
-        if (!$attribute) {
-            continue;
-        }  
-        $content = $attribute->getFrontend()->getValue($product);
-        $label = $attribute->getFrontend()->getLocalizedLabel();
-      
-        if (empty($content)) {
-            // continue;
-        }
-        $_helper = $this->helper('Magento\Catalog\Helper\Output');
-        ?>
-        <div class="product attibute">
-        <?php  
-            
-            if (empty($content)) {
-                $content = 'No Data';
-            }else{
-                if($attribute->getFrontend()->getInputType() == 'file'){
-                    $file = $block->getUrl().'pub/media/catalog/product/file/'.$content;
-                    $content = '<a href="'.$file.'" target="_blank" title="'.$content.'">'.$content.'</a>';
-                }else{
-                    $content = $_helper->productAttribute(
-                    $block->getProduct(), $content, $attributeCode
-                    );    
-                }
-            }
-            
-            echo '<p><b>'.$label.'</b> : '.$content.'</p>';
-        ?>
-        </div>
-<?php } ?>
+?>
+    <div class="product attibute <?= $attributeCode ?>"><?= $html ?></div>
+<?php endforeach; ?>

@@ -75,10 +75,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         /** @var \Swissup\Easytabs\Model\Data $model */
         $model = $this->_coreRegistry->registry('easytab');
-        $model->setData(
-            'widget_identifier', 
-            explode(';',$model->getData('widget_identifier'))
-        );
         /*
          * Checking if user have permissions to save information
          */
