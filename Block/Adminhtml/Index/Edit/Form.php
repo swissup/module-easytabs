@@ -226,7 +226,10 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $fieldset->addField(
             'widget_tab',
             'hidden',
-            [ 'name' => 'widget_tab' ]
+            [
+                'name' => 'widget_tab',
+                'after_element_html' => $this->getSpinnerHtml()
+            ]
         );
         $model->setWidgetTab($this->getParentBlock()->getWidgetTab());
 
@@ -364,5 +367,21 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     protected function _isAllowedAction($resourceId)
     {
         return $this->_authorization->isAllowed($resourceId);
+    }
+
+    /**
+     * HTML for spinner loader.
+     *
+     * @return string
+     */
+    protected function getSpinnerHtml()
+    {
+        return '<div class="entry-edit form-inline" style="width: 50%; height: 60px; position: relative">'
+            . '<div data-role="spinner" class="admin__data-grid-loading-mask">'
+            . '<div class="spinner">'
+            . '<span></span><span></span><span></span><span></span>'
+            . '<span></span><span></span><span></span><span></span>'
+            . '</div>'
+            . '</div></div>';
     }
 }
