@@ -40,7 +40,7 @@
         <label translate="true">Product attribute</label>
         <description>Create tab based on product attribute</description>
         <parameters>
-            <parameter name="widget_identifier" xsi:type="multiselect" required="true" visible="true" source_model="Swissup\Easytabs\Model\Product\Attribute\Collection">
+            <parameter name="widget_identifier" xsi:type="Swissup\Easytabs\Block\Form\Element\ProductAttributes" required="true" visible="true">
                 <label translate="true">Attribute Code</label>
             </parameter>
             <parameter name="widget_template" xsi:type="text" required="true" visible="true">

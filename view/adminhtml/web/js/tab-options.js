@@ -9,6 +9,18 @@ define([
         url,
         formValues;
 
+    /**
+     * Initialize scripts and KO in widget options.
+     */
+    function initializeScripts() {
+        var widgetOptions = $('.fieldset-widget-options'),
+            notInitialized = $('script[type="text/x-magento-init"]', widgetOptions);
+
+        if (notInitialized.length > 0) {
+            widgetOptions.trigger('contentUpdated').applyBindings();
+        }
+    }
+
     return {
         /**
          * @param  {String} ajaxCallUrl
@@ -73,6 +85,8 @@ define([
             }
             $('#easytab_base_fieldset').after(html);
             self.showWidgetDescription();
+            // force Magento scripts initialization and KO binding
+            setTimeout(initializeScripts, 100);
         },
 
         /**

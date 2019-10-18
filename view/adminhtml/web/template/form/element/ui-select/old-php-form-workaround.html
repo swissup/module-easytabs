@@ -1,0 +1,5 @@
+<render args="'ui/grid/filters/elements/ui-select'"/>
+<!-- workaround for old php form - add hiddenb inputs with attributes -->
+<each args="data: value, as: '$item'">
+    <input type="hidden" data-bind="value: $item, attr: { name: $parent.index + '[]'}">
+</each>

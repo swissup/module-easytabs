@@ -1,0 +1,24 @@
+<style type="text/css">
+.fieldset-widget-options .action-select-wrap .action-menu._active {
+    overflow: hidden;
+}
+.fieldset-widget-options .action-select-wrap .action-menu._active .admin__action-multiselect-menu-inner {
+    max-height: 20em;
+}
+</style>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+    }
+}
+</script>
+<div class="admin__field-control control">
+<!-- ko scope: '<?= $block->getScopeName() ?>' -->
+    <!-- ko foreach: { data: elems, as: 'element' } -->
+        <!-- ko if: hasTemplate() -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->
+</div>
