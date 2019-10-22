@@ -127,9 +127,8 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
         $values = isset($values['tab_id']) ? $this->jsonEncoder->encode($values) : 'false';
         $this->_formScripts[] = "
             require([
-                'jquery',
-                'tabOptions'
-            ], function ($, tabOptions) {
+                'Swissup_Easytabs/js/tab-options'
+            ], function (tabOptions) {
                 tabOptions.init('" . $this->getUrl("easytabs/index/loadOptions") . "', " . $values . ");
             });
         ";
