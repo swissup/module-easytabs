@@ -20,24 +20,19 @@ class Attribute extends Template implements IdentityInterface
     protected $_coreRegistry = null;
 
     /**
-     * @var \Magento\Catalog\Helper\Output
-     */
-    protected $_helper;
-
-    /**
-     * @param Template\Context               $context
-     * @param \Magento\Framework\Registry    $registry
-     * @param \Magento\Catalog\Helper\Output $helper
-     * @param array $data
+     * @param Template\Context            $context
+     * @param \Magento\Framework\Registry $registry
+     * @param array                       $attributeRenderer
+     * @param array                       $data
      */
     public function __construct(
         Template\Context $context,
         \Magento\Framework\Registry $registry,
-        \Magento\Catalog\Helper\Output $helper,
+        array $attributeRenderer = [],
         array $data = []
     ) {
         $this->_coreRegistry = $registry;
-        $this->_helper = $helper;
+        $data['attributeRenderer'] = $attributeRenderer;
         parent::__construct($context, $data);
     }
 
@@ -82,15 +77,11 @@ class Attribute extends Template implements IdentityInterface
         }
 
         $attribute = $product->getResource()->getAttribute($attributeCode);
-        if ($attribute->getFrontend()->getInputType() === 'media_image') {
-            return $this->renderMediaImage($attribute, $product);
-        }
+        $type = $attribute->getFrontend()->getInputType();
+        $renderer = $this->getData("attributeRenderer/{$type}")
+            ?: $this->getData('attributeRenderer/general');
 
-        return $this->_helper->productAttribute(
-            $product,
-            $attribute->getFrontend()->getValue($product),
-            $attributeCode
-        );
+        return $renderer ? $renderer->render($attribute, $product) : '';
     }
 
     /**
@@ -117,43 +108,5 @@ class Attribute extends Template implements IdentityInterface
     public function getIdentities()
     {
         return [\Swissup\Easytabs\Model\Entity::CACHE_TAG . '_' . implode('_', $this->getAttributeCodes())];
-    }
-
-    /**
-     * @param  ProductAttribute $attribute
-     * @param  ProductInterface $product
-     * @return string
-     */
-    protected function renderMediaImage(
-        ProductAttribute $attribute,
-        ProductInterface $product
-    ) {
-        $file = $attribute->getFrontend()->getValue($product);
-        $image = $this->getMediaImage($product, $file);
-
-        return "<img src=\"{$image->getUrl()}\" alt=\"{$image->getLabel()}\" />";
-    }
-
-    /**
-     * Get image object for product and file name
-     * @param  ProductInterface              $product
-     * @param  string                        $file
-     * @return \Magento\Framework\DataObject
-     */
-    private function getMediaImage(ProductInterface $product, $file)
-    {
-        $image = [];
-        if (is_array($product->getMediaGallery('images'))) {
-            foreach ($product->getMediaGallery('images') as $item) {
-                if (isset($item['file']) && $item['file'] === $file) {
-                    $mediaConfig = $product->getMediaConfig();
-                    $image = $item;
-                    $image['url'] = $mediaConfig->getMediaUrl($item['file']);
-                    break;
-                }
-            }
-        }
-
-        return new \Magento\Framework\DataObject($image);
     }
 }

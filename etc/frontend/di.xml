@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Swissup\Easytabs\Block\Tab\Attribute">
+        <arguments>
+            <argument name="attributeRenderer" xsi:type="array">
+                <item name="general" xsi:type="object">Swissup\Easytabs\Model\Product\Attribute\Renderer\General</item>
+                <item name="media_image" xsi:type="object">Swissup\Easytabs\Model\Product\Attribute\Renderer\MediaImage</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
