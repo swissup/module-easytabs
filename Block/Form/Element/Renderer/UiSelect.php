@@ -60,7 +60,7 @@ class UiSelect extends Template implements RendererInterface
                             'name' => $element->getName(),
                             'value' => $element->getValue(),
                             'config' => [
-                                'component' => 'Magento_Ui/js/form/element/ui-select',
+                                'component' => 'Swissup_Easytabs/js/form/element/ui-select',
                                 'template' => 'Swissup_Easytabs/form/element/ui-select/old-php-form-workaround',
                                 'dataType' => 'text',
                                 'visible' => true,
