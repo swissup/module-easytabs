@@ -1,3 +1,17 @@
+@easytabs-expanded__border-top: @tab-control__border-width solid @tab-control__border-color;
+@easytabs-expanded-title-h2__font-size: false;
+@easytabs-expanded-title-h2__line-height: false;
+@easytabs-expanded-title-h2__margin: false;
+@easytabs-expanded-desktop-title__padding-top: 0rem;
+@easytabs-expanded-desktop-title__padding-right: .5rem;
+@easytabs-expanded-desktop-title__padding-bottom: 0rem;
+@easytabs-expanded-desktop-title__padding-left: .5rem;
+@easytabs-expanded-desktop-title-h2__font-size: false;
+@easytabs-expanded-desktop-content__padding-top: 2rem;
+@easytabs-expanded-desktop-content__padding-right: .5rem;
+@easytabs-expanded-desktop-content__padding-bottom: 2rem;
+@easytabs-expanded-desktop-content__padding-left: .5rem;
+
 & when (@media-common = true) {
     .product.data.items {
 
@@ -7,7 +21,7 @@
         }
 
         &.expanded {
-            border-bottom: @tab-control__border-width solid @tab-control__border-color;
+            .lib-css(border-bottom, @easytabs-expanded__border-top);
 
             > .item.title,
             > .item.content {
@@ -17,7 +31,13 @@
             }
 
             > .item.title {
-                border-top: @tab-control__border-width solid @tab-control__border-color;
+                .lib-css(border-top, @easytabs-expanded__border-top);
+
+                h2 {
+                    .lib-css(font-size, @easytabs-expanded-title-h2__font-size);
+                    .lib-css(line-height, @easytabs-expanded-title-h2__line-height);
+                    .lib-css(margin, @easytabs-expanded-title-h2__margin);
+                }
             }
         }
 
@@ -42,13 +62,23 @@
 
             > .item.title {
                 width: 25%;
-                padding: 0 .5rem;
+                padding: @easytabs-expanded-desktop-title__padding-top
+                         @easytabs-expanded-desktop-title__padding-right
+                         @easytabs-expanded-desktop-title__padding-bottom
+                         @easytabs-expanded-desktop-title__padding-left;
+
+                h2 {
+                    .lib-css(font-size, @easytabs-expanded-desktop-title-h2__font-size);
+                }
             }
 
             > .item.content {
-                border-top: @tab-control__border-width solid @tab-control__border-color;
+                .lib-css(border-top, @easytabs-expanded__border-top);
                 width: ~'calc(75% - 1px)';
-                padding: 2rem .5rem;
+                padding: @easytabs-expanded-desktop-content__padding-top
+                         @easytabs-expanded-desktop-content__padding-right
+                         @easytabs-expanded-desktop-content__padding-bottom
+                         @easytabs-expanded-desktop-content__padding-left;
             }
         }
     }
