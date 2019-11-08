@@ -50,6 +50,7 @@ class UiSelect extends Template implements RendererInterface
      */
     public function initJsLayout(AbstractElement $element)
     {
+        $value = $element->getValue();
         $this->jsLayout = [
             'components' => [
                 $this->getScopeName() => [
@@ -58,7 +59,7 @@ class UiSelect extends Template implements RendererInterface
                         $element->getName() => [
                             'type' => 'form.select',
                             'name' => $element->getName(),
-                            'value' => $element->getValue(),
+                            'value' => is_array($value) ? $value : [],
                             'config' => [
                                 'component' => 'Swissup_Easytabs/js/form/element/ui-select',
                                 'template' => 'Swissup_Easytabs/form/element/ui-select/old-php-form-workaround',
