@@ -29,6 +29,7 @@ class UiSelect extends Template implements RendererInterface
      */
     public function render(AbstractElement $element)
     {
+        $this->setOptions($element->getValues());
         $this->initJsLayout($element);
         $css = 'admin__field';
         if ($element->getRequired()) {
