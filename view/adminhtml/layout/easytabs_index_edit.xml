@@ -3,6 +3,21 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="content">
+            <!-- i do not want to add it to css file. just because i can... -->
+            <block class="Magento\Framework\View\Element\Text" name="about_us.label">
+                <arguments>
+                    <argument name="text" xsi:type="string">
+<![CDATA[
+<style>
+    .rule-tree .fieldset > .legend span {
+        /*font-weight: normal;*/
+        font-size: 1.8rem;
+    }
+</style>
+]]>
+                    </argument>
+                </arguments>
+            </block>
             <block class="Swissup\Easytabs\Block\Adminhtml\Index\Edit" name="easytabs_index_edit">
                 <arguments>
                     <argument name="widget_tab" xsi:type="string">0</argument>

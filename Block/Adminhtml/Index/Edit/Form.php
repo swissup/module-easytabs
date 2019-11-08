@@ -269,7 +269,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $fieldset = $form->addFieldset(
             $fieldsetId,
             [
-                'legend' => '<span style="font-size: 1.8rem">' . __('Conditions') . '</span>'
+                'legend' => __('Conditions')
             ]
         )->setRenderer($renderer);
 

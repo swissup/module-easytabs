@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <update handle="editor"/>
+    <update handle="easytabs_index_edit"/>
     <body>
-        <referenceContainer name="content">
-            <block class="Swissup\Easytabs\Block\Adminhtml\Index\Edit" name="easytabs_widget_edit">
-                <arguments>
-                    <argument name="widget_tab" xsi:type="string">1</argument>
-                </arguments>
-            </block>
-        </referenceContainer>
+        <referenceBlock name="easytabs_index_edit">
+            <arguments>
+                <argument name="widget_tab" xsi:type="string">1</argument>
+            </arguments>
+        </referenceBlock>
     </body>
 </page>
