@@ -1,14 +1,14 @@
 <?php
-    $tabs = $block->prepareTabsData();
-    $isExpanded = ($block->getTabsLayout() == 'expanded');
+    $isExpanded = $block->isExpanded();
 ?>
 <div class="product info detailed">
-    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"tabs": <?php echo $isExpanded ? '{}' : $block->getInitOptions(); ?>}' id="swissup-easy-tabs">
-        <?php foreach ($tabs as $_index => $_tab) : ?>
+    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"Swissup_Easytabs/js/easytabs": <?php echo $isExpanded ? '{}' : $block->getInitOptions(); ?>}' id="swissup-easy-tabs">
+        <?php foreach ($block->prepareTabsData() as $_index => $_tab) : ?>
             <?php
                 $html = $_tab['child_html'];
                 $alias = $_tab['alias'];
                 $label = $_tab['title'];
+                $isAjax = $_tab['is_ajax'];
             ?>
             <div class="data item title <?php echo $isExpanded ? 'active' : ''?>"
                 aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
@@ -22,10 +22,13 @@
                 <h2 class="title"><?php /* @escapeNotVerified */ echo $label; ?></h2>
             <?php else: ?>
                 <a class="data switch"
-                   tabindex="-1"
-                   data-toggle="switch"
-                   href="#<?php /* @escapeNotVerified */ echo $alias; ?>"
-                   id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
+                    tabindex="-1"
+                    data-toggle="switch"
+                <?php if ($isAjax) :?>
+                    data-ajaxurl="<?= $block->getAjaxUrl($alias) ?>"
+                <?php endif ?>
+                    href="#<?php /* @escapeNotVerified */ echo $alias; ?>"
+                    id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
                     <?php /* @escapeNotVerified */ echo $label; ?>
                 </a>
             <?php endif ?>
@@ -36,13 +39,3 @@
         <?php endforeach; ?>
     </div>
 </div>
-<script type="text/x-magento-init">
-    {
-        "*": {
-            "Swissup_Easytabs/js/easytabs": {
-                "tabsSelector": "#swissup-easy-tabs",
-                "linksSelector": "[data-action=activate-tab]"
-            }
-        }
-    }
-</script>

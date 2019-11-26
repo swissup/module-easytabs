@@ -31,11 +31,6 @@ class Tabs extends \Magento\Framework\View\Element\Template
     protected $tabsCollectionFactory;
 
     /**
-     * @var \Magento\Framework\Json\EncoderInterface
-     */
-    protected $jsonEncoder;
-
-    /**
      * @var \Magento\Framework\Module\FullModuleList
      */
     protected $fullModuleList;
@@ -51,7 +46,6 @@ class Tabs extends \Magento\Framework\View\Element\Template
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param TabsCollectionFactory                            $tabsCollectionFactory
      * @param \Swissup\Easytabs\Model\Template\Filter          $templateFilter
-     * @param \Magento\Framework\Json\EncoderInterface         $jsonEncoder
      * @param \Magento\Framework\Module\FullModuleList         $fullModuleList
      * @param \Magento\Framework\Module\Manager                $moduleManager
      * @param array                                            $data
@@ -60,14 +54,12 @@ class Tabs extends \Magento\Framework\View\Element\Template
         \Magento\Framework\View\Element\Template\Context $context,
         TabsCollectionFactory $tabsCollectionFactory,
         \Swissup\Easytabs\Model\Template\Filter $templateFilter,
-        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
         \Magento\Framework\Module\FullModuleList $fullModuleList,
         \Magento\Framework\Module\Manager $moduleManager,
         array $data = []
     ) {
         $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->templateFilter = $templateFilter;
-        $this->jsonEncoder = $jsonEncoder;
         $this->fullModuleList = $fullModuleList;
         $this->moduleManager = $moduleManager;
         parent::__construct($context, $data);
@@ -110,7 +102,9 @@ class Tabs extends \Magento\Framework\View\Element\Template
                     $tab->getTitle(),
                     $tab->getBlock(),
                     $tab->getWidgetTemplate(),
-                    $tab->getData()
+                    $tab->getData(),
+                    $tab->getIsAjax() && !$this->isExpanded(),
+                    $tab->getId()
                 );
 
                 $unsets = (string) $tab->getWidgetUnset();
@@ -128,14 +122,21 @@ class Tabs extends \Magento\Framework\View\Element\Template
 
     /**
      * Add tab on product page
-     * @param string $alias
-     * @param string $title
-     * @param string $block
-     * @param string $template
-     * @param array  $attributes
+     * @param string  $alias
+     * @param string  $title
+     * @param string  $block
+     * @param string  $template
+     * @param array   $attributes
+     * @param boolean $isAjax
      */
-    public function addTab($alias, $title, $block = false, $template = false, $attributes = array())
-    {
+    public function addTab(
+        $alias,
+        $title,
+        $block = false,
+        $template = false,
+        $attributes = [],
+        $isAjax = false
+    ) {
         if (!$title || ($block && $block !== 'Swissup\Easytabs\Block\Tab\Html' && !$template)) {
             return false;
         }
@@ -178,10 +179,11 @@ class Tabs extends \Magento\Framework\View\Element\Template
             }
         }
 
-        $tab = array(
+        $tab = [
             'alias' => $alias,
-            'title' => $title
-        );
+            'title' => $title,
+            'is_ajax' => $isAjax
+        ];
 
         if (isset($attributes['sort_order'])) {
             $tab['sort_order'] = $attributes['sort_order'];
@@ -208,12 +210,16 @@ class Tabs extends \Magento\Framework\View\Element\Template
         return ($tab1['sort_order'] < $tab2['sort_order']) ? -1 : 1;
     }
 
+    /**
+     * @return array
+     */
     public function getTabs()
     {
         $this->_buildTabs();
         usort($this->_tabs, array($this, '_sort'));
         return $this->_tabs;
     }
+
     /**
      * Check tab content for anything except html tags and spaces
      *
@@ -230,6 +236,10 @@ class Tabs extends \Magento\Framework\View\Element\Template
         return strlen($content) === 0;
     }
 
+    /**
+     * @param  array $tab
+     * @return string
+     */
     public function getTabTitle($tab)
     {
         if (!strstr($tab['title'], '{{') || !strstr($tab['title'], '}}')) {
@@ -264,11 +274,37 @@ class Tabs extends \Magento\Framework\View\Element\Template
                 continue;
             }
 
-            $_tab['child_html'] = $childHtml;
+            $_tab['child_html'] = $_tab['is_ajax'] ? '' : $childHtml;
             $_tab['title'] = $this->getTabTitle($_tab);
             $tabs[$_index] = $_tab;
         }
 
         return $tabs;
+    }
+
+    /**
+     * @param  string $tabAlias
+     * @return string
+     */
+    public function getAjaxUrl($alias)
+    {
+        $block = $this->getLayout()->getBlock('product.info');
+        $product = $block ? $block->getProduct() : false;
+        return $this->getUrl(
+            'easytabs',
+            [
+                'id' => $product ? $product->getId() : null,
+                'tab' => $alias
+            ]
+        );
+    }
+
+    /**
+     * Is tabs layout expanded
+     *
+     * @return boolean
+     */
+    public function isExpanded() {
+        return $this->getTabsLayout() == 'expanded';
     }
 }
