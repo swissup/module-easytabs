@@ -7,7 +7,11 @@ define([
 
     $.widget('swissup.easytabs', accordion, {
         options: {
-            externalLink: '[data-action=activate-tab]'
+            externalLink: '[data-action=activate-tab]',
+            ajaxUrlElement: '[data-ajaxurl]',
+            ajaxUrlAttribute: 'data-ajaxurl',
+            ajaxContentOnce: true,
+            ajaxContentCache: true
         },
 
         /**
@@ -20,26 +24,10 @@ define([
                 this.options.active = [this.options.active];
             }
 
-            this._addAjaxLinks();
+            // this._addAjaxLinks();
             this._bindAfterAjax();
             this._super();
             this._bindExternalLinks();
-        },
-
-        /**
-         * Append tab titles with urls for Ajax requests for tab content.
-         */
-        _addAjaxLinks: function () {
-            $('.title [data-ajaxurl]', this.element).each(function () {
-                var url = $(this).attr('data-ajaxurl');
-
-                if (url) {
-                    $(this).removeAttr('data-ajaxurl');
-                    $('<a href="' + url + '" data-ajax="true"></a>')
-                        .insertAfter(this)
-                        .hide();
-                }
-            });
         },
 
         /**
@@ -56,7 +44,7 @@ define([
                 function (firstChild) {
                     var content = $(firstChild).parent();
 
-                    that._cancelFutureRequests(content);
+                    that._cancelFurtherPromiseCalls(content);
                     content.trigger('contentUpdated');
                 }
             );
@@ -84,20 +72,16 @@ define([
         },
 
         /**
-         * Cancel duplicated requests for tab loaded with Ajax.
-         *
          * @param  {jQuery} content
          */
-        _cancelFutureRequests: function (content) {
+        _cancelFurtherPromiseCalls: function (content) {
             var tabTitleId = content.attr('aria-labelledby'),
                 title;
 
             if (tabTitleId) {
                 title = document.getElementById(tabTitleId);
-                // remove A from DOM with ajax url
-                $('[data-ajax=true]', title).remove();
                 // cancel follow requests for tab
-                $(title).data('mageCollapsible').xhr.statusText = 'canceled';
+                delete $(title).data('mageCollapsible').xhr;
             }
         }
     });
