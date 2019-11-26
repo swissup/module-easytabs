@@ -103,8 +103,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
                     $tab->getBlock(),
                     $tab->getWidgetTemplate(),
                     $tab->getData(),
-                    $tab->getIsAjax() && !$this->isExpanded(),
-                    $tab->getId()
+                    $tab->getIsAjax() && !$this->isExpanded()
                 );
 
                 $unsets = (string) $tab->getWidgetUnset();
