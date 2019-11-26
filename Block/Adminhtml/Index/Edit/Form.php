@@ -192,6 +192,18 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             ]
         );
 
+        $fieldset->addField(
+            'is_ajax',
+            'select',
+            [
+                'name' => 'is_ajax',
+                'label' => __('Load content with ajax'),
+                'title' => __('Load content with ajax'),
+                'options' => [1 => __('Yes'), 0 => __('No')],
+                'disabled' => $isElementDisabled
+            ]
+        );
+
         /* Check is single store mode */
         if (!$this->_storeManager->isSingleStoreMode()) {
             $field = $fieldset->addField(
