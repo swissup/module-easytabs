@@ -5,9 +5,9 @@ define([
 ], function ($, accordion) {
     'use strict';
 
-    $.widget('swissup.easytabs', accordion, {
+    $.widget('swissup.tabs', accordion, {
         options: {
-            externalLink: '[data-action=activate-tab]',
+            externalLink: '[data-action=activate-tab], .action[href$="\\#review-form"]',
             ajaxUrlElement: '[data-ajaxurl]',
             ajaxUrlAttribute: 'data-ajaxurl',
             ajaxContentOnce: true,
@@ -24,7 +24,6 @@ define([
                 this.options.active = [this.options.active];
             }
 
-            // this._addAjaxLinks();
             this._bindAfterAjax();
             this._super();
             this._bindExternalLinks();
@@ -60,6 +59,8 @@ define([
                 var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
 
                 event.preventDefault();
+                // Workaround to open reviews tab when click on link under product image.
+                anchor = anchor === 'review-form' ? 'reviews' : anchor;
                 $('[data-role="content"]', that.element).each(function (index) {
                     if (this.id === anchor) {
                         that.element.tabs('activate', index);
@@ -86,5 +87,5 @@ define([
         }
     });
 
-    return $.swissup.easytabs;
+    return $.swissup.tabs;
 });
