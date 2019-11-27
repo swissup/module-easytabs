@@ -359,8 +359,11 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         if (!$this->hasData('available_widgets')) {
             $result = [];
             $allWidgets = $this->tabsOptionsFactory->create()->getTabsArray();
+            $allowed = $this->_getBlockTypes();
             foreach ($allWidgets as $widget) {
-                $result[] = $widget;
+                if (array_key_exists($widget['type'], $allowed)) {
+                    $result[] = $widget;
+                }
             }
             if ($withEmptyElement) {
                 array_unshift($result, ['type' => '', 'name' => __('-- Please Select --'), 'description' => '']);
