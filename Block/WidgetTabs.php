@@ -13,8 +13,9 @@ class WidgetTabs extends Tabs implements \Magento\Widget\Block\BlockInterface
         return $collection;
     }
 
-    public function getInitOptions()
+    public function getInitOptions($json = '{}')
     {
-        return '{"collapsible": false, "openedState": "active"}';
+        $json = '{"collapsible": false, "openedState": "active"}';
+        return parent::getInitOptions($json);
     }
 }

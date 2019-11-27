@@ -1,13 +1,7 @@
 <?xml version="1.0" ?>
-<!--
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
 <view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
     <vars module="Swissup_Easytabs">
         <!-- more tabs widget options at http://devdocs.magento.com/guides/v2.0/javascript-dev-guide/widgets/widget_tabs.html -->
-        <var name="options">{"active": [0], "collapsible": false, "openedState": "active", "ajaxContent": true}</var>
+        <var name="options">{"active": [0], "collapsible": false, "openedState": "active"}</var>
     </vars>
 </view>

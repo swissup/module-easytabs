@@ -12,9 +12,10 @@ class ProductTabs extends Tabs
         return $collection;
     }
 
-    public function getInitOptions()
+    public function getInitOptions($json = '{}')
     {
-        return $this->getVar('options');
+        $json = $this->getVar('options');
+        return parent::getInitOptions($json);
     }
 
     /**

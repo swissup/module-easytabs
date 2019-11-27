@@ -1,40 +1,41 @@
 <?php
     $isExpanded = $block->isExpanded();
+    $attributes = new \Magento\Framework\DataObject();
 ?>
 <div class="product info detailed">
-    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"Swissup_Easytabs/js/easytabs": <?php echo $isExpanded ? '{}' : $block->getInitOptions(); ?>}' id="swissup-easy-tabs">
+    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"Swissup_Easytabs/js/easytabs": <?= $block->getInitOptions() ?>}' id="swissup-easy-tabs">
         <?php foreach ($block->prepareTabsData() as $_index => $_tab) : ?>
             <?php
-                $html = $_tab['child_html'];
                 $alias = $_tab['alias'];
                 $label = $_tab['title'];
-                $isAjax = $_tab['is_ajax'];
+                $attributes->setData([
+                    'class' => $isExpanded ? 'title' : 'data switch',
+                    'id' => "tab-label-{$alias}-title",
+                    'data-toggle' => 'switch',
+                ]);
+                if ($_tab['is_ajax']) {
+                    $attributes->setData(
+                        'data-ajaxurl',
+                        $block->getAjaxUrl($alias)
+                    );
+                }
             ?>
             <div class="data item title <?php echo $isExpanded ? 'active' : ''?>"
                 aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
-                <?php if ($isExpanded): ?>
-                    role="tab"
-                <?php else: ?>
-                    data-role="collapsible"
-                <?php endif ?>
-                id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>">
+                data-role="collapsible"
+                id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
             <?php if ($isExpanded): ?>
-                <h2 class="title"><?php /* @escapeNotVerified */ echo $label; ?></h2>
+                <h2 <?= $attributes->serialize() ?>><?= /* @escapeNotVerified */ $label ?></h2>
             <?php else: ?>
-                <a class="data switch"
+                <a <?= $attributes->serialize() ?>
                     tabindex="-1"
-                    data-toggle="switch"
-                <?php if ($isAjax) :?>
-                    data-ajaxurl="<?= $block->getAjaxUrl($alias) ?>"
-                <?php endif ?>
-                    href="#<?php /* @escapeNotVerified */ echo $alias; ?>"
-                    id="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title">
-                    <?php /* @escapeNotVerified */ echo $label; ?>
+                    href="#<?= $alias ?>">
+                    <?= /* @escapeNotVerified */ $label ?>
                 </a>
             <?php endif ?>
             </div>
-            <div class="data item content" id="<?php /* @escapeNotVerified */ echo $alias; ?>" data-role="content">
-                <?php /* @escapeNotVerified */ echo $html; ?>
+            <div class="data item content" id="<?= /* @escapeNotVerified */ $alias; ?>" data-role="content">
+                <?= /* @escapeNotVerified */ $_tab['child_html'] ?>
             </div>
         <?php endforeach; ?>
     </div>

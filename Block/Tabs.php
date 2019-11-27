@@ -103,7 +103,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
                     $tab->getBlock(),
                     $tab->getWidgetTemplate(),
                     $tab->getData(),
-                    $tab->getIsAjax() && !$this->isExpanded()
+                    $tab->getIsAjax()
                 );
 
                 $unsets = (string) $tab->getWidgetUnset();
@@ -116,6 +116,8 @@ class Tabs extends \Magento\Framework\View\Element\Template
                     }
                 }
             }
+
+            usort($this->_tabs, array($this, '_sort'));
         }
     }
 
@@ -215,7 +217,6 @@ class Tabs extends \Magento\Framework\View\Element\Template
     public function getTabs()
     {
         $this->_buildTabs();
-        usort($this->_tabs, array($this, '_sort'));
         return $this->_tabs;
     }
 
@@ -254,9 +255,24 @@ class Tabs extends \Magento\Framework\View\Element\Template
         return $processor->filter($tab['title']);
     }
 
-    public function getInitOptions()
+    public function getInitOptions($json = '{}')
     {
-        return '{}';
+        if (!$json) {
+            return '{}';
+        }
+
+        $options = json_decode($json, true);
+        $options['ajaxContent'] = true; // force ajax content option
+        if ($this->isExpanded()) {
+            $tabs = $this->getTabs();
+            $options['active'] = array_keys($tabs);
+            $options['multipleCollapsible'] = true;
+            $options['collapsible'] = false;
+        }
+
+        $json = json_encode($options, JSON_UNESCAPED_SLASHES);
+
+        return $json;
     }
 
     /**
