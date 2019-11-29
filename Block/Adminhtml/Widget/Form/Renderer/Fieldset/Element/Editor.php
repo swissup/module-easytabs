@@ -45,7 +45,8 @@ class Editor extends \Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Elemen
                 'style' => 'height:36em',
                 'required' => true,
                 'config' => $this->wysiwygConfig->getConfig(),
-                'value' => $widgetValues['widget_content']
+                'value' => $widgetValues['widget_content'],
+                'data-form-part' => $this->getData('data-form-part') ?: null
             ]
         );
 
