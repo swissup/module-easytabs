@@ -19,6 +19,11 @@
                 <item name="class" xsi:type="string">back</item>
                 <item name="url" xsi:type="string">*/*/</item>
             </item>
+            <item name="save_and_continue" xsi:type="array">
+                <item name="name" xsi:type="string">save_and_continue</item>
+                <item name="label" xsi:type="string" translate="true">Save and Continue Edit</item>
+                <item name="class" xsi:type="string">save</item>
+            </item>
             <item name="save" xsi:type="array">
                 <item name="name" xsi:type="string">save</item>
                 <item name="label" xsi:type="string" translate="true">Save</item>
