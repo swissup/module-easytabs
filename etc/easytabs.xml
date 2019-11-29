@@ -137,7 +137,7 @@
         <parameters>
             <parameter name="widget_identifier" xsi:type="block" required="true" visible="true">
                 <label translate="true">Identifier</label>
-                <block class="Magento\Cms\Block\Adminhtml\Block\Widget\Chooser">
+                <block class="Swissup\Easytabs\Block\Adminhtml\CmsBlockChooser">
                     <data>
                         <item name="button" xsi:type="array">
                             <item name="open" xsi:type="string" translate="true">Select Block...</item>

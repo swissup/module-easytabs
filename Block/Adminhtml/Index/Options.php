@@ -46,6 +46,10 @@ class Options extends \Magento\Widget\Block\Adminhtml\Widget\Options
         }
 
         foreach ($config->getParameters() as $parameter) {
+            if ($parameter->getHelperBlock()) {
+                $parameter->getHelperBlock()->setData('data-form-part', $this->getFormName());
+            }
+
             if ($parameter->getType() === 'multiselect'
                 && $parameter->getLabel() === (string)__('Attribute Code')
             ) {
