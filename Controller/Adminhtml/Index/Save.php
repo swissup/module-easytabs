@@ -27,9 +27,16 @@ class Save extends \Magento\Backend\App\Action
             /** @var \Swissup\Easytabs\Model\Entity $model */
             $model = $this->_objectManager->create('Swissup\Easytabs\Model\Entity');
 
-            $id = $this->getRequest()->getParam('tab_id');
-            if ($id) {
-                $model->load($id);
+            if (empty($data['tab_id'])) {
+                $data['tab_id'] = null;
+            } else {
+                $model->load($data['tab_id']);
+                if (!$model->getId()) {
+                    $this->messageManager->addErrorMessage(__('This tab no longer exists.'));
+                    /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+                    $resultRedirect = $this->resultRedirectFactory->create();
+                    return $resultRedirect->setPath('*/*/');
+                }
             }
 
             if (empty($params['data']) && !empty($data['block_type'])) {
