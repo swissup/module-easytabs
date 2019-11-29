@@ -58,6 +58,10 @@ require([
 
             $(notice).text(description[typeComponent.value()]);
             loadOptions(typeComponent.value());
+            if (blockComponent) {
+                blockComponent.value(typeComponent.value());
+            }
+
             typeComponent.value.subscribe(function (newValue) {
                 $(notice).html(description[newValue]);
                 loadOptions(newValue);
@@ -75,6 +79,9 @@ require([
         },
         function (element) {
             blockComponent = ko.dataFor(element);
+            if (typeComponent) {
+                blockComponent.value(typeComponent.value());
+            }
         }
     );
 
@@ -85,6 +92,7 @@ require([
         function (widgetOptions) {
             htmlComponent = ko.dataFor(widgetOptions);
             initialValues = $.extend({}, registry.get(htmlComponent.provider).data);
+            initialValues.block = initialValues['tab_id'] ? initialValues.block : '';
             // Initialize Ajax call for html content
             htmlComponent.url = '<?= $this->getUrl("easytabs/index/loadOptions") ?>';
             htmlComponent.initAjaxConfig();

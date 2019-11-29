@@ -83,13 +83,9 @@ class Edit extends Action
 
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_initAction();
-        $resultPage->addBreadcrumb(
-            $id ? __('Edit Tab') : __('New Tab'),
-            $id ? __('Edit Tab') : __('New Tab')
-        );
         $resultPage->getConfig()->getTitle()->prepend(__('Easy Tabs'));
         $resultPage->getConfig()->getTitle()
-            ->prepend($model->getId() ? $model->getName() : __('New Tab'));
+            ->prepend($model->getId() ? $model->getTitle() : __('New Tab'));
 
         return $resultPage;
     }
