@@ -4,20 +4,11 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="easytabs_index_listing_data_source" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity\Grid\ProductCollection</item>
-                <item name="easytabs_widget_listing_data_source" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity\Grid\WidgetCollection</item>
+                <item name="easytabs_index_listing_data_source" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
-    <type name="Swissup\Easytabs\Model\ResourceModel\Entity\Grid\ProductCollection">
-        <arguments>
-            <argument name="mainTable" xsi:type="string">swissup_easytabs_entity</argument>
-            <argument name="eventPrefix" xsi:type="string">easytabs_index_grid_collection</argument>
-            <argument name="eventObject" xsi:type="string">easytabs_grid_collection</argument>
-            <argument name="resourceModel" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity</argument>
-        </arguments>
-    </type>
-    <type name="Swissup\Easytabs\Model\ResourceModel\Entity\Grid\WidgetCollection">
+    <type name="Swissup\Easytabs\Model\ResourceModel\Entity\Grid\Collection">
         <arguments>
             <argument name="mainTable" xsi:type="string">swissup_easytabs_entity</argument>
             <argument name="eventPrefix" xsi:type="string">easytabs_index_grid_collection</argument>

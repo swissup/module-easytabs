@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Swissup_Easytabs::easytabs" title="Easy Tabs" module="Swissup_Easytabs" sortOrder="580" parent="Swissup_Core::swissup" resource="Swissup_Easytabs::easytabs" />
-        <add id="Swissup_Easytabs::easytabs_product" title="Product Page Tabs" module="Swissup_Easytabs" sortOrder="10" parent="Swissup_Easytabs::easytabs" action="easytabs/index/index" resource="Swissup_Easytabs::easytabs_product"/>
-        <add id="Swissup_Easytabs::easytabs_widget" title="Widget Tabs" module="Swissup_Easytabs" sortOrder="20" parent="Swissup_Easytabs::easytabs" action="easytabs/widget/index" resource="Swissup_Easytabs::easytabs_widget"/>
+        <add id="Swissup_Easytabs::easytabs"
+            title="Easy Tabs"
+            module="Swissup_Easytabs"
+            sortOrder="580"
+            parent="Swissup_Core::general"
+            action="easytabs/index/index"
+            resource="Swissup_Easytabs::easytabs"/>
     </menu>
 </config>
