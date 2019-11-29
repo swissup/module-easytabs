@@ -6,16 +6,9 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Swissup_Core::swissup">
                     <resource id="Swissup_Easytabs::easytabs" title="Easy Tabs">
-                        <resource id="Swissup_Easytabs::easytabs_product" title="Product Page Tabs" sortOrder="0">
-                            <resource id="Swissup_Easytabs::easytabs_product_save" title="Save" sortOrder="10" />
-                            <resource id="Swissup_Easytabs::easytabs_product_delete" title="Delete" sortOrder="20" />
-                            <resource id="Swissup_Easytabs::easytabs_product_status" title="Change Status" sortOrder="30" />
-                        </resource>
-                        <resource id="Swissup_Easytabs::easytabs_widget" title="Widget Tabs" sortOrder="10">
-                            <resource id="Swissup_Easytabs::easytabs_widget_save" title="Save" sortOrder="10" />
-                            <resource id="Swissup_Easytabs::easytabs_widget_delete" title="Delete" sortOrder="20" />
-                            <resource id="Swissup_Easytabs::easytabs_widget_status" title="Change Status" sortOrder="30" />
-                        </resource>
+                        <resource id="Swissup_Easytabs::easytabs_save" title="Save" sortOrder="10" />
+                        <resource id="Swissup_Easytabs::easytabs_delete" title="Delete" sortOrder="20" />
+                        <resource id="Swissup_Easytabs::easytabs_status" title="Change Status" sortOrder="30" />
                     </resource>
                 </resource>
                 <resource id="Magento_Backend::stores">

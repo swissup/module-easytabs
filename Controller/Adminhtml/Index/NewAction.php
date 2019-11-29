@@ -6,7 +6,7 @@ class NewAction extends \Magento\Backend\App\Action
     /**
      * Admin resource
      */
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_save';
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_save';
     /**
      * @var \Magento\Backend\Model\View\Result\Forward
      */

@@ -14,7 +14,7 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
     /**
      * Admin resource
      */
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product_status';
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_status';
 
     /**
      * Field id

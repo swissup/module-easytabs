@@ -6,7 +6,7 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends \Magento\Backend\App\Action
 {
-    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_product';
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs';
 
     /**
      * @var PageFactory
