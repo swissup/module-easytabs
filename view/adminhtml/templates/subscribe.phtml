@@ -10,6 +10,14 @@ require([
         initialValues,
         description = <?= $block->getDescriptionsJson() ?>;
 
+    function loaderShow() {
+        $('body').trigger('processStart');
+    }
+
+    function loaderHide() {
+        $('body').trigger('processStop');
+    }
+
     function loadOptions(blockType) {
 
         if (htmlComponent) {
@@ -20,6 +28,7 @@ require([
                 htmlComponent.ajaxConfig.data.widget.values = initialValues;
             }
 
+            loaderShow();
             htmlComponent.loadData();
         }
     }
@@ -83,6 +92,7 @@ require([
                 isAjax: 'true',
                 'form_name' : htmlComponent.ns
             });
+            htmlComponent.ajaxConfig.complete = loaderHide;
             htmlComponent.ajaxConfig.success = [
                 htmlComponent.ajaxConfig.success,
                 function () {
