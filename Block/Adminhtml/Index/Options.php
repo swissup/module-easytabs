@@ -52,9 +52,18 @@ class Options extends \Magento\Widget\Block\Adminhtml\Widget\Options
                 $parameter->setType('Swissup\Easytabs\Block\Form\Element\Renderer\UiSelect');
             }
 
-            $this->_addField($parameter);
+            $field = $this->_addField($parameter);
+            $field->setData('data-form-part', $this->getFormName());
         }
 
         return $this;
+    }
+
+    public function getFormHtml()
+    {
+        $form = $this->getForm();
+        $fieldset = $this->getMainFieldset();
+
+        return $fieldset->getChildrenHtml();
     }
 }

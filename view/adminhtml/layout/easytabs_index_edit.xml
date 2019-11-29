@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <update handle="editor"/>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
             <!-- i do not want to add it to css file. just because i can... -->
@@ -9,20 +9,22 @@
                     <argument name="text" xsi:type="string">
 <![CDATA[
 <style>
+    .rule-tree .fieldset > .legend {
+        border: 0;
+    }
     .rule-tree .fieldset > .legend span {
-        /*font-weight: normal;*/
-        font-size: 1.8rem;
+        font-weight: normal;
+        padding: 0;
     }
 </style>
 ]]>
                     </argument>
                 </arguments>
             </block>
-            <block class="Swissup\Easytabs\Block\Adminhtml\Index\Edit" name="easytabs_index_edit">
-                <arguments>
-                    <argument name="widget_tab" xsi:type="string">0</argument>
-                </arguments>
-            </block>
+            <uiComponent name="easytabs_index_edit"/>
         </referenceContainer>
     </body>
+    <referenceContainer name="footer">
+        <block class="Swissup\Easytabs\Block\Adminhtml\BlockType\Subscribe" name="easystabs.blockType.subscribe" />
+    </referenceContainer>
 </page>

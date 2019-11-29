@@ -31,7 +31,7 @@ class UiSelect extends Template implements RendererInterface
     {
         $this->setOptions($element->getValues());
         $this->initJsLayout($element);
-        $css = 'admin__field';
+        $css = 'admin__field field';
         if ($element->getRequired()) {
             $css .= ' required-entry _required';
         }
@@ -67,6 +67,7 @@ class UiSelect extends Template implements RendererInterface
                                 'dataType' => 'text',
                                 'visible' => true,
                                 'formElement' => 'select',
+                                'formPart' => $element->getData('data-form-part'),
                                 'options' => $this->getOptions()
                             ]
                         ]

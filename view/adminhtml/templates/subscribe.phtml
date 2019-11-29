@@ -1,0 +1,102 @@
+<script type="text/javascript">
+require([
+    'knockout',
+    'Magento_Ui/js/lib/view/utils/async',
+    'uiRegistry'
+], function (ko, $, registry) {
+    var typeComponent,
+        blockComponent,
+        htmlComponent,
+        initialValues,
+        description = <?= $block->getDescriptionsJson() ?>;
+
+    function loadOptions(blockType) {
+
+        if (htmlComponent) {
+            htmlComponent.ajaxConfig.data.widget = {
+                'widget_type': blockType
+            };
+            if (initialValues.block === blockType) {
+                htmlComponent.ajaxConfig.data.widget.values = initialValues;
+            }
+
+            htmlComponent.loadData();
+        }
+    }
+
+    /**
+     * Initialize scripts and KO in widget options.
+     */
+    function initializeScripts() {
+        var widgetOptions = $('[data-index=widget_options] .admin__scope-old > *'),
+            notInitialized = $('script[type="text/x-magento-init"]', widgetOptions);
+
+        if (notInitialized.length > 0) {
+            widgetOptions.trigger('contentUpdated').applyBindings();
+        }
+    }
+
+    $.async(
+        {
+            selector: '.admin__field[data-index=block_type] .admin__field-note'
+        },
+        function (notice) {
+            typeComponent = ko.dataFor(notice);
+
+            if (!typeComponent) {
+                return;
+            }
+
+            $(notice).text(description[typeComponent.value()]);
+            loadOptions(typeComponent.value());
+            typeComponent.value.subscribe(function (newValue) {
+                $(notice).html(description[newValue]);
+                loadOptions(newValue);
+
+                if (blockComponent) {
+                    blockComponent.value(newValue);
+                }
+            })
+        }
+    )
+
+    $.async(
+        {
+            selector: '.admin__field[data-index=block]'
+        },
+        function (element) {
+            blockComponent = ko.dataFor(element);
+        }
+    );
+
+    $.async(
+        {
+            selector: '[data-index=widget_options] .admin__scope-old'
+        },
+        function (widgetOptions) {
+            htmlComponent = ko.dataFor(widgetOptions);
+            initialValues = $.extend({}, registry.get(htmlComponent.provider).data);
+            // Initialize Ajax call for html content
+            htmlComponent.url = '<?= $this->getUrl("easytabs/index/loadOptions") ?>';
+            htmlComponent.initAjaxConfig();
+            $.extend(htmlComponent.ajaxConfig.data, {
+                isAjax: 'true',
+                'form_name' : htmlComponent.ns
+            });
+            htmlComponent.ajaxConfig.success = [
+                htmlComponent.ajaxConfig.success,
+                function () {
+                    // force Magento scripts initialization and KO binding
+                    setTimeout(initializeScripts, 100);
+                }
+            ]
+
+            // I know block type. Load options.
+            if (typeComponent) {
+                loadOptions(typeComponent.value());
+            }
+        }
+    );
+
+})
+</script>

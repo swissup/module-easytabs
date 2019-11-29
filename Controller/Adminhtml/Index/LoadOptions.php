@@ -12,19 +12,21 @@ class LoadOptions extends \Magento\Backend\App\Action
     {
         try {
             $this->_view->loadLayout();
-            if ($paramsJson = $this->getRequest()->getParam('widget')) {
-                $request = $this->_objectManager->get('Magento\Framework\Json\Helper\Data')->jsonDecode($paramsJson);
-                if (is_array($request)) {
-                    $optionsBlock = $this->_view->getLayout()->getBlock('easytabs.tab.options');
-                    if (isset($request['widget_type'])) {
-                        $optionsBlock->setWidgetType($request['widget_type']);
+            $optionsBlock = $this->_view->getLayout()->getBlock('easytabs.tab.options');
+            if ($widget = $this->getRequest()->getParam('widget')) {
+                if (is_array($widget)) {
+                    if (isset($widget['widget_type'])) {
+                        $optionsBlock->setWidgetType($widget['widget_type']);
                     }
-                    if (isset($request['values'])) {
-                        $optionsBlock->setWidgetValues($request['values']);
+                    if (isset($widget['values'])) {
+                        $optionsBlock->setWidgetValues($widget['values']);
                     }
                 }
-                $this->_view->renderLayout();
             }
+
+            $formName = $this->getRequest()->getParam('form_name');
+            $optionsBlock->setFormName($formName);
+            $this->_view->renderLayout();
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             $result = ['error' => true, 'message' => $e->getMessage()];
             $this->getResponse()->representJson(
