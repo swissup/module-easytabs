@@ -45,6 +45,7 @@ define([
 
                     that._cancelFurtherPromiseCalls(content);
                     content.trigger('contentUpdated');
+                    content.trigger('easytabs:contentLoaded');
                 }
             );
         },
