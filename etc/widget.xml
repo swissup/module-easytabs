@@ -4,7 +4,7 @@
     <widget id="swissup_easytabs" class="Swissup\Easytabs\Block\WidgetTabs" is_email_compatible="false"
         placeholder_image="Swissup_Easytabs::images/widget.gif" ttl="86400">
         <label translate="true">Easytabs</label>
-        <description><![CDATA[List of tabs from "Swissup" &rarr; "Easytabs" &rarr; "Widget Tabs"]]></description>
+        <description><![CDATA[List of tabs from "Swissup" &rarr; "Easytabs" with option 'Hidden on Product'.]]></description>
         <parameters>
             <parameter name="filter_tabs" xsi:type="multiselect" source_model="Swissup\Easytabs\Model\Config\Source\WidgetTabs" visible="true">
                 <label translate="true">Tabs to show</label>
