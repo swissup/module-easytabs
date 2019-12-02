@@ -45,6 +45,7 @@ require([
         }
     }
 
+    // Wait for notice element of Block Type field
     $.async(
         {
             selector: '.admin__field[data-index=block_type] .admin__field-note'
@@ -73,6 +74,7 @@ require([
         }
     )
 
+    // Wait for Block field
     $.async(
         {
             selector: '.admin__field[data-index=block]'
@@ -85,6 +87,7 @@ require([
         }
     );
 
+    // Wait for Tab Options fieldset
     $.async(
         {
             selector: '[data-index=widget_options] .admin__scope-old'
