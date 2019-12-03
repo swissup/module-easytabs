@@ -3,7 +3,7 @@
     $attributes = new \Magento\Framework\DataObject();
 ?>
 <div class="product info detailed">
-    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"Swissup_Easytabs/js/easytabs": <?= $block->getInitOptions() ?>}' id="swissup-easy-tabs">
+    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}' id="swissup-easy-tabs">
         <?php foreach ($block->prepareTabsData() as $_index => $_tab) : ?>
             <?php
                 $alias = $_tab['alias'];
