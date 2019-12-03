@@ -13,7 +13,50 @@
 @easytabs-expanded-desktop-content__padding-bottom: 2rem;
 @easytabs-expanded-desktop-content__padding-left: .5rem;
 
+@easytabs-loader-show: true;
+@easytabs-loader__width: 30px;
+@easytabs-loader__height: 30px;
+@easytabs-loader-line__width: 3px;
+@easytabs-loader-line__color: lighten(@text__color, 60%);
+@easytabs-loader-line-accent__color: @text__color;
+@easytabs-loader__top: @tab-content__padding-top / 2;
+@easytabs-loader__left: ~'calc(50% - @{easytabs-loader__width} / 2)';
+@easytabs-loader__spin-time: .6s;
+
 & when (@media-common = true) {
+
+    /**
+     * Describe spinner
+     */
+    & when (@easytabs-loader-show = true) {
+        @keyframes easytabs-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .product.data.items {
+            .item.content {
+                &[aria-busy=true] {
+                    position: relative;
+                    min-height: @easytabs-loader__height;
+
+                    &::before {
+                        animation: easytabs-spin @easytabs-loader__spin-time linear infinite;
+                        position: absolute;
+                        border: @easytabs-loader-line__width solid @easytabs-loader-line__color;
+                        border-top-color: @easytabs-loader-line-accent__color;
+                        border-radius: 50%;
+                        width: @easytabs-loader__width;
+                        height: @easytabs-loader__height;
+                        top: @easytabs-loader__top;
+                        left: @easytabs-loader__left;
+                    }
+                }
+            }
+        }
+    }
+
     .product.data.items {
 
         .fieldset .review-legend.legend strong {
