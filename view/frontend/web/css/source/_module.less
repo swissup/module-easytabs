@@ -19,7 +19,7 @@
 @easytabs-loader-line__width: 3px;
 @easytabs-loader-line__color: lighten(@text__color, 60%);
 @easytabs-loader-line-accent__color: @text__color;
-@easytabs-loader__top: @tab-content__padding-top / 2;
+@easytabs-loader__top: @easytabs-loader__height / 2;
 @easytabs-loader__left: ~'calc(50% - @{easytabs-loader__width} / 2)';
 @easytabs-loader__spin-time: .6s;
 
@@ -44,7 +44,7 @@
 
                 &[aria-busy=true] {
                     position: relative;
-                    min-height: @easytabs-loader__height;
+                    min-height: 2 * @easytabs-loader__height + @easytabs-loader__top;
 
                     &::before {
                         opacity: 1;
