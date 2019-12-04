@@ -37,11 +37,17 @@
 
         .product.data.items {
             .item.content {
+                &::before {
+                    opacity: 0;
+                    transition: opacity @easytabs-loader__spin-time ease-in-out;
+                }
+
                 &[aria-busy=true] {
                     position: relative;
                     min-height: @easytabs-loader__height;
 
                     &::before {
+                        opacity: 1;
                         animation: easytabs-spin @easytabs-loader__spin-time linear infinite;
                         position: absolute;
                         border: @easytabs-loader-line__width solid @easytabs-loader-line__color;
