@@ -27,6 +27,8 @@ define([
             this._bindAfterAjax();
             this._super();
             this._bindExternalLinks();
+            this._bindBeforeOpen();
+            this.lastOpened = this.getOpened();
         },
 
         /**
@@ -44,7 +46,11 @@ define([
                     var content = $(firstChild).parent();
 
                     that._cancelFurtherPromiseCalls(content);
+                    // Trigger mage-init execution.
                     content.trigger('contentUpdated');
+                    // Unset height for tab content.
+                    content.css('height', '');
+                    // Trigger event that content is loaded.
                     content.trigger('easytabs:contentLoaded');
                 }
             );
@@ -74,6 +80,29 @@ define([
         },
 
         /**
+         * Listen tab before open.
+         */
+        _bindBeforeOpen: function () {
+            var that = this;
+
+            this.collapsibles.on('beforeOpen', function (event) {
+                var currentTab = $(event.currentTarget),
+                    height;
+
+                height = that.getContent(that.lastOpened).outerHeight();
+                that.lastOpened = $(event.currentTarget);
+
+                if (that.isAjaxTab(currentTab) &&
+                    $(window).width() > 767
+                ) {
+                    // Tab has ajax content. Set height for the tab content to
+                    // reduce jumps of page content.
+                    that.getContent(currentTab).css('height', height);
+                }
+            });
+        },
+
+        /**
          * @param  {jQuery} content
          */
         _cancelFurtherPromiseCalls: function (content) {
@@ -85,6 +114,45 @@ define([
                 // cancel follow requests for tab
                 delete $(title).data('mageCollapsible').xhr;
             }
+        },
+
+        /**
+         * Get opened tab.
+         *
+         * @return {jQuery}
+         */
+        getOpened: function () {
+            var that = this;
+
+            return that.collapsibles.filter(function () {
+                return $(this).hasClass(that.options.openedState);
+            });
+        },
+
+        /**
+         * Get content of tab (collapsibles).
+         *
+         * @param  {HTMLElement} element
+         * @return {jQuery}
+         */
+        getContent: function (element) {
+            var collapsible = $(element).data('mageCollapsible');
+
+            if (!collapsible) {
+                return $();
+            }
+
+            return $(collapsible.content);
+        },
+
+        /**
+         * Check if tab loads content via ajax.
+         *
+         * @param  {HTMLElement}  element
+         * @return {Boolean}
+         */
+        isAjaxTab: function (element) {
+            return !!$(this.options.ajaxUrlElement, element).length;
         }
     });
 
