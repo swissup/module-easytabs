@@ -19,9 +19,11 @@
 @easytabs-loader-line__width: 3px;
 @easytabs-loader-line__color: lighten(@text__color, 60%);
 @easytabs-loader-line-accent__color: @text__color;
-@easytabs-loader__top: @easytabs-loader__height / 2;
-@easytabs-loader__left: ~'calc(50% - @{easytabs-loader__width} / 2)';
+@easytabs-loader__top: 15px;
+@easytabs-loader__left: ~'calc(50% - 30px / 2)';
 @easytabs-loader__spin-time: .6s;
+
+@easytabs-content-busy__min-height: 2 * 30px + 15px;
 
 & when (@media-common = true) {
 
@@ -44,7 +46,7 @@
 
                 &[aria-busy=true] {
                     position: relative;
-                    min-height: 2 * @easytabs-loader__height + @easytabs-loader__top;
+                    .lib-css(min-height, @easytabs-content-busy__min-height);
 
                     &::before {
                         opacity: 1;
@@ -55,8 +57,8 @@
                         border-radius: 50%;
                         width: @easytabs-loader__width;
                         height: @easytabs-loader__height;
-                        top: @easytabs-loader__top;
-                        left: @easytabs-loader__left;
+                        .lib-css(top, @easytabs-loader__top);
+                        .lib-css(left, @easytabs-loader__left);
                     }
                 }
             }
