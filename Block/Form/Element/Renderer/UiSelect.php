@@ -2,47 +2,16 @@
 
 namespace Swissup\Easytabs\Block\Form\Element\Renderer;
 
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\Data\Form\Element\AbstractElement;
-use Magento\Framework\Data\Form\Element\Renderer\RendererInterface;
 
-class UiSelect extends Template implements RendererInterface
+class UiSelect extends Template
 {
     /**
      * {@inheritdoc}
      */
     protected $_template = 'ui-select.phtml';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function _construct() {
-        if (!$this->getScopeName()) {
-            $this->setScopeName('swissup_easytabs_uiselect');
-        }
-
-        parent::_construct();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function render(AbstractElement $element)
-    {
-        $this->setOptions($element->getValues());
-        $this->initJsLayout($element);
-        $css = 'admin__field field';
-        if ($element->getRequired()) {
-            $css .= ' required-entry _required';
-        }
-
-        $html = $element->getNoSpan() === true ? '' : "<div class=\"{$css}\">" . "\n";
-        $html .= $element->getLabelHtml();
-        $html .= $this->toHtml();
-        $html .= $element->getNoSpan() === true ? '' : '</div>' . "\n";
-
-        return $html;
-    }
 
     /**
      * Initialize js layout.
@@ -67,7 +36,7 @@ class UiSelect extends Template implements RendererInterface
                                 'dataType' => 'text',
                                 'visible' => true,
                                 'formElement' => 'select',
-                                'formPart' => $element->getData('data-form-part'),
+                                'formPart' => $this->getData('data-form-part'),
                                 'options' => $this->getOptions()
                             ]
                         ]
@@ -76,5 +45,48 @@ class UiSelect extends Template implements RendererInterface
                 ]
             ]
         ];
+    }
+
+    /**
+     * Prepare UI Select element HTML
+     *
+     * @param  AbstractElement $element
+     * @return AbstractElement
+     */
+    public function prepareElementHtml(AbstractElement $element)
+    {
+        $this->initJsLayout($element);
+        $element->setData('after_element_html', $this->toHtml());
+        return $element;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        if ($sourceModel = $this->getSourceModel()) {
+            return $sourceModel->toOptionArray();
+        }
+
+        return [];
+    }
+
+    /**
+     * @return object
+     */
+    public function getSourceModel()
+    {
+        if (!$sourceModel = $this->getData('source_model')) {
+            return null;
+        }
+
+        if (!is_object($sourceModel)) {
+            $objectManager = ObjectManager::getInstance();
+            $sourceModel = $objectManager->get($sourceModel);
+            $this->setData('source_model', $sourceModel);
+        }
+
+        return $sourceModel;
     }
 }

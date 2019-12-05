@@ -5,6 +5,26 @@ define([
     'use strict';
 
     return UiSelect.extend({
+
+        /**
+         * {@inheritdoc}
+         *
+         * Clean up initial value from not existing values.
+         */
+        normalizeData: function (value) {
+            var that = this;
+
+            value = _.filter(value, function (optionValue) {
+                var items = _.where(that.options(), {
+                        value: optionValue
+                    });
+
+                return !!items.length;
+            });
+
+            return this._super(value);
+        },
+
         /**
          * {@inheritdoc}
          *

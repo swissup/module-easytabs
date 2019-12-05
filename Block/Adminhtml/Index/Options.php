@@ -50,12 +50,6 @@ class Options extends \Magento\Widget\Block\Adminhtml\Widget\Options
                 $parameter->getHelperBlock()->setData('data-form-part', $this->getFormName());
             }
 
-            if ($parameter->getType() === 'multiselect'
-                && $parameter->getLabel() === (string)__('Attribute Code')
-            ) {
-                $parameter->setType('Swissup\Easytabs\Block\Form\Element\Renderer\UiSelect');
-            }
-
             $field = $this->_addField($parameter);
             $field->setData('data-form-part', $this->getFormName());
         }
