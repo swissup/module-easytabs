@@ -7,7 +7,7 @@ define([
 
     $.widget('swissup.tabs', accordion, {
         options: {
-            externalLink: '[data-action=activate-tab], .action[href$="\\#review-form"]',
+            externalLink: '[data-action=activate-tab], .action[href*="\\#review"]',
             ajaxUrlElement: '[data-ajaxurl]',
             ajaxUrlAttribute: 'data-ajaxurl',
             ajaxContentOnce: true,
