@@ -15,10 +15,6 @@
 </script>
 <div class="admin__field-control control">
 <!-- ko scope: '<?= $block->getScopeName() ?>' -->
-    <!-- ko foreach: { data: elems, as: 'element' } -->
-        <!-- ko if: hasTemplate() -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-        <!-- /ko -->
-    <!-- /ko -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
 <!-- /ko -->
 </div>
