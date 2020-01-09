@@ -3,7 +3,7 @@
     $attributes = new \Magento\Framework\DataObject();
 ?>
 <div class="product info detailed">
-    <div class="product data items <?php echo $block->getTabsLayout();?>" data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}' id="swissup-easy-tabs">
+    <div class="product data items <?= $block->getTabsLayout() ?>" data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}' id="swissup-easy-tabs">
         <?php foreach ($block->prepareTabsData() as $_index => $_tab) : ?>
             <?php
                 $alias = $_tab['alias'];
@@ -20,8 +20,8 @@
                     );
                 }
             ?>
-            <div class="data item title <?php echo $isExpanded ? 'active' : ''?>"
-                aria-labeledby="tab-label-<?php /* @escapeNotVerified */ echo $alias;?>-title"
+            <div class="data item title <?= $isExpanded ? 'active' : '' ?>"
+                aria-labeledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
                 data-role="collapsible"
                 id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
             <?php if ($isExpanded): ?>
