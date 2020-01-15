@@ -50,7 +50,8 @@ class Attribute extends Template implements IdentityInterface
      */
     public function getAttributeCodes()
     {
-        return $this->getWidgetIdentifier();
+        $value = $this->getWidgetIdentifier();
+        return is_array($value) ? $value : [$value];
     }
 
     /**
