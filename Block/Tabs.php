@@ -289,7 +289,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
                 continue;
             }
 
-            $_tab['child_html'] = $_tab['is_ajax'] ? '' : $childHtml;
+            $_tab['child_html'] = $childHtml;
             $_tab['title'] = $this->getTabTitle($_tab);
             $tabs[$_index] = $_tab;
         }

@@ -36,7 +36,7 @@
             <?php endif ?>
             </div>
             <div class="data item content" id="<?= /* @escapeNotVerified */ $alias; ?>" data-role="content">
-                <?= /* @escapeNotVerified */ $_tab['child_html'] ?>
+                <?= /* @escapeNotVerified */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
             </div>
         <?php endforeach; ?>
     </div>
