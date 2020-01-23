@@ -8,7 +8,9 @@ class Cms extends \Magento\Framework\View\Element\Template
 {
     public function getCmsBlockId()
     {
-        return $this->getWidgetIdentifier();
+        $id = $this->getWidgetIdentifier();
+        $id = is_array($id) ? reset($id) : $id;
+        return $id;
     }
     /**
      * Return unique ID(s) for each object in system
