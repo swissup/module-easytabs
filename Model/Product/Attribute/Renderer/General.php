@@ -32,7 +32,7 @@ class General
         return $this->helper->productAttribute(
             $product,
             $attribute->getFrontend()->getValue($product),
-            $attribute->getCode()
+            $attribute->getAttributeCode()
         );
     }
 }
