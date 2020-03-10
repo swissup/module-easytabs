@@ -222,9 +222,24 @@
                 </item>
             </argument>
         </column>
-        <column name="block">
+        <column name="block" class="Swissup\Easytabs\Ui\Component\Listing\Column\Block">
             <argument name="data" xsi:type="array">
+                <item name="render_settings" xsi:type="array">
+                    <item name="source" xsi:type="object">Swissup\Easytabs\Ui\DataProvider\Form\BlockTypes</item>
+                    <item name="css" xsi:type="array">
+                        <item name="Magento\Catalog\Block\Product\View\Description" xsi:type="string">background: #c3daf9; border-color: #007bdb; color: #007bdb;</item>
+                        <item name="Magento\Catalog\Block\Product\View\Attributes" xsi:type="string">background: #f3c98b; border-color: #ad7119; color: #ad7119;</item>
+                        <item name="Swissup\Easytabs\Block\Tab\Product\Review" xsi:type="string">background: #f7bfce; border-color: #6f5768; color: #6f5768;</item>
+                        <item name="Magento\Catalog\Block\Product\ProductList\Upsell" xsi:type="string">background: #e0f7f4; border-color: #069893; color: #069893;</item>
+                        <item name="Magento\Catalog\Block\Product\ProductList\Related" xsi:type="string">background: #e6e7ff; border-color: #857ee2; color: #857ee2;</item>
+                        <item name="Swissup\Easytabs\Block\Tab\Template" xsi:type="string">background: #cff5db; border-color: #1da94a; color: #1da94a;</item>
+                        <item name="Swissup\Easytabs\Block\Tab\Html" xsi:type="string">background: #cae5ea; border-color: #457d88; color: #457d88;</item>
+                        <item name="Swissup\Easytabs\Block\Tab\Cms" xsi:type="string">background: #f3f1c4; border-color: #b7b012; color: #b7b012;</item>
+                        <item name="Swissup\Easytabs\Block\Tab\Attribute" xsi:type="string">background: #ffcfbd; border-color: #ef6837; color: #ef6837;</item>
+                    </item>
+                </item>
                 <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="align" xsi:type="string">left</item>
                     <item name="label" xsi:type="string" translate="true">Block</item>
