@@ -48,6 +48,8 @@ define([
                     that._cancelFurtherPromiseCalls(content);
                     // Trigger mage-init execution.
                     content.trigger('contentUpdated');
+                    // apply ko binding
+                    content.applyBindings();
                     // Unset height for tab content.
                     content.css('height', '');
                     // Trigger event that content is loaded.
