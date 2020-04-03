@@ -5,6 +5,8 @@
         <swissup_easytabs>
             <product_tabs>
                 <layout>collapsed</layout>
+                <multipleCollapsible>0</multipleCollapsible>
+                <activeTabs>-1</activeTabs>
             </product_tabs>
         </swissup_easytabs>
         <swissup_amp>

@@ -13,6 +13,21 @@
                     <label>Layout</label>
                     <source_model>Swissup\Easytabs\Model\Config\Source\Layout</source_model>
                 </field>
+                <field id="multipleCollapsible" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Can open multiple tabs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="layout">accordion</field>
+                    </depends>
+                </field>
+                <field id="activeTabs" translate="label comment" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Open initially</label>
+                    <comment>Tab's index opened by default. Index starts with "0". All closed when value is "-1". You can set few indexes separating them with comma.</comment>
+                    <validate>no-whitespace required-entry</validate>
+                    <depends>
+                        <field id="layout">accordion</field>
+                    </depends>
+                </field>
             </group>
         </section>
     </system>

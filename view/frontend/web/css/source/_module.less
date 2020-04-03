@@ -12,6 +12,8 @@
 @easytabs-expanded-desktop-content__padding-right: .5rem;
 @easytabs-expanded-desktop-content__padding-bottom: 2rem;
 @easytabs-expanded-desktop-content__padding-left: .5rem;
+@easytabs-accordion-desktop-control__active__background-color: false;
+@easytabs-accordion-desktop-content__margin: -1px 0 -1px;
 
 @easytabs-loader-show: true;
 @easytabs-loader__width: 30px;
@@ -132,6 +134,29 @@
                          @easytabs-expanded-desktop-content__padding-right
                          @easytabs-expanded-desktop-content__padding-bottom
                          @easytabs-expanded-desktop-content__padding-left;
+            }
+        }
+
+        &.accordion {
+            .lib-data-accordion(
+                @_accordion-control-background-color-active: @easytabs-accordion-desktop-control__active__background-color,
+                @_accordion-content-margin: @easytabs-accordion-desktop-content__margin
+            );
+
+            & when (@accordion-control__border-bottom = false) {
+                .lib-css(border-bottom, @accordion-control__border-top);
+            }
+
+            > .item.title {
+                &.active > .switch,
+                &.active > .switch:focus,
+                &.active > .switch:hover {
+                    .lib-css(padding, @accordion-control__padding-top @accordion-control__padding-right @accordion-control__padding-bottom @accordion-control__padding-left);
+                }
+
+                a::after {
+                    display: block !important;
+                }
             }
         }
     }

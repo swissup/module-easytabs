@@ -255,22 +255,16 @@ class Tabs extends \Magento\Framework\View\Element\Template
         return $processor->filter($tab['title']);
     }
 
-    public function getInitOptions($json = '{}')
+    /**
+     * Get JSON string with settings for js widget
+     *
+     * @return string
+     */
+    public function getInitOptions()
     {
-        if (!$json) {
-            return '{}';
-        }
-
-        $options = json_decode($json, true);
-        $options['ajaxContent'] = true; // force ajax content option
-        if ($this->isExpanded()) {
-            $tabs = $this->getTabs();
-            $options['active'] = array_keys($tabs);
-            $options['multipleCollapsible'] = true;
-            $options['collapsible'] = false;
-        }
-
-        $json = json_encode($options, JSON_UNESCAPED_SLASHES);
+        $options = $this->getJsWidgetOptions();
+        $layout = $this->getTabsLayout();
+        $json = json_encode($options[$layout] ?? [], JSON_UNESCAPED_SLASHES);
 
         return $json;
     }
@@ -320,6 +314,41 @@ class Tabs extends \Magento\Framework\View\Element\Template
      * @return boolean
      */
     public function isExpanded() {
-        return $this->getTabsLayout() == 'expanded';
+        return $this->getTabsLayout() === 'expanded';
+    }
+
+    /**
+     * Is tabs layout accordion
+     *
+     * @return boolean
+     */
+    public function isAccordion() {
+        return $this->getTabsLayout() === 'accordion';
+    }
+
+    /**
+     * @return array
+     */
+    protected function getJsWidgetOptions()
+    {
+        return [
+            'collapsed' => [
+                'ajaxContent' => true,
+                'openedState' => 'active'
+            ],
+            'expanded' => [
+                'ajaxContent' => true,
+                'active' => array_keys($this->getTabs()),
+                'multipleCollapsible' => true,
+                'collapsible' => false,
+                'openedState' => 'active'
+            ],
+            'accordion' => [
+                'ajaxContent' => true,
+                'active' => [-1],
+                'collapsible' => true,
+                'openedState' => 'active'
+            ]
+        ];
     }
 }
