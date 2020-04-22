@@ -14,6 +14,8 @@
 @easytabs-expanded-desktop-content__padding-left: .5rem;
 @easytabs-accordion-desktop-control__active__background-color: false;
 @easytabs-accordion-desktop-content__margin: -1px 0 -1px;
+@easytabs-accordion-desktop-control__border-bottom: false;
+@easytabs-accordion-desktop-control__active__border-bottom: false;
 
 @easytabs-loader-show: true;
 @easytabs-loader__width: 30px;
@@ -148,10 +150,17 @@
             }
 
             > .item.title {
+                > .switch,
+                > .switch:focus,
+                > .switch:hover {
+                    .lib-css(border-bottom, @easytabs-accordion-desktop-control__border-bottom);
+                }
+
                 &.active > .switch,
                 &.active > .switch:focus,
                 &.active > .switch:hover {
                     .lib-css(padding, @accordion-control__padding-top @accordion-control__padding-right @accordion-control__padding-bottom @accordion-control__padding-left);
+                    .lib-css(border-bottom, @easytabs-accordion-desktop-control__active__border-bottom);
                 }
 
                 a::after {
