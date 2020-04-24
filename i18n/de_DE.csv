@@ -1,1 +1,32 @@
- 
+"Easy Tabs","Einfache Tabs"
+"Add New Tab","Neuen Tab hinzufügen"
+"Save Tab","Registerkarte ""Speichern"""
+"Delete Tab","Registerkarte löschen"
+"Edit Tab '%1'","Registerkarte '% 1' bearbeiten"
+"New Tab","Neue Registerkarte"
+"Tab Information","Registerkarte Informationen"
+Alias,Alias
+"Block Type",Blocktyp
+"Please select item(s).","Bitte wählen Sie Artikel aus."
+"Tab was deleted.","Tab wurde gelöscht."
+"Can't find a tab to delete.","Es kann keine Registerkarte zum Löschen gefunden werden."
+"Manage Tabs","Registerkarten verwalten"
+"This tab no longer exists.","Diese Registerkarte existiert nicht mehr."
+"Edit Tab","Registerkarte ""Bearbeiten"""
+"Manage Easy Tabs","Einfache Registerkarten verwalten"
+"Tab has been saved.","Tab wurde gespeichert."
+"Something went wrong while saving the tab.","Beim Speichern des Tabs ist ein Fehler aufgetreten."
+"Delete ""${ $.$data.title }""","Löschen Sie ""$ {$. $ Data.title}"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Sind Sie sicher, dass Sie einen Datensatz ""$ {$. $ Data.title}"" nicht löschen möchten?"
+"An error occured:","Es ist ein Fehler aufgetreten:"
+"Html content",HTML-Inhalt
+Unset,"Nicht eingestellt"
+"Custom Block","Benutzerdefinierter Block"
+"Product Desription",Produktbeschreibung
+"We Also Recommend","Wir empfehlen auch"
+"Product's Reviews",Produktbewertungen
+"Select Block...","Wählen Sie Block ..."
+"Delete items","Elemente löschen"
+"Are you sure you wan't to delete selected items?","Sind Sie sicher, dass Sie ausgewählte Elemente nicht löschen möchten?"
+"Enable items","Elemente aktivieren"
+"Disable items","Elemente deaktivieren"
