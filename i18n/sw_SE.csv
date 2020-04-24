@@ -1,1 +1,32 @@
- 
+"Easy Tabs","Enkla flikar"
+"Add New Tab","Lägg till ny flik"
+"Save Tab","Spara flik"
+"Delete Tab","Ta bort fliken"
+"Edit Tab '%1'","Redigera fliken '% 1'"
+"New Tab","Ny flik"
+"Tab Information",Flikinformation
+Alias,Alias
+"Block Type",Blocktyp
+"Please select item(s).","Välj objekt (er)."
+"Tab was deleted.","Fliken raderades."
+"Can't find a tab to delete.","Det går inte att hitta en flik att ta bort."
+"Manage Tabs","Hantera flikar"
+"This tab no longer exists.","Den här fliken finns inte längre."
+"Edit Tab","Redigera fliken"
+"Manage Easy Tabs","Hantera enkla flikar"
+"Tab has been saved.","Fliken har sparats."
+"Something went wrong while saving the tab.","Något gick fel när du sparat fliken."
+"Delete ""${ $.$data.title }""","Radera ""$ {$. $ Data.title}"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Är du säker på att du inte vill ta bort en post ""$ {$. $ Data.title}""?"
+"An error occured:","Ett fel inträffade:"
+"Html content",Html-innehåll
+Unset,unset
+"Custom Block","Anpassad block"
+"Product Desription",Produktbeskrivning
+"We Also Recommend","Vi rekommenderar också"
+"Product's Reviews","Produktens recensioner"
+"Select Block...","Välj Block ..."
+"Delete items","Ta bort objekt"
+"Are you sure you wan't to delete selected items?","Är du säker på att du inte vill ta bort markerade objekt?"
+"Enable items","Aktivera artiklar"
+"Disable items","Inaktivera objekt"
