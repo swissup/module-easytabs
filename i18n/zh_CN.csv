@@ -1,1 +1,32 @@
- 
+"Easy Tabs",简易标签
+"Add New Tab",添加新标签
+"Save Tab",保存标签
+"Delete Tab",删除标签
+"Edit Tab '%1'",编辑选项卡'％1'
+"New Tab",新标签
+"Tab Information",标签信息
+Alias,别名
+"Block Type",块类型
+"Please select item(s).",请选择项目。
+"Tab was deleted.",标签页已删除。
+"Can't find a tab to delete.",找不到要删除的标签。
+"Manage Tabs",管理标签
+"This tab no longer exists.",该标签不再存在。
+"Edit Tab",编辑标签
+"Manage Easy Tabs",管理简单标签
+"Tab has been saved.",标签已保存。
+"Something went wrong while saving the tab.",保存标签时出了点问题。
+"Delete ""${ $.$data.title }""","删除“ $ {$。$ data.title}”"
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","您确定要删除“ $ {$。$ data.title}”记录吗？"
+"An error occured:",发生错误：
+"Html content",HTML内容
+Unset,未设定
+"Custom Block",自定义块
+"Product Desription",产品说明
+"We Also Recommend",我们也推荐
+"Product's Reviews",产品评论
+"Select Block...",选择阻止...
+"Delete items",删除项目
+"Are you sure you wan't to delete selected items?",确定要删除所选项目吗？
+"Enable items",启用项目
+"Disable items",禁用项目
