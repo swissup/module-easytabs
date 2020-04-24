@@ -1,1 +1,32 @@
- 
+"Easy Tabs",簡単なタブ
+"Add New Tab",新しいタブを追加
+"Save Tab",タブを保存
+"Delete Tab",タブを削除
+"Edit Tab '%1'","タブ '％1'を編集"
+"New Tab",新しいタブ
+"Tab Information",タブ情報
+Alias,エイリアス
+"Block Type",ブロックタイプ
+"Please select item(s).",アイテムを選択してください。
+"Tab was deleted.",タブが削除されました。
+"Can't find a tab to delete.",削除するタブが見つかりません。
+"Manage Tabs",タブを管理する
+"This tab no longer exists.",このタブは存在しません。
+"Edit Tab",編集タブ
+"Manage Easy Tabs",簡単なタブを管理する
+"Tab has been saved.",タブが保存されました。
+"Something went wrong while saving the tab.",タブの保存中に問題が発生しました。
+"Delete ""${ $.$data.title }""","「$ {$。$ data.title}」を削除します"
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","「$ {$。$ data.title}」レコードを削除してもよろしいですか？"
+"An error occured:",エラーが発生した：
+"Html content",HTMLコンテンツ
+Unset,未設定
+"Custom Block",カスタムブロック
+"Product Desription",製品の説明
+"We Also Recommend",私たちもお勧め
+"Product's Reviews",製品のレビュー
+"Select Block...",ブロックを選択...
+"Delete items",アイテムを削除する
+"Are you sure you wan't to delete selected items?",選択したアイテムを削除してもよろしいですか？
+"Enable items",アイテムを有効にする
+"Disable items",アイテムを無効にする
