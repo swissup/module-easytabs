@@ -1,1 +1,32 @@
- 
+"Easy Tabs","Enkle faner"
+"Add New Tab","Legg til ny fane"
+"Save Tab","Lagre fane"
+"Delete Tab","Slett fane"
+"Edit Tab '%1'","Rediger fane '% 1'"
+"New Tab","Ny fane"
+"Tab Information",Tabulatorinformasjon
+Alias,Alias
+"Block Type",Blokkertype
+"Please select item(s).","Velg vare (r)."
+"Tab was deleted.","Fanen ble slettet."
+"Can't find a tab to delete.","Finner ikke en fane å slette."
+"Manage Tabs","Administrer faner"
+"This tab no longer exists.","Denne fanen eksisterer ikke lenger."
+"Edit Tab","Rediger fane"
+"Manage Easy Tabs","Administrer enkle faner"
+"Tab has been saved.","Fanen er lagret."
+"Something went wrong while saving the tab.","Noe gikk galt mens du lagret fanen."
+"Delete ""${ $.$data.title }""","Slett ""$ {$. $ Data.title}"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Er du sikker på at du ikke vil slette en post ""$ {$. $ Data.title}""?"
+"An error occured:","En feil oppstod:"
+"Html content",Html-innhold
+Unset,unset
+"Custom Block","Tilpasset blokkering"
+"Product Desription",Produktbeskrivelse
+"We Also Recommend","Vi anbefaler også"
+"Product's Reviews","Produktets anmeldelser"
+"Select Block...","Velg blokker ..."
+"Delete items","Slett elementer"
+"Are you sure you wan't to delete selected items?","Er du sikker på at du ikke vil slette valgte elementer?"
+"Enable items","Aktiver elementer"
+"Disable items","Deaktiver elementer"
