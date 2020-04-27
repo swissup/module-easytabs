@@ -2,7 +2,7 @@
 "Add New Tab","Dodaj nową kartę"
 "Save Tab","Zapisz kartę"
 "Delete Tab","Usuń kartę"
-"Edit Tab '%1'","Edytuj kartę „% 1”"
+"Edit Tab '%1'","Edytuj kartę „%1”"
 "New Tab","Nowa karta"
 "Tab Information","Informacje o zakładce"
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Zarządzaj łatwymi kartami"
 "Tab has been saved.","Karta została zapisana."
 "Something went wrong while saving the tab.","Coś poszło nie tak podczas zapisywania karty."
-"Delete ""${ $.$data.title }""","Usuń „$ {$. $ Data.title}”"
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Czy na pewno nie chcesz usunąć rekordu „$ {$. $ Data.title}”?"
+"Delete ""${ $.$data.title }""","Usuń „${ $.$data.title }”"
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Czy na pewno nie chcesz usunąć rekordu „${ $.$data.title }”?"
 "An error occured:","Wystąpił błąd:"
 "Html content","Treść HTML"
 Unset,Nieoprawny
