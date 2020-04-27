@@ -2,7 +2,7 @@
 "Add New Tab","Nieuw tabblad toevoegen"
 "Save Tab","Tabblad opslaan"
 "Delete Tab","Tabblad verwijderen"
-"Edit Tab '%1'","Tabblad% 1 bewerken"
+"Edit Tab '%1'","Tabblad %1 bewerken"
 "New Tab","Nieuw tabblad"
 "Tab Information","Tabblad Informatie"
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Beheer Easy Tabs"
 "Tab has been saved.","Tabblad is opgeslagen."
 "Something went wrong while saving the tab.","Er is iets misgegaan bij het opslaan van het tabblad."
-"Delete ""${ $.$data.title }""","'$ {$. $ Data.title}' verwijderen"
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Weet u zeker dat u een record ""$ {$. $ Data.title}"" niet wilt verwijderen?"
+"Delete ""${ $.$data.title }""","'${ $.$data.title }' verwijderen"
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Weet u zeker dat u een record ""${ $.$data.title }"" niet wilt verwijderen?"
 "An error occured:","Er is een fout opgetreden:"
 "Html content",HTML-inhoud
 Unset,Uitgeschakeld
