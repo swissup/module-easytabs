@@ -2,7 +2,7 @@
 "Add New Tab","Lägg till ny flik"
 "Save Tab","Spara flik"
 "Delete Tab","Ta bort fliken"
-"Edit Tab '%1'","Redigera fliken '% 1'"
+"Edit Tab '%1'","Redigera fliken '%1'"
 "New Tab","Ny flik"
 "Tab Information",Flikinformation
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Hantera enkla flikar"
 "Tab has been saved.","Fliken har sparats."
 "Something went wrong while saving the tab.","Något gick fel när du sparat fliken."
-"Delete ""${ $.$data.title }""","Radera ""$ {$. $ Data.title}"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Är du säker på att du inte vill ta bort en post ""$ {$. $ Data.title}""?"
+"Delete ""${ $.$data.title }""","Radera ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Är du säker på att du inte vill ta bort en post ""${ $.$data.title }""?"
 "An error occured:","Ett fel inträffade:"
 "Html content",Html-innehåll
 Unset,unset
