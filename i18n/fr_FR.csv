@@ -2,7 +2,7 @@
 "Add New Tab","Ajouter un nouvel onglet"
 "Save Tab","Onglet Enregistrer"
 "Delete Tab","Supprimer l'onglet"
-"Edit Tab '%1'","Modifier l'onglet '% 1'"
+"Edit Tab '%1'","Modifier l'onglet '%1'"
 "New Tab","Nouvel onglet"
 "Tab Information","Informations sur l'onglet"
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Gérer les onglets faciles"
 "Tab has been saved.","L'onglet a été enregistré."
 "Something went wrong while saving the tab.","Une erreur s'est produite lors de l'enregistrement de l'onglet."
-"Delete ""${ $.$data.title }""","Supprimer ""$ {$. $ Data.title}"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Voulez-vous vraiment supprimer un enregistrement ""$ {$. $ Data.title}""?"
+"Delete ""${ $.$data.title }""","Supprimer ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Voulez-vous vraiment supprimer un enregistrement ""${ $.$data.title }""?"
 "An error occured:","Une erreur s'est produite:"
 "Html content","Contenu HTML"
 Unset,Désarmé
