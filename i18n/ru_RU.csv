@@ -2,10 +2,10 @@
 "Add New Tab","Добавить новую вкладку"
 "Save Tab","Сохранить вкладку"
 "Delete Tab","Удалить вкладку"
-"Edit Tab '%1'","Редактировать вкладку ""% 1"""
+"Edit Tab '%1'","Редактировать вкладку ""%1"""
 "New Tab","Новая вкладка"
 "Tab Information","Информация о вкладке"
-Alias,кличка
+Alias,Алиас
 "Block Type","Тип блока"
 "Please select item(s).","Пожалуйста, выберите пункт (ы)."
 "Tab was deleted.","Вкладка была удалена."
@@ -16,8 +16,8 @@ Alias,кличка
 "Manage Easy Tabs","Управление Easy Tabs"
 "Tab has been saved.","Вкладка была сохранена."
 "Something went wrong while saving the tab.","Что-то пошло не так при сохранении вкладки."
-"Delete ""${ $.$data.title }""","Удалить ""$ {$. $ Data.title}"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Вы уверены, что не хотите удалять запись ""$ {$. $ Data.title}""?"
+"Delete ""${ $.$data.title }""","Удалить ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Вы уверены, что не хотите удалять запись ""${ $.$data.title }""?"
 "An error occured:","Произошла ошибка:"
 "Html content","Содержание HTML"
 Unset,Отозвать
