@@ -2,7 +2,7 @@
 "Add New Tab","Añadir nueva pestaña"
 "Save Tab","Guardar pestaña"
 "Delete Tab","Eliminar pestaña"
-"Edit Tab '%1'","Pestaña Editar '% 1'"
+"Edit Tab '%1'","Pestaña Editar '%1'"
 "New Tab","Nueva pestaña"
 "Tab Information","Información de pestaña"
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Administrar pestañas fáciles"
 "Tab has been saved.","La pestaña se ha guardado."
 "Something went wrong while saving the tab.","Algo salió mal al guardar la pestaña."
-"Delete ""${ $.$data.title }""","Eliminar ""$ {$. $ Data.title}"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","¿Está seguro de que no desea eliminar un registro ""$ {$. $ Data.title}""?"
+"Delete ""${ $.$data.title }""","Eliminar ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","¿Está seguro de que no desea eliminar un registro ""${ $.$data.title }""?"
 "An error occured:","Ocurrió un error:"
 "Html content","Contenido HTML"
 Unset,Desarmar
