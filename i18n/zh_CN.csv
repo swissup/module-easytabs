@@ -16,8 +16,8 @@ Alias,别名
 "Manage Easy Tabs",管理简单标签
 "Tab has been saved.",标签已保存。
 "Something went wrong while saving the tab.",保存标签时出了点问题。
-"Delete ""${ $.$data.title }""","删除“ $ {$。$ data.title}”"
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","您确定要删除“ $ {$。$ data.title}”记录吗？"
+"Delete ""${ $.$data.title }""","删除“ ${ $.$data.title }”"
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","您确定要删除“ ${ $.$data.title }”记录吗？"
 "An error occured:",发生错误：
 "Html content",HTML内容
 Unset,未设定
