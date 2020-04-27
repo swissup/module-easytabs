@@ -2,7 +2,7 @@
 "Add New Tab","Neuen Tab hinzufügen"
 "Save Tab","Registerkarte ""Speichern"""
 "Delete Tab","Registerkarte löschen"
-"Edit Tab '%1'","Registerkarte '% 1' bearbeiten"
+"Edit Tab '%1'","Registerkarte '%1' bearbeiten"
 "New Tab","Neue Registerkarte"
 "Tab Information","Registerkarte Informationen"
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Einfache Registerkarten verwalten"
 "Tab has been saved.","Tab wurde gespeichert."
 "Something went wrong while saving the tab.","Beim Speichern des Tabs ist ein Fehler aufgetreten."
-"Delete ""${ $.$data.title }""","Löschen Sie ""$ {$. $ Data.title}"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Sind Sie sicher, dass Sie einen Datensatz ""$ {$. $ Data.title}"" nicht löschen möchten?"
+"Delete ""${ $.$data.title }""","Löschen Sie ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Sind Sie sicher, dass Sie einen Datensatz ""${ $.$data.title }"" nicht löschen möchten?"
 "An error occured:","Es ist ein Fehler aufgetreten:"
 "Html content",HTML-Inhalt
 Unset,"Nicht eingestellt"
