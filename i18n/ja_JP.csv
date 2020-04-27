@@ -16,8 +16,8 @@ Alias,エイリアス
 "Manage Easy Tabs",簡単なタブを管理する
 "Tab has been saved.",タブが保存されました。
 "Something went wrong while saving the tab.",タブの保存中に問題が発生しました。
-"Delete ""${ $.$data.title }""","「$ {$。$ data.title}」を削除します"
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","「$ {$。$ data.title}」レコードを削除してもよろしいですか？"
+"Delete ""${ $.$data.title }""","「${ $.$data.title }」を削除します"
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","「${ $.$data.title }」レコードを削除してもよろしいですか？"
 "An error occured:",エラーが発生した：
 "Html content",HTMLコンテンツ
 Unset,未設定
