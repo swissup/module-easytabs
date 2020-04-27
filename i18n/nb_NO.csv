@@ -2,7 +2,7 @@
 "Add New Tab","Legg til ny fane"
 "Save Tab","Lagre fane"
 "Delete Tab","Slett fane"
-"Edit Tab '%1'","Rediger fane '% 1'"
+"Edit Tab '%1'","Rediger fane '%1'"
 "New Tab","Ny fane"
 "Tab Information",Tabulatorinformasjon
 Alias,Alias
@@ -16,8 +16,8 @@ Alias,Alias
 "Manage Easy Tabs","Administrer enkle faner"
 "Tab has been saved.","Fanen er lagret."
 "Something went wrong while saving the tab.","Noe gikk galt mens du lagret fanen."
-"Delete ""${ $.$data.title }""","Slett ""$ {$. $ Data.title}"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Er du sikker på at du ikke vil slette en post ""$ {$. $ Data.title}""?"
+"Delete ""${ $.$data.title }""","Slett ""${ $.$data.title }"""
+"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Er du sikker på at du ikke vil slette en post ""${ $.$data.title }""?"
 "An error occured:","En feil oppstod:"
 "Html content",Html-innhold
 Unset,unset
