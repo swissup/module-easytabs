@@ -10,7 +10,7 @@ class EasytabsActions extends Column
 {
     /** Url path */
     const URL_PATH_EDIT = 'easytabs/index/edit';
-    const URL_PATH_DELETE = 'easytabs/index/delete';
+    const URL_PATH_DELETE = 'easytabs/index/massDelete';
 
     /** @var UrlInterface */
     protected $urlBuilder;
@@ -58,7 +58,8 @@ class EasytabsActions extends Column
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
                                 [
-                                    'tab_id' => $item['tab_id']
+                                    'tab_id' => $item['tab_id'],
+                                    'namespace' => 'easytabs_index_listing'
                                 ]
                             ),
                             'label' => __('Delete'),
