@@ -1,8 +1,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceBlock name="product.info.details" remove="true" />
+        <!-- <referenceBlock name="product.info.details" remove="true" /> -->
         <referenceContainer name="content">
-            <block class="Swissup\Easytabs\Block\ProductTabs" name="product.info.tabs" as="info_tabs" template="Swissup_Easytabs::tabs.phtml" after="product.info.media" />
+            <block class="Swissup\Easytabs\Block\ProductTabs" name="product.info.tabs" as="info_tabs" template="Swissup_Easytabs::tabs.phtml" after="product.info.media" ifconfig="swissup_easytabs/product_tabs/enabled" />
         </referenceContainer>
     </body>
 </page>

@@ -9,6 +9,11 @@
             <resource>Swissup_Easytabs::Easytabs_config</resource>
             <group id="product_tabs" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product page tabs</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <comment>Replace default Magento tabs with powerful tabs from Swissup.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="layout" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Layout</label>
                     <source_model>Swissup\Easytabs\Model\Config\Source\Layout</source_model>

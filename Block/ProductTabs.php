@@ -6,6 +6,19 @@ use Magento\Store\Model\ScopeInterface;
 class ProductTabs extends Tabs
 {
     /**
+     * {@inheritdocs}
+     */
+    protected function _prepareLayout()
+    {
+        $defaultTabs = $this->getLayout()->getBlock('product.info.details');
+        if ($defaultTabs) {
+            $defaultTabs->setTemplate('');
+        }
+
+        return parent::_prepareLayout();
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function _getCollection()

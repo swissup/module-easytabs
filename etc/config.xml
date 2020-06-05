@@ -4,6 +4,7 @@
     <default>
         <swissup_easytabs>
             <product_tabs>
+                <enabled>1</enabled>
                 <layout>collapsed</layout>
                 <multipleCollapsible>0</multipleCollapsible>
                 <activeTabs>-1</activeTabs>
