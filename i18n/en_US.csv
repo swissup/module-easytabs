@@ -22,7 +22,7 @@ Alias,Alias
 "Html content","Html content"
 Unset,Unset
 "Custom Block","Custom Block"
-"Product Desription","Product Desription"
+"Product Description","Product Description"
 "We Also Recommend","We Also Recommend"
 "Product's Reviews","Product's Reviews"
 "Select Block...","Select Block..."
@@ -31,3 +31,4 @@ Unset,Unset
 "Enable items","Enable items"
 "Disable items","Disable items"
 "Replace default Magento tabs with powerful tabs from Swissup.","Replace default Magento tabs with powerful tabs from Swissup."
+"Show product description in tab","Show product description in tab"
