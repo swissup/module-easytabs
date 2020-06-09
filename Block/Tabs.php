@@ -168,6 +168,10 @@ class Tabs extends \Magento\Framework\View\Element\Template
                 }
             }
 
+            if ($this->getLayout()->getBlock($alias)) {
+                $this->getLayout()->unsetElement($alias);
+            }
+
             try {
                 $block = $this->getLayout()
                     ->createBlock($block, $alias, ['data' => $attributes])
