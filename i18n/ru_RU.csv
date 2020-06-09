@@ -17,7 +17,7 @@ Alias,Алиас
 "Tab has been saved.","Вкладка была сохранена."
 "Something went wrong while saving the tab.","Что-то пошло не так при сохранении вкладки."
 "Delete ""${ $.$data.title }""","Удалить ""${ $.$data.title }"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Вы уверены, что не хотите удалять запись ""${ $.$data.title }""?"
+"Are you sure you want to delete a ""${ $.$data.title }"" record?","Вы уверены, что не хотите удалять запись ""${ $.$data.title }""?"
 "An error occured:","Произошла ошибка:"
 "Html content","Содержание HTML"
 Unset,Отозвать
@@ -27,6 +27,6 @@ Unset,Отозвать
 "Product's Reviews","Отзывы о товаре"
 "Select Block...","Выбрать блок ..."
 "Delete items","Удалить элементы"
-"Are you sure you wan't to delete selected items?","Вы уверены, что не хотите удалять выбранные элементы?"
+"Are you sure you want to delete selected items?","Вы уверены, что не хотите удалять выбранные элементы?"
 "Enable items","Включить элементы"
 "Disable items","Отключить предметы"

@@ -17,7 +17,7 @@ Alias,Alias
 "Tab has been saved.","L'onglet a été enregistré."
 "Something went wrong while saving the tab.","Une erreur s'est produite lors de l'enregistrement de l'onglet."
 "Delete ""${ $.$data.title }""","Supprimer ""${ $.$data.title }"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Voulez-vous vraiment supprimer un enregistrement ""${ $.$data.title }""?"
+"Are you sure you want to delete a ""${ $.$data.title }"" record?","Voulez-vous vraiment supprimer un enregistrement ""${ $.$data.title }""?"
 "An error occured:","Une erreur s'est produite:"
 "Html content","Contenu HTML"
 Unset,Désarmé
@@ -27,6 +27,6 @@ Unset,Désarmé
 "Product's Reviews","Avis sur le produit"
 "Select Block...","Sélectionnez Bloquer ..."
 "Delete items","Supprimer des éléments"
-"Are you sure you wan't to delete selected items?","Voulez-vous vraiment supprimer les éléments sélectionnés?"
+"Are you sure you want to delete selected items?","Voulez-vous vraiment supprimer les éléments sélectionnés?"
 "Enable items","Activer les éléments"
 "Disable items","Désactiver les éléments"

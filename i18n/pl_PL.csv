@@ -17,7 +17,7 @@ Alias,Alias
 "Tab has been saved.","Karta została zapisana."
 "Something went wrong while saving the tab.","Coś poszło nie tak podczas zapisywania karty."
 "Delete ""${ $.$data.title }""","Usuń „${ $.$data.title }”"
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","Czy na pewno nie chcesz usunąć rekordu „${ $.$data.title }”?"
+"Are you sure you want to delete a ""${ $.$data.title }"" record?","Czy na pewno nie chcesz usunąć rekordu „${ $.$data.title }”?"
 "An error occured:","Wystąpił błąd:"
 "Html content","Treść HTML"
 Unset,Nieoprawny
@@ -27,6 +27,6 @@ Unset,Nieoprawny
 "Product's Reviews","Recenzje produktu"
 "Select Block...","Wybierz Blokuj ..."
 "Delete items","Usuń elementy"
-"Are you sure you wan't to delete selected items?","Czy na pewno nie chcesz usunąć wybranych elementów?"
+"Are you sure you want to delete selected items?","Czy na pewno nie chcesz usunąć wybranych elementów?"
 "Enable items","Włącz elementy"
 "Disable items","Wyłącz przedmioty"

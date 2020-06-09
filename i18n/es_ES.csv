@@ -17,7 +17,7 @@ Alias,Alias
 "Tab has been saved.","La pestaña se ha guardado."
 "Something went wrong while saving the tab.","Algo salió mal al guardar la pestaña."
 "Delete ""${ $.$data.title }""","Eliminar ""${ $.$data.title }"""
-"Are you sure you wan't to delete a ""${ $.$data.title }"" record?","¿Está seguro de que no desea eliminar un registro ""${ $.$data.title }""?"
+"Are you sure you want to delete a ""${ $.$data.title }"" record?","¿Está seguro de que no desea eliminar un registro ""${ $.$data.title }""?"
 "An error occured:","Ocurrió un error:"
 "Html content","Contenido HTML"
 Unset,Desarmar
@@ -27,6 +27,6 @@ Unset,Desarmar
 "Product's Reviews","Comentarios del producto"
 "Select Block...","Seleccionar bloque ..."
 "Delete items","Eliminar objetos"
-"Are you sure you wan't to delete selected items?","¿Estás seguro de que no quieres eliminar los elementos seleccionados?"
+"Are you sure you want to delete selected items?","¿Estás seguro de que no quieres eliminar los elementos seleccionados?"
 "Enable items","Habilitar elementos"
 "Disable items","Deshabilitar elementos"
