@@ -30,19 +30,6 @@ class Ajax extends Tabs
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getCacheKeyInfo()
-    {
-        return [
-            'EASYTABS_AJAX',
-            $this->_storeManager->getStore()->getCode(),
-            'tab' => $this->getTab(),
-            'product_id' => $this->getProductId()
-        ];
-    }
-
-    /**
      * Get tab alias from request.
      *
      * @return string
