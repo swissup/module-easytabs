@@ -2,9 +2,6 @@
 namespace Swissup\Easytabs\Controller\Adminhtml\Index;
 
 use Magento\Backend\Model\Session;
-use Magento\Framework\App\Cache\TypeListInterface;
-use Magento\Framework\App\Cache\Type\Block as TypeBlock;
-use Magento\PageCache\Model\Cache\Type as TypeFpc;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -64,7 +61,6 @@ class Save extends \Magento\Backend\App\Action
                 $model->save();
                 $this->messageManager->addSuccess(__('Tab has been saved.'));
                 $this->_objectManager->get(Session::class)->setFormData(false);
-                $this->invalidateCache();
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath('*/*/edit', ['tab_id' => $model->getId(), '_current' => true]);
                 }
@@ -81,15 +77,5 @@ class Save extends \Magento\Backend\App\Action
             return $resultRedirect->setPath('*/*/edit', ['tab_id' => $this->getRequest()->getParam('tab_id')]);
         }
         return $resultRedirect->setPath('*/*/');
-    }
-
-    /**
-     * Invalidate block html and fpc cache on tab save.
-     */
-    protected function invalidateCache()
-    {
-        $cacheTypeList = $this->_objectManager->get(TypeListInterface::class);
-        $cacheTypeList->invalidate(TypeBlock::TYPE_IDENTIFIER);
-        $cacheTypeList->invalidate(TypeFpc::TYPE_IDENTIFIER);
     }
 }
