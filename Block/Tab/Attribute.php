@@ -1,12 +1,11 @@
 <?php
 namespace Swissup\Easytabs\Block\Tab;
 
-use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\ResourceModel\Eav\Attribute as ProductAttribute;
 
-class Attribute extends Template implements IdentityInterface
+class Attribute extends Template
 {
     /**
      * @var Magento\Catalog\Model\Product
@@ -99,15 +98,5 @@ class Attribute extends Template implements IdentityInterface
         $attribute = $product->getResource()->getAttribute($attributeCode);
 
         return $attribute->getFrontend()->getLocalizedLabel();
-    }
-
-    /**
-     * Return unique ID(s) for each object in system
-     *
-     * @return array
-     */
-    public function getIdentities()
-    {
-        return [\Swissup\Easytabs\Model\Entity::CACHE_TAG . '_' . implode('_', $this->getAttributeCodes())];
     }
 }

@@ -1,10 +1,7 @@
 <?php
 namespace Swissup\Easytabs\Block\Tab;
 
-use Magento\Framework\DataObject\IdentityInterface;
-
 class Html extends \Magento\Framework\View\Element\Template
-     implements IdentityInterface
 {
     /**
      * @var \Magento\Cms\Model\Template\FilterProvider
@@ -35,14 +32,5 @@ class Html extends \Magento\Framework\View\Element\Template
             ->setStoreId($storeId)
             ->filter($this->getWidgetContent());
         return $html;
-    }
-    /**
-     * Return unique ID(s) for each object in system
-     *
-     * @return array
-     */
-    public function getIdentities()
-    {
-        return [\Swissup\Easytabs\Model\Entity::CACHE_TAG . '_' . $this->getNameInLayout()];
     }
 }

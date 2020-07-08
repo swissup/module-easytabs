@@ -1,10 +1,7 @@
 <?php
 namespace Swissup\Easytabs\Block\Tab;
 
-use Magento\Framework\DataObject\IdentityInterface;
-
 class Template extends \Magento\Framework\View\Element\Template
-     implements IdentityInterface
 {
     protected function _prepareLayout()
     {
@@ -28,15 +25,5 @@ class Template extends \Magento\Framework\View\Element\Template
     public function getTabBlock()
     {
         return $this->getChildBlock($this->getNameInLayout() . '_tab');
-    }
-
-    /**
-     * Return unique ID(s) for each object in system
-     *
-     * @return array
-     */
-    public function getIdentities()
-    {
-        return [\Swissup\Easytabs\Model\Entity::CACHE_TAG . '_' . $this->getNameInLayout()];
     }
 }
