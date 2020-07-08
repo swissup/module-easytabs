@@ -1,12 +1,13 @@
 <?php
 namespace Swissup\Easytabs\Block;
 
+use Magento\Framework\DataObject\IdentityInterface;
 use Swissup\Easytabs\Api\Data\EntityInterface;
-use Swissup\Easytabs\Model\Entity as TabsModel;
+use Swissup\Easytabs\Model\Entity as TabModel;
 use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
 use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory as TabsCollectionFactory;
 
-class Tabs extends \Magento\Framework\View\Element\Template
+class Tabs extends \Magento\Framework\View\Element\Template implements IdentityInterface
 {
     /**
      * {@inheritdocs}
@@ -71,7 +72,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
         $storeId = $this->_storeManager->getStore()->getId();
         return $collection
             ->addOrder(EntityInterface::SORT_ORDER, TabsCollection::SORT_ORDER_DESC)
-            ->addStatusFilter(TabsModel::STATUS_ENABLED)
+            ->addStatusFilter(TabModel::STATUS_ENABLED)
             ->addStoreFilter($storeId);
     }
 
@@ -185,6 +186,7 @@ class Tabs extends \Magento\Framework\View\Element\Template
         }
 
         $tab = [
+            'id' => $attributes['tab_id'] ?? '',
             'alias' => $alias,
             'title' => $title,
             'is_ajax' => $isAjax
@@ -354,5 +356,19 @@ class Tabs extends \Magento\Framework\View\Element\Template
                 'openedState' => 'active'
             ]
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdentities()
+    {
+        $result = [];
+
+        foreach ($this->getTabs() as $tab) {
+            $result[] = TabModel::CACHE_TAG . '_' . $tab['id'];
+        }
+
+        return $result;
     }
 }
