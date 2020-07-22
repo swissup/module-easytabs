@@ -43,6 +43,11 @@
 
         .product.data.items {
             .item.content {
+                display: none;
+                &:nth-child(2) {
+                    display: block;
+                }
+
                 &::before {
                     opacity: 0;
                     transition: opacity @easytabs-loader__spin-time ease-in-out;
