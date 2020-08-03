@@ -16,8 +16,6 @@ Alias,Alias
 "Manage Easy Tabs","Gerenciar guias fáceis"
 "Tab has been saved.","A guia foi salva."
 "Something went wrong while saving the tab.","Ocorreu um erro ao salvar a guia."
-"Delete ""${ $.$data.title }""","Excluir ""${ $.$data.title }"""
-"Are you sure you want to delete a ""${ $.$data.title }"" record?","Tem certeza de que não deseja excluir um registro ""${ $.$data.title }""?"
 "An error occured:","Um erro ocorreu:"
 "Html content","Conteúdo HTML"
 Unset,Desativar
@@ -27,6 +25,5 @@ Unset,Desativar
 "Product's Reviews","Revisões do produto"
 "Select Block...","Selecione Bloquear ..."
 "Delete items","Excluir itens"
-"Are you sure you want to delete selected items?","Tem certeza de que não deseja excluir os itens selecionados?"
 "Enable items","Ativar itens"
 "Disable items","Desativar itens"

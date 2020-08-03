@@ -16,8 +16,6 @@ Alias,Alias
 "Manage Easy Tabs","Hantera enkla flikar"
 "Tab has been saved.","Fliken har sparats."
 "Something went wrong while saving the tab.","Något gick fel när du sparat fliken."
-"Delete ""${ $.$data.title }""","Radera ""${ $.$data.title }"""
-"Are you sure you want to delete a ""${ $.$data.title }"" record?","Är du säker på att du inte vill ta bort en post ""${ $.$data.title }""?"
 "An error occured:","Ett fel inträffade:"
 "Html content",Html-innehåll
 Unset,unset
@@ -27,6 +25,5 @@ Unset,unset
 "Product's Reviews","Produktens recensioner"
 "Select Block...","Välj Block ..."
 "Delete items","Ta bort objekt"
-"Are you sure you want to delete selected items?","Är du säker på att du inte vill ta bort markerade objekt?"
 "Enable items","Aktivera artiklar"
 "Disable items","Inaktivera objekt"

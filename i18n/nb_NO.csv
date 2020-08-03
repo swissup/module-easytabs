@@ -16,8 +16,6 @@ Alias,Alias
 "Manage Easy Tabs","Administrer enkle faner"
 "Tab has been saved.","Fanen er lagret."
 "Something went wrong while saving the tab.","Noe gikk galt mens du lagret fanen."
-"Delete ""${ $.$data.title }""","Slett ""${ $.$data.title }"""
-"Are you sure you want to delete a ""${ $.$data.title }"" record?","Er du sikker på at du ikke vil slette en post ""${ $.$data.title }""?"
 "An error occured:","En feil oppstod:"
 "Html content",Html-innhold
 Unset,unset
@@ -27,6 +25,5 @@ Unset,unset
 "Product's Reviews","Produktets anmeldelser"
 "Select Block...","Velg blokker ..."
 "Delete items","Slett elementer"
-"Are you sure you want to delete selected items?","Er du sikker på at du ikke vil slette valgte elementer?"
 "Enable items","Aktiver elementer"
 "Disable items","Deaktiver elementer"

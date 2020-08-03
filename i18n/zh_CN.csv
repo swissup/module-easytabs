@@ -16,8 +16,6 @@ Alias,别名
 "Manage Easy Tabs",管理简单标签
 "Tab has been saved.",标签已保存。
 "Something went wrong while saving the tab.",保存标签时出了点问题。
-"Delete ""${ $.$data.title }""","删除“ ${ $.$data.title }”"
-"Are you sure you want to delete a ""${ $.$data.title }"" record?","您确定要删除“ ${ $.$data.title }”记录吗？"
 "An error occured:",发生错误：
 "Html content",HTML内容
 Unset,未设定
@@ -27,6 +25,5 @@ Unset,未设定
 "Product's Reviews",产品评论
 "Select Block...",选择阻止...
 "Delete items",删除项目
-"Are you sure you want to delete selected items?",确定要删除所选项目吗？
 "Enable items",启用项目
 "Disable items",禁用项目

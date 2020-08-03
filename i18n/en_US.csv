@@ -16,8 +16,6 @@ Alias,Alias
 "Manage Easy Tabs","Manage Easy Tabs"
 "Tab has been saved.","Tab has been saved."
 "Something went wrong while saving the tab.","Something went wrong while saving the tab."
-"Delete ""${ $.$data.title }""","Delete ""${ $.$data.title }"""
-"Are you sure you want to delete a ""${ $.$data.title }"" record?","Are you sure you want to delete a ""${ $.$data.title }"" record?"
 "An error occured:","An error occured:"
 "Html content","Html content"
 Unset,Unset
@@ -27,7 +25,6 @@ Unset,Unset
 "Product's Reviews","Product's Reviews"
 "Select Block...","Select Block..."
 "Delete items","Delete items"
-"Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
 "Enable items","Enable items"
 "Disable items","Disable items"
 "Replace default Magento tabs with powerful tabs from Swissup.","Replace default Magento tabs with powerful tabs from Swissup."
