@@ -5,6 +5,17 @@ define([
 ], function ($, accordion) {
     'use strict';
 
+    /**
+     * Animated scroll to element
+     *
+     * @param  {jQuery} element
+     */
+    function _scrollAnimated(element) {
+        $('html, body').animate({
+            scrollTop: element.offset().top - 50
+        }, 300);
+    }
+
     $.widget('swissup.tabs', accordion, {
         options: {
             externalLink: '[data-action=activate-tab], .action[href*="\\#review"]',
@@ -73,9 +84,7 @@ define([
                 $('[data-role="content"]', that.element).each(function (index) {
                     if (this.id === anchor) {
                         that.element.tabs('activate', index);
-                        $('html, body').animate({
-                            scrollTop: $(this).offset().top - 50
-                        }, 300);
+                        _scrollAnimated(this);
                     }
                 });
             });
@@ -115,6 +124,26 @@ define([
                 title = document.getElementById(tabTitleId);
                 // cancel follow requests for tab
                 delete $(title).data('mageCollapsible').xhr;
+            }
+        },
+
+        /**
+         * {inheritdoc}
+         */
+        _instantiateCollapsible: function (element, index, active, disabled) {
+            var content = this.contents.eq(index),
+                anchor = window.location.hash;
+
+            this._super(element, index, active, disabled);
+
+            // Expand tab and scroll to it.
+            if (content.find(anchor).length > 0 ||
+                content.attr('id') === anchor.replace('#', '')
+            ) {
+                $(element).collapsible('forceActivate');
+                _scrollAnimated(
+                    content.find(anchor).length ? content.find(anchor) : content
+                );
             }
         },
 
