@@ -1,0 +1,5 @@
+<?php
+
+if ($block->getLayout() && $block->getLayout()->getBlock('reviews.list.tab')) {
+    echo $block->getLayout()->getBlock('reviews.list.tab')->toHtml();
+}
