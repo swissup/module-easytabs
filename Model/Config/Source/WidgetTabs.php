@@ -26,7 +26,9 @@ class WidgetTabs implements \Magento\Framework\Option\ArrayInterface
     public function toOptionArray()
     {
         $options[] = ['label' => '', 'value' => ''];
-        $widgetTabs = $this->tabsCollectionFactory->create()->addWidgetTabFilter();
+        $widgetTabs = $this->tabsCollectionFactory->create()
+            ->addStatusFilter(1)
+            ->addWidgetTabFilter();
         foreach ($widgetTabs as $tab) {
             $options[] = [
                 'label' => $tab->getTitle(),
