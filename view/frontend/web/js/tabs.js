@@ -16,6 +16,22 @@ define([
         }, 300);
     }
 
+    /**
+     * @param  {jQuery} context
+     */
+    function _updateFormKey(context)
+    {
+        var mageFormKey = $('body').data('mageFormKey'),
+            formKey;
+
+        if (!mageFormKey) {
+            return;
+        }
+
+        formKey = $.mage.cookies.get('form_key');
+        $(mageFormKey.options.inputSelector, context).val(formKey);
+    }
+
     $.widget('swissup.tabs', accordion, {
         options: {
             externalLink: '[data-action=activate-tab], .action[href*="\\#review"]',
@@ -65,6 +81,8 @@ define([
                     content.css('height', '');
                     // Trigger event that content is loaded.
                     content.trigger('easytabs:contentLoaded');
+                    // Update formkey
+                    _updateFormKey(content);
                 }
             );
         },
