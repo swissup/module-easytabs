@@ -45,7 +45,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected function _construct()
     {
         $this->_init('Swissup\Easytabs\Model\Entity', 'Swissup\Easytabs\Model\ResourceModel\Entity');
-        $this->_map['fields']['store'] = 'store_table.store_id';
+        $this->addFilterToMap('store', 'store_table.store_id');
+        $this->addFilterToMap('tab_id', 'main_table.tab_id');
     }
     /**
      * Perform operations after collection load
