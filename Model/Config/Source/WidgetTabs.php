@@ -13,8 +13,7 @@ class WidgetTabs implements \Magento\Framework\Option\ArrayInterface
      */
     public function __construct(
         \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory $tabsCollectionFactory
-    )
-    {
+    ) {
         $this->tabsCollectionFactory = $tabsCollectionFactory;
     }
 
