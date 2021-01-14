@@ -29,13 +29,14 @@ class WidgetTabs implements \Magento\Framework\Option\ArrayInterface
         $widgetTabs = $this->tabsCollectionFactory->create()
             ->addStatusFilter(1)
             ->addWidgetTabFilter();
+
         foreach ($widgetTabs as $tab) {
-            $options[] = [
+            $options[$tab->getAlias()] = [
                 'label' => $tab->getTitle(),
                 'value' => $tab->getAlias(),
             ];
         }
 
-        return $options;
+        return array_values($options);
     }
 }
