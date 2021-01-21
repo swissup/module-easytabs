@@ -1,10 +1,14 @@
 <?php
     $isExpanded = $block->isExpanded();
     $attributes = new \Magento\Framework\DataObject();
+    $tabs = $block->prepareTabsData();
+    if (!$tabs) {
+        return;
+    }
 ?>
 <div class="product info detailed">
     <div class="product data items <?= $block->getTabsLayout() ?>" data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}' id="swissup-easy-tabs">
-        <?php foreach ($block->prepareTabsData() as $_index => $_tab) : ?>
+        <?php foreach ($tabs as $_index => $_tab) : ?>
             <?php
                 $alias = $_tab['alias'];
                 $label = $_tab['title'];
