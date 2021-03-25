@@ -176,6 +176,12 @@
                     display: block !important;
                 }
             }
+
+            > .item.content {
+                &:not([aria-hidden]) {
+                    display: none;
+                }
+            }
         }
     }
 }
