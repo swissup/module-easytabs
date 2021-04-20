@@ -155,13 +155,17 @@ define([
             this._super(element, index, active, disabled);
 
             // Expand tab and scroll to it.
-            if (content.find(anchor).length > 0 ||
-                content.attr('id') === anchor.replace('#', '')
-            ) {
-                $(element).collapsible('forceActivate');
-                _scrollAnimated(
-                    content.find(anchor).length ? content.find(anchor) : content
-                );
+            try {
+                if (content.find(anchor).length > 0 ||
+                    content.attr('id') === anchor.replace('#', '')
+                ) {
+                    $(element).collapsible('forceActivate');
+                    _scrollAnimated(
+                        content.find(anchor).length ? content.find(anchor) : content
+                    );
+                }
+            } catch (err) {
+                console.warn(err);
             }
         },
 
