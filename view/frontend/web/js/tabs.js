@@ -21,15 +21,11 @@ define([
      */
     function _updateFormKey(context)
     {
-        var mageFormKey = $('body').data('mageFormKey'),
+        var inputSelector = 'input[name="form_key"]',
             formKey;
 
-        if (!mageFormKey) {
-            return;
-        }
-
         formKey = $.mage.cookies.get('form_key');
-        $(mageFormKey.options.inputSelector, context).val(formKey);
+        $(inputSelector, context).val(formKey);
     }
 
     $.widget('swissup.tabs', accordion, {
