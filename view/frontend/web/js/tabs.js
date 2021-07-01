@@ -89,18 +89,28 @@ define([
         _bindExternalLinks: function () {
             var that = this;
 
-            $(this.options.externalLink).on('click', function (event) {
+            $(that.options.externalLink).on('click', function (event) {
                 var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
 
-                event.preventDefault();
                 // Workaround to open reviews tab when click on link under product image.
                 anchor = anchor === 'review-form' ? 'reviews' : anchor;
                 $('[data-role="content"]', that.element).each(function (index) {
                     if (this.id === anchor) {
                         that.element.tabs('activate', index);
-                        _scrollAnimated(this);
+                        _scrollAnimated($(this));
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
                     }
                 });
+            });
+
+            // force my click listener to run first
+            // inspired by https://stackoverflow.com/a/13980262
+            $(that.options.externalLink).each(function () {
+                var handlers;
+
+                handlers = jQuery._data(this).events.click;
+                handlers.unshift(handlers.pop());
             });
         },
 
