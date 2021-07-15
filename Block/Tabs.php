@@ -26,6 +26,11 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     protected $_tabs = [];
 
     /**
+     * @var array of Blocks
+     */
+    private $tabBlocks = [];
+
+    /**
      * Get tabs collection
      * @var \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory
      */
@@ -66,6 +71,10 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
         parent::__construct($context, $data);
     }
 
+    /**
+     * @return mixed
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     protected function _getCollection()
     {
         $collection = $this->tabsCollectionFactory->create();
@@ -198,6 +207,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
 
         $this->_tabs[] = $tab;
 
+        $this->tabBlocks[$alias] = $block;
         $this->setChild($alias, $block);
     }
 
@@ -276,6 +286,22 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     }
 
     /**
+     * @param $alias
+     * @param false $useCache
+     * @return string
+     */
+    private function getChildTabHtml($alias, $useCache = false)
+    {
+        if (isset($this->tabBlocks[$alias])) {
+            /** @var $tabBlock \Magento\Framework\View\Element\AbstractBlockTest */
+            $tabBlock = $this->tabBlocks[$alias];
+            return $tabBlock->toHtml();
+        }
+
+        return $this->getChildHtml($alias, $useCache);
+    }
+
+    /**
      * Prepare tabs data for template
      *
      * @return array
@@ -284,7 +310,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     {
         $tabs = [];
         foreach ($this->getTabs() as $_index => $_tab) {
-            if (!($childHtml = $this->getChildHtml($_tab['alias']))
+            if (!($childHtml = $this->getChildTabHtml($_tab['alias']))
                 || $this->isEmptyString($childHtml)) {
                 continue;
             }
