@@ -1,0 +1,11 @@
+type Query {
+    getEasyTab (
+        alias: String @doc(description: "Alias of the easy tab")
+    ): EasyTab @resolver(class: "Swissup\\Easytabs\\Model\\Resolver\\Entity") @doc(description: "The easy tab query returns information about a easy tab") @cache(cacheIdentity: "Swissup\\Easytabs\\Model\\Resolver\\Entity\\Identity")
+}
+
+type EasyTab @doc(description: "defines all easy tab information") {
+    tab_id: Int @doc(description: "id of the tab")
+    alias: String @doc(description: "Alias of the tab")
+    widget_content: String @doc(description: "html/richcontent tab content")
+}

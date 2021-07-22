@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Swissup\Easytabs\Api\GetEntityByAliasInterface" type="Swissup\Easytabs\Model\GetEntityByAlias" />
     <!-- Magento Cloud Fix. @see https://github.com/magento/magento2/issues/12100#issuecomment-513056966 -->
     <type name="Swissup\Easytabs\Model\Rule\Condition\CombineFactory" />
 
