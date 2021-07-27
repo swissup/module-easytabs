@@ -33,19 +33,35 @@ class Entity
     private $blockRepository;
 
     /**
+     * @var \Magento\Framework\App\State
+     */
+    private $appState;
+
+    /**
+     * @var \Magento\Framework\View\Element\BlockFactory
+     */
+    private $blockFactory;
+
+    /**
      *
      * @param GetEntityByAliasInterface $entityByAlias
      * @param FilterEmulate $widgetFilter
      * @param BlockRepositoryInterface $blockRepository
+     * @param \Magento\Framework\App\State $appState
+     * @param \Magento\Framework\View\Element\BlockFactory $blockFactory
      */
     public function __construct(
         GetEntityByAliasInterface $entityByAlias,
         FilterEmulate $widgetFilter,
-        BlockRepositoryInterface $blockRepository
+        BlockRepositoryInterface $blockRepository,
+        \Magento\Framework\App\State $appState,
+        \Magento\Framework\View\Element\BlockFactory $blockFactory
     ) {
         $this->entityByAlias = $entityByAlias;
         $this->widgetFilter = $widgetFilter;
         $this->blockRepository = $blockRepository;
+        $this->appState = $appState;
+        $this->blockFactory = $blockFactory;
     }
 
     /**
@@ -87,14 +103,28 @@ class Entity
                     $blockId = is_array($blockId) ? reset($blockId) : $blockId;
                     $blockId = trim($blockId, "\"\'");
 
-                    $block = $this->blockRepository->getById($blockId);
+                    $blockModel = $this->blockRepository->getById($blockId);
 
                     $renderedContent = $this->widgetFilter
 //                        ->setStoreId($storeId)
-                        ->filter($block->getContent());
+                        ->filter($blockModel->getContent());
                     break;
                 case \Swissup\Easytabs\Block\Tab\Template::class:
+                    $widgetBlock = $entity->getWidgetBlock();
+                    $widgetTemplate = $entity->getWidgetTemplate();
 
+                    $renderedContent = '';
+                    $blockFactory = $this->blockFactory;
+                    $this->appState->emulateAreaCode(
+                        \Magento\Framework\App\Area::AREA_FRONTEND,
+                        function() use ($blockFactory, $widgetBlock, $widgetTemplate, &$renderedContent) {
+                            $widgetBlockInstance = $blockFactory->createBlock($widgetBlock);
+                            $renderedContent = $widgetBlockInstance
+//                                ->setArea(\Magento\Framework\App\Area::AREA_FRONTEND)
+                                ->setTemplate($widgetTemplate)
+                                ->toHtml();
+                        }
+                    );
                     break;
                 default:
                     $renderedContent = '';
