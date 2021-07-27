@@ -3,13 +3,21 @@ namespace Swissup\Easytabs\Block\Tab;
 
 class Template extends \Magento\Framework\View\Element\Template
 {
+    /**
+     * @return string
+     */
+    private function getTabBlockName()
+    {
+        return $this->getNameInLayout() . '_tab';
+    }
+
     protected function _prepareLayout()
     {
         $block = $this->getLayout()->createBlock(
-            $this->getWidgetBlock(), $this->getNameInLayout() . '_tab'
+            $this->getWidgetBlock(), $this->getTabBlockName()
         );
         if ($block instanceof \Magento\Framework\View\Element\Template) {
-            $this->setChild($this->getNameInLayout() . '_tab', $block);
+            $this->setChild($this->getTabBlockName(), $block);
         }
         return parent::_prepareLayout();
     }
@@ -24,6 +32,6 @@ class Template extends \Magento\Framework\View\Element\Template
     }
     public function getTabBlock()
     {
-        return $this->getChildBlock($this->getNameInLayout() . '_tab');
+        return $this->getChildBlock($this->getTabBlockName());
     }
 }

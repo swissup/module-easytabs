@@ -5,7 +5,7 @@
     }
 
     echo $this->getLayout()
-        ->createBlock('Magento\Cms\Block\Block')
+        ->createBlock(\Magento\Cms\Block\Block::class)
         ->setBlockId($id)
         ->toHtml();
 ?>
