@@ -72,7 +72,7 @@ define([
                     // Trigger mage-init execution.
                     content.trigger('contentUpdated');
                     // apply ko binding
-                    content.applyBindings();
+                    content.children().applyBindings();
                     // Unset height for tab content.
                     content.css('height', '');
                     // Trigger event that content is loaded.
