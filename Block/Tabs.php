@@ -1,6 +1,7 @@
 <?php
 namespace Swissup\Easytabs\Block;
 
+use Magento\Framework\UrlInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 use Swissup\Easytabs\Api\Data\EntityInterface;
 use Swissup\Easytabs\Model\Entity as TabModel;
@@ -331,9 +332,12 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     {
         $block = $this->getLayout()->getBlock('product.info');
         $product = $block ? $block->getProduct() : false;
+        $pathAlias = $this->getRequest()->getAlias(UrlInterface::REWRITE_REQUEST_PATH_ALIAS);
+
         return $this->getUrl(
             'easytabs',
             [
+                'path_alias' => $pathAlias,
                 'id' => $product ? $product->getId() : null,
                 'tab' => $alias
             ]
