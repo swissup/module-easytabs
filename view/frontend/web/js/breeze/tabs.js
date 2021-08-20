@@ -1,8 +1,8 @@
-/* global breeze */
 (function () {
     'use strict';
 
-    breeze.widget('easytabs', {
+    $.widget('easytabs', {
+        component: 'Swissup_Easytabs/js/tabs',
         options: {
             ajaxUrlElement: '[data-ajaxurl]',
             ajaxUrlAttribute: 'data-ajaxurl'
@@ -12,9 +12,5 @@
         create: function () {
             this.element.tabs(this.options);
         }
-    });
-
-    $(document).on('breeze:mount:Swissup_Easytabs/js/tabs', function (event, data) {
-        $(data.el).easytabs(data.settings);
     });
 })();
