@@ -3,6 +3,7 @@ namespace Swissup\Easytabs\Block;
 
 use Magento\Framework\UrlInterface;
 use Magento\Framework\DataObject\IdentityInterface;
+use Magento\Framework\Url\EncoderInterface;
 use Swissup\Easytabs\Api\Data\EntityInterface;
 use Swissup\Easytabs\Model\Entity as TabModel;
 use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
@@ -48,6 +49,11 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     protected $moduleManager;
 
     /**
+     * @var EncoderInterface
+     */
+    protected $encoder;
+
+    /**
      * Constructor
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -55,6 +61,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      * @param \Swissup\Easytabs\Model\Template\Filter          $templateFilter
      * @param \Magento\Framework\Module\FullModuleList         $fullModuleList
      * @param \Magento\Framework\Module\Manager                $moduleManager
+     * @param EncoderInterface                                 $encoder
      * @param array                                            $data
      */
     public function __construct(
@@ -63,12 +70,14 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
         \Swissup\Easytabs\Model\Template\Filter $templateFilter,
         \Magento\Framework\Module\FullModuleList $fullModuleList,
         \Magento\Framework\Module\Manager $moduleManager,
+        EncoderInterface $encoder,
         array $data = []
     ) {
         $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->templateFilter = $templateFilter;
         $this->fullModuleList = $fullModuleList;
         $this->moduleManager = $moduleManager;
+        $this->encoder = $encoder;
         parent::__construct($context, $data);
     }
 
@@ -337,9 +346,9 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
         return $this->getUrl(
             'easytabs',
             [
-                'path_alias' => $pathAlias,
                 'id' => $product ? $product->getId() : null,
-                'tab' => $alias
+                'tab' => $alias,
+                'path_alias' => $this->encoder->encode($pathAlias)
             ]
         );
     }
