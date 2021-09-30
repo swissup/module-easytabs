@@ -49,9 +49,10 @@ define([
 
             this._bindAfterAjax();
             this._super();
+            this.lastOpened = this.getOpened();
+            this.lastOpened.trigger('beforeOpen');
             this._bindExternalLinks();
             this._bindBeforeOpen();
-            this.lastOpened = this.getOpened();
         },
 
         /**
