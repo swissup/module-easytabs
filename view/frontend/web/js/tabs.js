@@ -41,35 +41,37 @@ define([
          * {@inheritdoc}
          */
         _create: function () {
+            var me = this;
+
             // Compatibility with old customizations.
             // Someday can be removed.
-            if (typeof this.options.active === 'number') {
-                this.options.active = [this.options.active];
+            if (typeof me.options.active === 'number') {
+                me.options.active = [me.options.active];
             }
 
-            this._bindAfterAjax();
-            this._super();
-            this.lastOpened = this.getOpened();
-            this.lastOpened.trigger('beforeOpen');
-            this._bindExternalLinks();
-            this._bindBeforeOpen();
+            me._bindAfterAjax();
+            me._super();
+            me.lastOpened = me.getOpened();
+            me.lastOpened.trigger('beforeOpen');
+            me._bindExternalLinks();
+            me._bindBeforeOpen();
         },
 
         /**
          * Listen tab content update after Ajax request.
          */
         _bindAfterAjax: function () {
-            var that = this;
+            var me = this;
 
             $.async(
                 {
                     selector: '[data-role=content][aria-busy=true] > :first-child',
-                    ctx: this.element.get(0)
+                    ctx: me.element.get(0)
                 },
                 function (firstChild) {
                     var content = $(firstChild).parent();
 
-                    that._cancelFurtherPromiseCalls(content);
+                    me._cancelFurtherPromiseCalls(content);
                     // Trigger mage-init execution.
                     content.trigger('contentUpdated');
                     // apply ko binding
@@ -88,16 +90,16 @@ define([
          * Listen external link click to activate tab.
          */
         _bindExternalLinks: function () {
-            var that = this;
+            var me = this;
 
-            $(that.options.externalLink).on('click', function (event) {
+            $(me.options.externalLink).on('click', function (event) {
                 var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
 
                 // Workaround to open reviews tab when click on link under product image.
                 anchor = anchor === 'review-form' ? 'reviews' : anchor;
-                $('[data-role="content"]', that.element).each(function (index) {
+                $('[data-role="content"]', me.element).each(function (index) {
                     if (this.id === anchor) {
-                        that.element.tabs('activate', index);
+                        me.element.tabs('activate', index);
                         _scrollAnimated($(this));
                         event.preventDefault();
                         event.stopImmediatePropagation();
@@ -107,7 +109,7 @@ define([
 
             // force my click listener to run first
             // inspired by https://stackoverflow.com/a/13980262
-            $(that.options.externalLink).each(function () {
+            $(me.options.externalLink).each(function () {
                 var handlers;
 
                 handlers = jQuery._data(this).events.click;
@@ -119,21 +121,21 @@ define([
          * Listen tab before open.
          */
         _bindBeforeOpen: function () {
-            var that = this;
+            var me = this;
 
-            this.collapsibles.on('beforeOpen', function (event) {
+            me.collapsibles.on('beforeOpen', function (event) {
                 var currentTab = $(event.currentTarget),
                     height;
 
-                height = that.getContent(that.lastOpened).outerHeight();
-                that.lastOpened = $(event.currentTarget);
+                height = me.getContent(me.lastOpened).outerHeight();
+                me.lastOpened = $(event.currentTarget);
 
-                if (that.isAjaxTab(currentTab) &&
+                if (me.isAjaxTab(currentTab) &&
                     $(window).width() > 767
                 ) {
                     // Tab has ajax content. Set height for the tab content to
                     // reduce jumps of page content.
-                    that.getContent(currentTab).css('height', height);
+                    me.getContent(currentTab).css('height', height);
                 }
             });
         },
@@ -182,10 +184,10 @@ define([
          * @return {jQuery}
          */
         getOpened: function () {
-            var that = this;
+            var me = this;
 
-            return that.collapsibles.filter(function () {
-                return $(this).hasClass(that.options.openedState);
+            return me.collapsibles.filter(function () {
+                return $(this).hasClass(me.options.openedState);
             });
         },
 
