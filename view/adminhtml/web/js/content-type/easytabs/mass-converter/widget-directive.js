@@ -46,7 +46,7 @@ define([
       var attributes = _widgetDirectiveAbstr.prototype.fromDom.call(this, data, config);
 
       data.template = attributes.template;
-      data.alias = attributes.filter_tabs;
+      data.filter_tabs = attributes.filter_tabs;
 
       return data;
     }
@@ -63,7 +63,7 @@ define([
       var attributes = {
         type: "Swissup\\Easytabs\\Block\\WidgetTabs",
         template: "Swissup_Easytabs::tabs.phtml",
-        filter_tabs: data.alias,
+        filter_tabs: data.filter_tabs,
         // filter_tabs: "new.products,special.offers,bestsellers,popular",
         // tabs_layout: "collapsed",
         // template: data.template,

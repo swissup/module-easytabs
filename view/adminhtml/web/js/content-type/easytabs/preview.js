@@ -106,11 +106,12 @@ define([
     ;
 
     _proto.processTabData = function processTabData(data) {
+      const identifierName = 'filter_tabs';
       // Only load if something changed
-      this.displayPreviewPlaceholder(data, "alias");
+      this.displayPreviewPlaceholder(data, identifierName);
 
-      if (data.alias && data.template.length !== 0) {
-        this.processRequest(data, "alias", "title");
+      if (data[identifierName] && data.template.length !== 0) {
+        this.processRequest(data, identifierName, "title");
       }
     }
     /**

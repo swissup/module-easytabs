@@ -27,12 +27,12 @@
         <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="pagebuilder_easytabs_select_grid_data_source">
             <settings>
                 <requestFieldName>alias</requestFieldName>
-                <primaryFieldName>alias</primaryFieldName>
+                <primaryFieldName>tab_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
     <listingToolbar name="listing_top">
-        <filterSearch name="title"/>
+<!--        <filterSearch name="title"/>-->
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="columns">
@@ -43,10 +43,17 @@
                 <param name="controlVisibility" xsi:type="boolean">true</param>
             </childDefaults>
         </settings>
+        <!--        <selectionsColumn name="ids" component="Magento_PageBuilder/js/grid/cells/single-select">-->
+        <!--        <selectionsColumn name="ids" component="Swissup_Easytabs/js/grid/columns/select">-->
+        <selectionsColumn name="ids" component="Magento_Ui/js/grid/columns/multiselect">
+            <settings>
+                <indexField>alias</indexField>
+            </settings>
+        </selectionsColumn>
         <column name="tab_id">
             <settings>
                 <filter>tab_id</filter>
-                <label translate="true">Id</label>
+                <label translate="true">Tab Id</label>
             </settings>
         </column>
         <column name="alias">
@@ -85,10 +92,5 @@
                 <visible>false</visible>
             </settings>
         </column>
-        <selectionsColumn name="ids" component="Magento_PageBuilder/js/grid/cells/single-select">
-            <settings>
-                <indexField>alias</indexField>
-            </settings>
-        </selectionsColumn>
     </columns>
 </listing>

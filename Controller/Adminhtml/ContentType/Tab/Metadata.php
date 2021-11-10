@@ -41,6 +41,7 @@ class Metadata extends \Magento\Backend\App\AbstractAction
                 ->addFieldToFilter('alias', ['eq' => $params['alias']])
                 ->load();
             $result = $items->getFirstItem()->toArray();
+            $result['filter_tabs'] = 'sasasa,asasa';
         } catch (\Exception $e) {
             $result = [
                 'error' => $e->getMessage(),
