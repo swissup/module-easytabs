@@ -47,6 +47,7 @@ define([
 
       data.template = attributes.template;
       data.filter_tabs = attributes.filter_tabs;
+      data.tabs_layout = attributes.tabs_layout;
 
       return data;
     }
@@ -64,9 +65,7 @@ define([
         type: "Swissup\\Easytabs\\Block\\WidgetTabs",
         template: "Swissup_Easytabs::tabs.phtml",
         filter_tabs: data.filter_tabs,
-        // filter_tabs: "new.products,special.offers,bestsellers,popular",
-        // tabs_layout: "collapsed",
-        // template: data.template,
+        tabs_layout: data.tabs_layout,
       };
 
       if (!attributes.filter_tabs || !attributes.template) {

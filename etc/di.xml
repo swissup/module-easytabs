@@ -57,13 +57,6 @@
             </argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
-        <arguments>
-            <argument name="collections" xsi:type="array">
-                <item name="pagebuilder_easytabs_select_grid_data_source" xsi:type="string">Swissup\Easytabs\Model\ResourceModel\Entity\Grid\Collection</item>
-            </argument>
-        </arguments>
-    </type>
     <type name="Magento\PageBuilder\Model\Stage\RendererPool">
         <arguments>
             <argument name="renderers" xsi:type="array">

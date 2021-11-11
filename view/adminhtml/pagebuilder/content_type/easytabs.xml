@@ -49,10 +49,5 @@
                 </converters>
             </appearance>
         </appearances>
-        <additional_data>
-            <item name="chooserConfig" xsi:type="array">
-                <item name="dataUrl" xsi:type="object">Swissup\Easytabs\Model\Config\ContentType\AdditionalData\Provider\TabDataUrl</item>
-            </item>
-        </additional_data>
     </type>
 </config>

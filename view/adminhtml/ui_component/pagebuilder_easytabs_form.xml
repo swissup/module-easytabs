@@ -68,58 +68,33 @@
         <settings>
             <label/>
         </settings>
-<!--        <component component="Swissup_Easytabs/js/form/element/tabs-chooser" name="tabs_chooser" sortOrder="10">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="requestParameter" xsi:type="string">alias</item>-->
-<!--                    <item name="dataUrlConfigPath" xsi:type="string">content_types.easytabs.additional_data.chooserConfig.dataUrl</item>-->
-<!--                    <item name="modalName" xsi:type="string">ns = ${ $.ns }, index = modal</item>-->
-<!--                    <item name="buttonTitle" xsi:type="string" translate="true">Select Tab(s)</item>-->
-<!--                    <item name="displayMetadata" xsi:type="boolean">false</item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--            <settings>-->
-<!--                <imports>-->
-<!--                    <link name="id">${ $.ns }.${ $.ns }.general.alias:value</link>-->
-<!--                </imports>-->
-<!--            </settings>-->
-<!--        </component>-->
-<!--        <field name="alias" formElement="input" sortOrder="20">-->
-<!--            <settings>-->
-<!--                <dataType>text</dataType>-->
-<!--                <imports>-->
-<!--                    <link name="value">${ $.ns }.${ $.ns }.modal.pagebuilder_easytabs_select_grid.columns.ids:lastSelected</link>-->
-<!--                </imports>-->
-<!--            </settings>-->
-<!--        </field>-->
-        <field name="filter_tabs" formElement="input" sortOrder="20">
+        <field name="filter_tabs" formElement="multiselect" sortOrder="20">
             <settings>
+                <dataType>string</dataType>
                 <label translate="true">Tabs</label>
-                <dataType>text</dataType>
-<!--                    <imports>-->
-<!--                        <link name="value">${ $.ns }.${ $.ns }.modal.pagebuilder_easytabs_select_grid.columns.ids:value</link>-->
-<!--                    </imports>-->
             </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Swissup\Easytabs\Model\Config\Source\WidgetTabs"/>
+                    </settings>
+                </multiselect>
+            </formElements>
         </field>
 
-        <insertListing name="pagebuilder_easytabs_select_grid" >
+        <field name="tabs_layout" formElement="select" sortOrder="25">
             <settings>
-                <dataLinks>
-                    <exports>false</exports>
-                    <imports>true</imports>
-                </dataLinks>
-                <autoRender>true</autoRender>
-                <dataScope>pagebuilder_easytabs_select_grid</dataScope>
-                <ns>pagebuilder_easytabs_select_grid</ns>
-                <selectionsProvider>pagebuilder_easytabs_select_grid.pagebuilder_easytabs_select_grid.columns.ids</selectionsProvider>
-                <externalProvider>${ $.ns }.pagebuilder_easytabs_select_grid_data_source</externalProvider>
-                <externalData>filter_tabs</externalData>
-<!--                <externalData>alias</externalData>-->
-<!--                <imports>-->
-<!--                    <link name="ids">${ $.ns }.${ $.ns }.general.filter_tabs:value</link>-->
-<!--                </imports>-->
+                <dataType>string</dataType>
+                <label translate="true">Layout</label>
             </settings>
-        </insertListing>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Swissup\Easytabs\Model\Config\Source\Layout"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
 
         <field name="template" formElement="select" sortOrder="30" component="Magento_PageBuilder/js/form/element/dependent-select">
             <argument name="data" xsi:type="array">
@@ -149,33 +124,4 @@
         </field>
 
     </fieldset>
-<!--    <modal name="modal" sortOrder="30">-->
-<!--        <settings>-->
-<!--            <listens>-->
-<!--                <link name="pagebuilder_easytabs_select_grid.pagebuilder_easytabs_select_grid.columns.ids:lastSelected">closeModal</link>-->
-<!--            </listens>-->
-<!--            <modalClass>pagebuilder-block-modal</modalClass>-->
-<!--            <options>-->
-<!--                <option name="title" xsi:type="string" translate="true">Select Tab(s)</option>-->
-<!--            </options>-->
-<!--        </settings>-->
-<!--        <insertListing name="pagebuilder_easytabs_select_grid" sortOrder="10">-->
-<!--            <settings>-->
-<!--                <externalData>alias</externalData>-->
-<!--                <externalProvider>${ $.ns }.pagebuilder_easytabs_select_grid_data_source</externalProvider>-->
-<!--                <loading>false</loading>-->
-<!--                <selectionsProvider>${ $.ns }.${ $.ns }.columns.ids</selectionsProvider>-->
-<!--                <autoRender>true</autoRender>-->
-<!--                <dataScope>alias</dataScope>-->
-<!--                <ns>pagebuilder_easytabs_select_grid</ns>-->
-<!--                <dataLinks>-->
-<!--                    <imports>false</imports>-->
-<!--                    <exports>true</exports>-->
-<!--                </dataLinks>-->
-<!--                <listens>-->
-<!--                    <link name="pagebuilder_easytabs_select_grid.pagebuilder_easytabs_select_grid.columns.ids:lastSelected">save</link>-->
-<!--                </listens>-->
-<!--            </settings>-->
-<!--        </insertListing>-->
-<!--    </modal>-->
 </form>
