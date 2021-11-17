@@ -81,7 +81,7 @@
             </parameter>
             <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
                 <label translate="true">Unset</label>
-                <value></value>
+                <value>product.attributes.wrapper</value>
             </parameter>
         </parameters>
     </widget>
@@ -132,7 +132,7 @@
             </parameter>
             <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
                 <label translate="true">Unset</label>
-                <value></value>
+                <value>product.reviews.wrapper</value>
             </parameter>
         </parameters>
     </widget>

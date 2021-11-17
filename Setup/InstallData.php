@@ -60,6 +60,7 @@ class InstallData implements InstallDataInterface
                 'sort_order' => 10,
                 'status' => 1,
                 'widget_template' => 'Magento_Catalog::product/view/attributes.phtml',
+                'widget_unset' => 'product.attributes.wrapper', // unset block when page layout is "Product -- Full Width"
                 'stores' => [0]
             ],
             [
@@ -69,6 +70,7 @@ class InstallData implements InstallDataInterface
                 'sort_order' => 20,
                 'status' => 1,
                 'widget_template' => 'Magento_Review::review.phtml',
+                'widget_unset' => 'product.reviews.wrapper', // unset block when page layout is "Product -- Full Width"
                 'stores' => [0]
             ]
         ];

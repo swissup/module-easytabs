@@ -17,6 +17,13 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     protected $_template = 'tabs.phtml';
 
     /**
+     * @var array
+     */
+    protected $blockUnsetTemplate = [
+        'product.reviews.wrapper'
+    ];
+
+    /**
      * @var Swissup\Easytabs\Model\Template\Filter
      */
     protected $templateFilter;
@@ -131,9 +138,14 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
                 $layout = $this->getLayout();
                 foreach ($unsets as $blockName) {
                     $block = $layout->getBlock($blockName);
-                    if ($block) {
+                    if (!$block)
+                        continue;
+
+                    if (in_array($blockName, $this->blockUnsetTemplate))
+                        // don't unset block it can cause exception; unset template
+                        $block->setTemplate('');
+                    else
                         $layout->unsetElement($blockName);
-                    }
                 }
             }
 
