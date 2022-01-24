@@ -1,0 +1,92 @@
+.collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+    &:extend(.breeze-tabs all);
+    > [data-role="collapsible"] {
+        &:extend(.breeze-tab-toggler all);
+        &[aria-expanded="true"] {
+            &:extend(.breeze-tab-toggler-active all);
+        }
+        &:nth-child(1):not([aria-expanded]) {
+            &:extend(.breeze-tab-toggler-active all);
+        }
+    }
+
+    > [data-role="content"] {
+        &:extend(.breeze-tab-content);
+        &[aria-hidden="false"] {
+            &:extend(.breeze-tab-content-active all);
+        }
+        &:nth-child(2):not([aria-hidden]) {
+            &:extend(.breeze-tab-content-active all);
+        }
+    }
+}
+
+.accordion[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+    > .title {
+        &:extend(.breeze-dropdown-toggler);
+
+        &::after {
+            &:extend(.breeze-dropdown-toggler .icon);
+        }
+        ._active&,
+        &[aria-expanded="true"] {
+            &::after {
+                &:extend(.breeze-dropdown-toggler .icon.active);
+            }
+        }
+    }
+}
+
+& when (@critical) {
+    .product.data.items {
+        &.accordion {
+            > .title {
+                .text-lg();
+                font-weight: 500;
+                clear: both;
+                padding: @3 0;
+            }
+            > .content {
+                padding: 0 @3;
+            }
+        }
+        &.expanded {
+            @media @media-md {
+                display: flex;
+                flex-flow: row wrap;
+            }
+
+            > .title {
+                @media @media-md-down {
+                    margin-top: @2;
+                }
+                @media @media-md {
+                    width: 25%;
+                    border-top: 1px solid @divider__color;
+                }
+
+                h2 {
+                    .text-lg();
+                    font-weight: 500;
+                    padding: @4 0;
+                }
+            }
+
+            > .content {
+                position: relative;
+                visibility: visible;
+                height: auto;
+                opacity: 1;
+                @media @media-md {
+                    padding: @4 0;
+                    width: 75%;
+                    border-top: 1px solid @divider__color;
+                }
+                .block:first-child .block-title,
+                .review-add .block-title {
+                    &:extend(.sr-only);
+                }
+            }
+        }
+    }
+}
