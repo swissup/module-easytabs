@@ -4,6 +4,7 @@ namespace Swissup\Easytabs\Block;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Url\EncoderInterface;
+use Magento\Store\Model\Store;
 use Swissup\Easytabs\Api\Data\EntityInterface;
 use Swissup\Easytabs\Model\Entity as TabModel;
 use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
@@ -117,9 +118,32 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     private function _buildTabs() {
         if (!$this->_tabs) {
-            foreach ($this->_getCollection() as $tab) {
+            $collection = $this->_getCollection();
+
+            $storeId = $this->_storeManager->getStore()->getId();
+            $tabs = [];
+            foreach ($collection as $tab) {
                 $isMatchConditions = $tab->validate($tab);
                 if (!$isMatchConditions) {
+                    continue;
+                }
+
+                $stores = $tab->getData('store_id');
+                $alias = $tab->getAlias();
+                $tabs[$alias] = $tabs[$alias] ?? [];
+                if (in_array($storeId, $stores)) {
+                    $tabs[$alias][(int)$storeId] = $tab;
+                } elseif (in_array(Store::DEFAULT_STORE_ID, $stores)) {
+                    $tabs[$alias][Store::DEFAULT_STORE_ID] = $tab;
+                }
+            }
+
+            foreach ($tabs as $tab) {
+                // Multiple tabs can have same alias.
+                // First try to find tabs specified for this store view.
+                // Then use tab from default store view level.
+                $tab = $tab[(int)$storeId] ?? ($tab[Store::DEFAULT_STORE_ID] ?? null);
+                if (!$tab) {
                     continue;
                 }
 
