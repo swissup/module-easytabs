@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="swissup_easytabs_entity" resource="default" engine="innodb" comment="Swissup Easy Tabs Entity Table">
+    <column xsi:type="int" name="tab_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Tab ID"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="100" comment="Tab title"/>
+    <column xsi:type="varchar" name="alias" nullable="false" length="100" comment="Tab alias"/>
+    <column xsi:type="varchar" name="block" nullable="false" length="100" comment="Tab block name"/>
+    <column xsi:type="smallint" name="sort_order" padding="6" unsigned="false" nullable="true" identity="false" default="0" comment="Tab sort order"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Tab status"/>
+    <column xsi:type="varchar" name="widget_template" nullable="true" length="200" comment="Tab content template"/>
+    <column xsi:type="varchar" name="widget_unset" nullable="true" length="100" comment="Unset child name"/>
+    <column xsi:type="text" name="widget_identifier" nullable="false" length="100" comment="Content id/code"/>
+    <column xsi:type="varchar" name="widget_block" nullable="true" length="100" comment="Widget block name"/>
+    <column xsi:type="text" name="widget_content" nullable="true" comment="Widget content"/>
+    <column xsi:type="text" name="block_arguments" nullable="true" comment="Widget block arguments"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Tab created date"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Tab update time"/>
+    <column xsi:type="boolean" name="widget_tab" nullable="true" comment="Widget Tab"/>
+    <column xsi:type="text" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
+    <column xsi:type="boolean" name="is_ajax" nullable="true" comment="Is Ajax"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="tab_id"/>
+    </constraint>
+    <index referenceId="SWISSUP_EASYTABS_ENTITY_TITLE_BLOCK_WIDGET_TEMPLATE" indexType="fulltext">
+      <column name="title"/>
+      <column name="block"/>
+      <column name="widget_template"/>
+    </index>
+  </table>
+  <table name="swissup_easytabs_store" resource="default" engine="innodb" comment="Swissup Easy Tabs To Store Linkage Table">
+    <column xsi:type="int" name="tab_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Tab ID"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store ID"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="tab_id"/>
+      <column name="store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="SWISSUP_EASYTABS_STORE_TAB_ID_SWISSUP_EASYTABS_ENTITY_TAB_ID" table="swissup_easytabs_store" column="tab_id" referenceTable="swissup_easytabs_entity" referenceColumn="tab_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="SWISSUP_EASYTABS_STORE_STORE_ID_STORE_STORE_ID" table="swissup_easytabs_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <index referenceId="SWISSUP_EASYTABS_STORE_STORE_ID" indexType="btree">
+      <column name="store_id"/>
+    </index>
+  </table>
+</schema>

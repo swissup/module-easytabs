@@ -1,0 +1,43 @@
+{
+    "swissup_easytabs_entity": {
+        "column": {
+            "tab_id": true,
+            "title": true,
+            "alias": true,
+            "block": true,
+            "sort_order": true,
+            "status": true,
+            "widget_template": true,
+            "widget_unset": true,
+            "widget_identifier": true,
+            "widget_block": true,
+            "widget_content": true,
+            "block_arguments": true,
+            "created_at": true,
+            "updated_at": true,
+            "widget_tab": true,
+            "conditions_serialized": true,
+            "is_ajax": true
+        },
+        "index": {
+            "SWISSUP_EASYTABS_ENTITY_TITLE_BLOCK_WIDGET_TEMPLATE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "swissup_easytabs_store": {
+        "column": {
+            "tab_id": true,
+            "store_id": true
+        },
+        "index": {
+            "SWISSUP_EASYTABS_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SWISSUP_EASYTABS_STORE_TAB_ID_SWISSUP_EASYTABS_ENTITY_TAB_ID": true,
+            "SWISSUP_EASYTABS_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}
