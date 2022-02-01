@@ -9,7 +9,7 @@
     <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Tab status"/>
     <column xsi:type="varchar" name="widget_template" nullable="true" length="200" comment="Tab content template"/>
     <column xsi:type="varchar" name="widget_unset" nullable="true" length="100" comment="Unset child name"/>
-    <column xsi:type="text" name="widget_identifier" nullable="false" length="100" comment="Content id/code"/>
+    <column xsi:type="text" name="widget_identifier" nullable="false" comment="Content id/code"/>
     <column xsi:type="varchar" name="widget_block" nullable="true" length="100" comment="Widget block name"/>
     <column xsi:type="text" name="widget_content" nullable="true" comment="Widget content"/>
     <column xsi:type="text" name="block_arguments" nullable="true" comment="Widget block arguments"/>
