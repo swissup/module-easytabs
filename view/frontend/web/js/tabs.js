@@ -103,6 +103,8 @@ define([
                         _scrollAnimated($(this));
                         event.preventDefault();
                         event.stopImmediatePropagation();
+
+                        return false;
                     }
                 });
             });
