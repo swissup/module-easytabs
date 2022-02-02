@@ -99,7 +99,7 @@ define([
                 anchor = anchor === 'review-form' ? 'reviews' : anchor;
                 $('[data-role="content"]', me.element).each(function (index) {
                     if (this.id === anchor) {
-                        me.element.tabs('activate', index);
+                        me.activate(index);
                         _scrollAnimated($(this));
                         event.preventDefault();
                         event.stopImmediatePropagation();
