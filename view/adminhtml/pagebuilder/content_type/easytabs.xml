@@ -8,7 +8,7 @@
           form="pagebuilder_easytabs_form"
           menu_section="add_content"
           icon="icon-pagebuilder-banner"
-          sortOrder="74"
+          sortOrder="85"
           translate="label">
         <parents default_policy="deny">
             <parent name="root-container" policy="allow"/>
