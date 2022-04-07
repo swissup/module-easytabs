@@ -103,6 +103,23 @@
             </parameter>
         </parameters>
     </widget>
+    <widget id="easytabs_product_crosssell" class="Swissup\Easytabs\Block\Tab\Product\Crosssell" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Cross-sell Products</label>
+        <description>Show cross-sell products in tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Template</label>
+                <value>Magento_Catalog::product/list/items.phtml</value>
+            </parameter>
+            <parameter name="widget_unset" xsi:type="text" required="false" visible="true">
+                <label translate="true">Unset</label>
+            </parameter>
+            <parameter name="block_arguments" xsi:type="text" required="false" visible="false">
+                <value>type:crosssell</value>
+            </parameter>
+        </parameters>
+    </widget>
     <widget id="easytabs_product_related" class="Magento\Catalog\Block\Product\ProductList\Related" is_email_compatible="false"
         placeholder_image="" ttl="86400">
         <label translate="true">Related Products</label>

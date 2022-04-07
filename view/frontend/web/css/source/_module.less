@@ -70,6 +70,10 @@
                         .lib-css(left, @easytabs-loader__left);
                     }
                 }
+
+                > .loading-mask {
+                    display: none;
+                }
             }
         }
     }
@@ -79,6 +83,19 @@
         .fieldset .review-legend.legend strong {
             display: inline;
             margin-left: .5em;
+        }
+
+        .block.crosssell {
+            width: auto;
+            float: none;
+            padding: 0;
+            margin: 0;
+            .block-title {
+                display: none;
+            }
+            .products {
+                margin: 0;
+            }
         }
 
         &.expanded {
@@ -181,6 +198,16 @@
                 &:not([aria-hidden]) {
                     display: none;
                 }
+            }
+        }
+
+        .block.crosssell {
+            .products-grid .product-item {
+                width: 25%;
+                margin: 0;
+            }
+            .product-item-actions {
+                margin-top: 10px;
             }
         }
     }
