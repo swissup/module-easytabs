@@ -2,7 +2,7 @@
 
 namespace Swissup\Easytabs\Block\Tab\Product;
 
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\ViewModel\Product\Listing\PreparePostData;
 use Magento\Framework\App\ObjectManager;
 
@@ -45,7 +45,7 @@ class Crosssell extends \Magento\Checkout\Block\Cart\Crosssell
 
     private function getProductLinkField(): string
     {
-        return ObjectManager::getInstance()->get(CollectionFactory::class)->create()
+        return ObjectManager::getInstance()->create(Collection::class)
             ->getProductEntityMetadata()
             ->getLinkField();
     }
