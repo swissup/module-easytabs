@@ -33,7 +33,7 @@ class Index extends \Magento\Catalog\Controller\Product
     {
         $this->_request->setAlias(
             UrlInterface::REWRITE_REQUEST_PATH_ALIAS,
-            $this->decoder->decode($this->_request->getParam('path_alias'))
+            $this->decoder->decode($this->_request->getParam('path_alias', ''))
         );
         $this->_initProduct();
 
