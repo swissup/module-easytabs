@@ -35,6 +35,9 @@
                             <class>Swissup\Easytabs\Block\WidgetTabs</class>
                             <template>swissupamp/tabs.phtml</template>
                         </widget_tabs>
+                        <cms_tabs>
+                            <class>Swissup\Easytabs\Block\Tab\Cms</class>
+                        </cms_tabs>
                     </swissup_easytabs>
                 </block_types>
             </whitelist>
