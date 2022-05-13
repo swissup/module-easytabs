@@ -8,14 +8,8 @@ use Magento\Backend\Block\Widget\Form\Renderer\Fieldset;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
 use Magento\Rule\Model\Condition\AbstractCondition;
 
-
 class Conditions extends Generic implements TabInterface
 {
-    /**
-     * @var Fieldset
-     */
-    protected $_rendererFieldset;
-
     /**
      * @var \Magento\Rule\Block\Conditions
      */
@@ -31,7 +25,6 @@ class Conditions extends Generic implements TabInterface
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Rule\Block\Conditions $conditions
-     * @param Fieldset $rendererFieldset
      * @param array $data
      */
     public function __construct(
@@ -39,10 +32,8 @@ class Conditions extends Generic implements TabInterface
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Rule\Block\Conditions $conditions,
-        Fieldset $rendererFieldset,
         array $data = []
     ) {
-        $this->_rendererFieldset = $rendererFieldset;
         $this->_conditions = $conditions;
         parent::__construct($context, $registry, $formFactory, $data);
     }
