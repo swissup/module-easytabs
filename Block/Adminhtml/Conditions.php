@@ -4,6 +4,7 @@ namespace Swissup\Easytabs\Block\Adminhtml;
 
 use Magento\Backend\Block\Widget\Form;
 use Magento\Backend\Block\Widget\Form\Generic;
+use Magento\Backend\Block\Widget\Form\Renderer\Fieldset;
 use Magento\Ui\Component\Layout\Tabs\TabInterface;
 use Magento\Rule\Model\Condition\AbstractCondition;
 
@@ -11,7 +12,7 @@ use Magento\Rule\Model\Condition\AbstractCondition;
 class Conditions extends Generic implements TabInterface
 {
     /**
-     * @var \Magento\Backend\Block\Widget\Form\Renderer\Fieldset
+     * @var Fieldset
      */
     protected $_rendererFieldset;
 
@@ -21,11 +22,16 @@ class Conditions extends Generic implements TabInterface
     protected $_conditions;
 
     /**
+     * @var string
+     */
+    protected $_nameInLayout = 'conditions_apply_to';
+
+    /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Data\FormFactory $formFactory
      * @param \Magento\Rule\Block\Conditions $conditions
-     * @param \Magento\Backend\Block\Widget\Form\Renderer\Fieldset $rendererFieldset
+     * @param Fieldset $rendererFieldset
      * @param array $data
      */
     public function __construct(
@@ -33,7 +39,7 @@ class Conditions extends Generic implements TabInterface
         \Magento\Framework\Registry $registry,
         \Magento\Framework\Data\FormFactory $formFactory,
         \Magento\Rule\Block\Conditions $conditions,
-        \Magento\Backend\Block\Widget\Form\Renderer\Fieldset $rendererFieldset,
+        Fieldset $rendererFieldset,
         array $data = []
     ) {
         $this->_rendererFieldset = $rendererFieldset;
@@ -155,7 +161,8 @@ class Conditions extends Generic implements TabInterface
             ['form_namespace' => $formName]
         );
 
-        $renderer = $this->_rendererFieldset->setTemplate('Magento_CatalogRule::promo/fieldset.phtml')
+        $renderer = $this->getLayout()->createBlock(Fieldset::class);
+        $renderer->setTemplate('Magento_CatalogRule::promo/fieldset.phtml')
             ->setNewChildUrl($newChildUrl)
             ->setFieldSetId($conditionsFieldSetId);
 
