@@ -37,6 +37,11 @@
     }
 }
 
+@easytabs-expanded-title-h2__font-size: @hero-block-title__font-size;
+@easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
+@easytabs-expanded-title-h2__text-transform: @hero-block-title__text-transform;
+@easytabs-expanded-title-h2__padding: @4 0;
+
 & when (@critical) {
     .product.data.items {
         &.accordion {
@@ -66,9 +71,10 @@
                 }
 
                 h2 {
-                    .text-lg();
-                    font-weight: 500;
-                    padding: @4 0;
+                    .lib-css(font-size, @easytabs-expanded-title-h2__font-size);
+                    .lib-css(font-weight, @easytabs-expanded-title-h2__font-weight);
+                    .lib-css(text-transform, @easytabs-expanded-title-h2__text-transform);
+                    .lib-css(padding, @easytabs-expanded-title-h2__padding);
                 }
             }
 
