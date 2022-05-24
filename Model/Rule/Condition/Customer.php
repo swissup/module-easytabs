@@ -102,7 +102,7 @@ class Customer extends \Magento\Rule\Model\Condition\AbstractCondition
     {
         $valueParsed = parent::getValueParsed();
         if ($valueParsed === '0' && $this->isArrayOperatorType()) {
-            $valueParsed = preg_split('#\s*[,;]\s*#', $valueParsed, null, PREG_SPLIT_NO_EMPTY);
+            $valueParsed = preg_split('#\s*[,;]\s*#', $valueParsed, -1, PREG_SPLIT_NO_EMPTY);
         }
 
         return $valueParsed;
