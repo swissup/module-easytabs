@@ -384,7 +384,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
             [
                 'id' => $product ? $product->getId() : null,
                 'tab' => $alias,
-                'path_alias' => $this->encoder->encode($pathAlias)
+                'path_alias' => $pathAlias ? $this->encoder->encode($pathAlias) : $pathAlias
             ]
         );
     }
