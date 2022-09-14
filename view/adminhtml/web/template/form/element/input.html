@@ -1,0 +1,16 @@
+<input class="admin__control-text"
+    data-bind="
+        event: {change: userChanges},
+        value: value,
+        hasFocus: focused,
+        valueUpdate: valueUpdate,
+        attr: {
+            name: index + (fieldName && ('[' + fieldName + ']')),
+            'data-form-part': formPart,
+            type: inputType,
+            placeholder: placeholder,
+            'aria-describedby': noticeId,
+            id: uid,
+            disabled: disabled,
+            maxlength: 255
+    }"/>

@@ -114,6 +114,23 @@
         <label translate="true">Cross-sell Products</label>
         <description>Show cross-sell products in tab</description>
         <parameters>
+            <parameter name="widget_identifier" xsi:type="block" required="true" visible="true">
+                <label translate="true">Products to show</label>
+                <block class="Swissup\Easytabs\Block\Form\Element\Renderer\UiComponent">
+                    <data>
+                        <item name="scope_name" xsi:type="string">swissup_easytabs_crosssell_itemCount</item>
+                        <item name="component_config" xsi:type="array">
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fieldName" xsi:type="string">itemCount</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="inputType" xsi:type="string">number</item>
+                            <item name="required" xsi:type="boolean">true</item>
+                            <item name="template" xsi:type="string">Swissup_Easytabs/form/element/input</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
             <parameter name="widget_template" xsi:type="text" required="true" visible="true">
                 <label translate="true">Template</label>
                 <value>Magento_Catalog::product/list/items.phtml</value>

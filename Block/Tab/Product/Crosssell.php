@@ -8,6 +8,16 @@ use Magento\Framework\App\ObjectManager;
 
 class Crosssell extends \Magento\Checkout\Block\Cart\Crosssell
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        $this->_maxItemCount = $this->getData('widget_identifier/itemCount') ?: $this->_maxItemCount;
+    }
+
     public function getItems()
     {
         $items = $this->getData('items');
