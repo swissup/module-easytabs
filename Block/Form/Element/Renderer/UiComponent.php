@@ -6,12 +6,12 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
-class UiSelect extends Template
+class UiComponent extends Template
 {
     /**
      * {@inheritdoc}
      */
-    protected $_template = 'ui-select.phtml';
+    protected $_template = 'ui-component.phtml';
 
     /**
      * Initialize js layout.
@@ -21,30 +21,39 @@ class UiSelect extends Template
     public function initJsLayout(AbstractElement $element)
     {
         $value = $element->getValue();
+        $config = $this->getComponentConfig();
+        $fieldName = $config['fieldName'] ?? false;
+
+        if ($fieldName) {
+            $value = $value[$fieldName] ?? '';
+        }
+
         $this->jsLayout = [
             'components' => [
                 $this->getScopeName() => [
                     'component' => 'uiComponent',
                     'children' => [
                         $element->getName() => [
-                            'type' => 'form.select',
                             'name' => $element->getName(),
-                            'value' => is_array($value) ? $value : [],
-                            'config' => [
-                                'component' => 'Swissup_Easytabs/js/form/element/ui-select',
-                                'template' => 'Swissup_Easytabs/form/element/ui-select/old-php-form-workaround',
-                                'dataType' => 'text',
-                                'visible' => true,
-                                'formElement' => 'select',
-                                'formPart' => $this->getData('data-form-part'),
-                                'options' => $this->getOptions()
-                            ]
+                            'value' => $value,
+                            'config' => $config
                         ]
                     ]
 
                 ]
             ]
         ];
+    }
+
+    protected function getComponentConfig()
+    {
+        $defaults = [
+            'formPart' => $this->getData('data-form-part'),
+            'options' => $this->getOptions()
+        ];
+        $defaults = array_filter($defaults);
+
+        return $this->getData('component_config') + $defaults;
     }
 
     /**
