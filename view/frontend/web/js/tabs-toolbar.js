@@ -25,6 +25,8 @@ define([
     };
 
     $.widget('swissup.tabsToolbar', {
+        component: 'Swissup_Easytabs/js/tabs-toolbar',
+
         _create: function () {
             const me = this;
 

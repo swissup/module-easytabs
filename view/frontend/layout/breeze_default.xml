@@ -8,6 +8,7 @@
                     <item name="default" xsi:type="array">
                         <item name="items" xsi:type="array">
                             <item name="Swissup_Easytabs/js/tabs" xsi:type="string">Swissup_Easytabs/js/breeze/tabs</item>
+                            <item name="Swissup_Easytabs/js/tabs-toolbar" xsi:type="string">Swissup_Easytabs/js/tabs-toolbar</item>
                         </item>
                     </item>
                 </argument>
