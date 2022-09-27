@@ -1,0 +1,39 @@
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product.data.items {
+        &.accordion {
+            .lib-data-accordion(
+                @_accordion-control-background-color-active: @easytabs-accordion-desktop-control__active__background-color,
+                @_accordion-content-margin: @easytabs-accordion-desktop-content__margin
+            );
+
+            & when (@accordion-control__border-bottom = false) {
+                .lib-css(border-bottom, @accordion-control__border-top);
+            }
+
+            > .item.title {
+                > .switch,
+                > .switch:focus,
+                > .switch:hover {
+                    .lib-css(border-bottom, @easytabs-accordion-desktop-control__border-bottom);
+                }
+
+                &.active > .switch,
+                &.active > .switch:focus,
+                &.active > .switch:hover {
+                    .lib-css(padding, @accordion-control__padding-top @accordion-control__padding-right @accordion-control__padding-bottom @accordion-control__padding-left);
+                    .lib-css(border-bottom, @easytabs-accordion-desktop-control__active__border-bottom);
+                }
+
+                a::after {
+                    display: block !important;
+                }
+            }
+
+            > .item.content {
+                &:not([aria-hidden]) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+& when (@media-common = true) {
+    .data.expanded .title .counter,
+    .tabs-toolbar-item .counter {
+        &::before {
+            content: '(';
+        }
+
+        &::after {
+            content: ')';
+        }
+    }
+}

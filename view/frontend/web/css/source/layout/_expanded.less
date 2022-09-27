@@ -1,0 +1,59 @@
+& when (@media-common = true) {
+    .product.data.items {
+        &.expanded {
+            .lib-css(border-bottom, @easytabs-expanded__border-top);
+
+            > .item.title,
+            > .item.content {
+                border: none;
+                float: none;
+                margin: 0;
+            }
+
+            > .item.content {
+                display: block;
+            }
+
+            > .item.title {
+                .lib-css(border-top, @easytabs-expanded__border-top);
+
+                h2 {
+                    .lib-css(font-size, @easytabs-expanded-title-h2__font-size);
+                    .lib-css(line-height, @easytabs-expanded-title-h2__line-height);
+                    .lib-css(margin, @easytabs-expanded-title-h2__margin);
+                    .lib-css(text-transform, @easytabs-expanded-title-h2__text-transform);
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product.data.items {
+        &.expanded {
+            display: flex;
+            flex-flow: row wrap;
+
+            > .item.title {
+                width: 25%;
+                padding: @easytabs-expanded-desktop-title__padding-top
+                         @easytabs-expanded-desktop-title__padding-right
+                         @easytabs-expanded-desktop-title__padding-bottom
+                         @easytabs-expanded-desktop-title__padding-left;
+
+                h2 {
+                    .lib-css(font-size, @easytabs-expanded-desktop-title-h2__font-size);
+                }
+            }
+
+            > .item.content {
+                .lib-css(border-top, @easytabs-expanded__border-top);
+                width: ~'calc(75% - 1px)';
+                padding: @easytabs-expanded-desktop-content__padding-top
+                         @easytabs-expanded-desktop-content__padding-right
+                         @easytabs-expanded-desktop-content__padding-bottom
+                         @easytabs-expanded-desktop-content__padding-left;
+            }
+        }
+    }
+}

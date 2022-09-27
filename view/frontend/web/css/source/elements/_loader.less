@@ -1,0 +1,49 @@
+& when (@media-common = true) {
+
+    /**
+     * Describe spinner
+     */
+    & when (@easytabs-loader-show = true) {
+        @keyframes easytabs-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .product.data.items {
+            .item.content {
+                display: none;
+                &:nth-child(2) {
+                    display: block;
+                }
+
+                &::before {
+                    opacity: 0;
+                    transition: opacity @easytabs-loader__spin-time ease-in-out;
+                }
+
+                &[aria-busy=true] {
+                    position: relative;
+                    .lib-css(min-height, @easytabs-content-busy__min-height);
+
+                    &::before {
+                        opacity: 1;
+                        animation: easytabs-spin @easytabs-loader__spin-time linear infinite;
+                        position: absolute;
+                        border: @easytabs-loader-line__width solid @easytabs-loader-line__color;
+                        border-top-color: @easytabs-loader-line-accent__color;
+                        border-radius: 50%;
+                        width: @easytabs-loader__width;
+                        height: @easytabs-loader__height;
+                        .lib-css(top, @easytabs-loader__top);
+                        .lib-css(left, @easytabs-loader__left);
+                    }
+                }
+
+                > .loading-mask {
+                    display: none;
+                }
+            }
+        }
+    }
+}
