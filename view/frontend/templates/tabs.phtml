@@ -7,7 +7,19 @@
     }
 ?>
 <div class="product info detailed">
-    <div class="product data items <?= $block->getTabsLayout() ?>"
+<?php if ($block->hasToolbar()): ?>
+    <div class="tabs-toolbar" data-mage-init='{"Swissup_Easytabs/js/tabs-toolbar": {}}'>
+    <?php foreach ($tabs as $_index => $_tab): ?>
+        <a class="tabs-toolbar-item"
+            data-action="activate-tab"
+            href="#<?= $_tab['alias'] ?>">
+            <?= /* @escapeNotVerified */ $_tab['title'] ?>
+        </a>
+    <?php endforeach ?>
+    </div>
+<?php endif ?>
+
+    <div class="product data items <?= $block->getTabsLayoutType() ?>"
          data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}'
          id="swissup-easy-tabs"
          data-content-type="easytabs"

@@ -325,10 +325,22 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     public function getInitOptions()
     {
         $options = $this->getJsWidgetOptions();
-        $layout = $this->getTabsLayout();
-        $json = json_encode($options[$layout] ?? [], JSON_UNESCAPED_SLASHES);
+        $layoutType = $this->getTabsLayoutType();
+        $json = json_encode($options[$layoutType] ?? [], JSON_UNESCAPED_SLASHES);
 
         return $json;
+    }
+
+    public function getTabsLayoutType()
+    {
+        list($type) = explode('-', $this->getTabsLayout());
+
+        return $type;
+    }
+
+    public function hasToolbar()
+    {
+        return strpos($this->getTabsLayout(), 'toolbar') !== false;
     }
 
     /**
@@ -395,7 +407,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      * @return boolean
      */
     public function isExpanded() {
-        return $this->getTabsLayout() === 'expanded';
+        return $this->getTabsLayoutType() === 'expanded';
     }
 
     /**
@@ -404,7 +416,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      * @return boolean
      */
     public function isAccordion() {
-        return $this->getTabsLayout() === 'accordion';
+        return $this->getTabsLayoutType() === 'accordion';
     }
 
     /**

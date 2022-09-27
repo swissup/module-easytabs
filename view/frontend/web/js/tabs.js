@@ -9,11 +9,12 @@ define([
      * Animated scroll to element
      *
      * @param  {jQuery} element
+     * @param  {Number} offset
      */
-    function _scrollAnimated(element) {
+    function _scrollAnimated(element, offset) {
         $('html, body').animate({
-            scrollTop: element.offset().top - 50
-        }, 300);
+            scrollTop: element.offset().top - offset
+        }, 200);
     }
 
     /**
@@ -97,10 +98,23 @@ define([
 
                 // Workaround to open reviews tab when click on link under product image.
                 anchor = anchor === 'review-form' ? 'reviews' : anchor;
-                $('[data-role="content"]', me.element).each(function (index) {
-                    if (this.id === anchor) {
+                $('[data-role="content"]', me.element).each((index, el) => {
+                    const $el = $(el);
+                    const $toolbar = $(me.element).siblings('.tabs-toolbar');
+
+                    var offset = 40, toolbarCss;
+
+                    if ($el.attr('id') === anchor) {
+                        if ($toolbar.length) {
+                            toolbarCss = window.getComputedStyle($toolbar.get(0));
+                            if (toolbarCss.position == 'sticky') {
+                                offset = parseInt(toolbarCss.top);
+                                offset = isNaN(offset) ? 0 : offset;
+                                offset += $toolbar.outerHeight(true);
+                            }
+                        }
                         me.activate(index);
-                        _scrollAnimated($(this));
+                        _scrollAnimated($el, me._calculateScrollOffset());
                         event.preventDefault();
                         event.stopImmediatePropagation();
 
@@ -172,7 +186,8 @@ define([
                 ) {
                     $(element).collapsible('forceActivate');
                     _scrollAnimated(
-                        content.find(anchor).length ? content.find(anchor) : content
+                        content.find(anchor).length ? content.find(anchor) : content,
+                        this._calculateScrollOffset()
                     );
                 }
             } catch (err) {
@@ -217,6 +232,25 @@ define([
          */
         isAjaxTab: function (element) {
             return !!$(this.options.ajaxUrlElement, element).length;
+        },
+
+        /**
+         * @return {Number}
+         */
+        _calculateScrollOffset: function () {
+            const $toolbar = $(this.element).siblings('.tabs-toolbar');
+
+            var offset, toolbarCss;
+
+            if ($toolbar.length == 0) return 40;
+
+            toolbarCss = window.getComputedStyle($toolbar.get(0));
+            offset = parseFloat(toolbarCss.top);
+            offset = isNaN(offset) ? 0 : offset;
+            offset += $toolbar.outerHeight() - 2 ; // substruct 2 px to make sure
+            // that sticky tabs toolbar overlaps with tab content to activat proper title
+
+            return offset;
         }
     });
 

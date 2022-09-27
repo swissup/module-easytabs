@@ -14,6 +14,7 @@ class Layout implements \Magento\Framework\Option\ArrayInterface
         $availableOptions = [
             'collapsed' => __('Collapsed tabs (traditional layout)'),
             'expanded' => __('Expanded tabs'),
+            'expanded-with-toolbar' => __('Expanded tabs and sticky titles'),
             'accordion' => __('Accordion')
         ];
 

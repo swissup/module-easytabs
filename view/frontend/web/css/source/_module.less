@@ -29,6 +29,22 @@
 
 @easytabs-content-busy__min-height: 2 * 30px + 15px;
 
+@easytabs-toolbar__background: #fff;
+@easytabs-toolbar__box-shadow: 0 @tab-control__border-width 0 @tab-control__border-color;
+@easytabs-toolbar__top: 0;
+@easytabs-toolbar__z-index: 99;
+
+@easytabs-toolbar-item__color: currentColor;
+@easytabs-toolbar-item__font-size: @easytabs-expanded-desktop-title-h2__font-size;
+@easytabs-toolbar-item__font-weight: bold;
+@easytabs-toolbar-item__line-height: @easytabs-expanded-title-h2__line-height;
+@easytabs-toolbar-item__margin: 0;
+@easytabs-toolbar-item__padding: 1rem 2rem;
+@easytabs-toolbar-item__text-transform: @easytabs-expanded-title-h2__text-transform;
+
+@easytabs-toolbar-item-active__background: #fff;
+@easytabs-toolbar-item-active__box-shadow: 0 2px 0 currentColor;
+
 & when (@media-common = true) {
 
     /**
@@ -210,5 +226,60 @@
                 margin-top: 10px;
             }
         }
+    }
+}
+
+& when (@media-common = true) {
+    .product.info.detailed {
+        .tabs-toolbar {
+            display: none;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product.info.detailed {
+        .tabs-toolbar {
+            .lib-css(background, @easytabs-toolbar__background);
+            .lib-css(box-shadow, @easytabs-toolbar__box-shadow);
+            .lib-css(top, @easytabs-toolbar__top);
+            .lib-css(z-index, @easytabs-toolbar__z-index);
+            display: flex;
+            position: sticky;
+            text-align: center;
+
+            &-item {
+                .lib-css(color, @easytabs-toolbar-item__color);
+                .lib-css(font-size, @easytabs-toolbar-item__font-size);
+                .lib-css(font-weight, @easytabs-toolbar-item__font-weight);
+                .lib-css(line-height, @easytabs-toolbar-item__line-height);
+                .lib-css(margin, @easytabs-toolbar-item__margin);
+                .lib-css(padding, @easytabs-toolbar-item__padding);
+                .lib-css(text-transform, @easytabs-toolbar-item__text-transform);
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 100%;
+
+                &.active {
+                    .lib-css(background, @easytabs-toolbar-item-active__background);
+                    .lib-css(box-shadow, @easytabs-toolbar-item-active__box-shadow);
+                }
+            }
+
+            ~ .data.items {
+                > .item.title {
+                    visibility: hidden;
+                    height: 0;
+                    width: 0;
+                    border: 0;
+                }
+
+                > .item.content {
+                    width: 100%;
+                }
+            }
+        }
+
     }
 }
