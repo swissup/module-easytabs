@@ -1,0 +1,23 @@
+<script type="text/javascript">
+require([
+    'Magento_Ui/js/lib/view/utils/async'
+], function ($) {
+    $.async({
+        selector: '[name="parameters[tabs_layout]"'
+    }, (tabslayout) => {
+        const $layout = $(tabslayout);
+
+        const toggleActiveTabsField = () => {
+            const $activeTabs = $('[name="parameters[active_tabs]"]');
+
+            if ($layout.val() == 'accordion')
+                $activeTabs.closest('.admin__field').show();
+            else
+                $activeTabs.closest('.admin__field').hide();
+        }
+
+        toggleActiveTabsField();
+        $layout.on('change', toggleActiveTabsField);
+    })
+})
+</script>

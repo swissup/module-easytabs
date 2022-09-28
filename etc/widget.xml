@@ -6,8 +6,20 @@
         <label translate="true">Easytabs</label>
         <description><![CDATA[List of tabs from "Swissup" &rarr; "Easytabs" with option 'Hidden on Product'.]]></description>
         <parameters>
-            <parameter name="filter_tabs" xsi:type="multiselect" source_model="Swissup\Easytabs\Model\Config\Source\WidgetTabs" visible="true">
+            <parameter name="filter_tabs" xsi:type="block" source_model="Swissup\Easytabs\Model\Config\Source\WidgetTabs" visible="true">
                 <label translate="true">Tabs to show</label>
+                <block class="Swissup\Easytabs\Block\Form\Element\Renderer\UiSelect">
+                    <data>
+                        <item name="component_config" xsi:type="array">
+                            <item name="component" xsi:type="string">Swissup_Easytabs/js/form/element/ui-select</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="template" xsi:type="string">Swissup_Easytabs/form/element/ui-select</item>
+                        </item>
+                        <item name="scope_name" xsi:type="string">swissup_easytabs_uiselect</item>
+                        <item name="source_model" xsi:type="object">Swissup\Easytabs\Model\Config\Source\WidgetTabs</item>
+                    </data>
+                </block>
                 <description></description>
             </parameter>
             <parameter name="tabs_layout" xsi:type="select" source_model="Swissup\Easytabs\Model\Config\Source\Layout" visible="true">
@@ -21,6 +33,14 @@
             <parameter name="template" xsi:type="text" visible="false">
                 <label translate="true">Template</label>
                 <value>Swissup_Easytabs::tabs.phtml</value>
+            </parameter>
+            <parameter name="scripts" xsi:type="block" visible="false">
+                <label translate="true">Scripts</label>
+                <block class="Swissup\Easytabs\Block\Adminhtml\Widget\Template">
+                    <data>
+                        <item name="template" xsi:type="string">widget/toogle-accordion-options.phtml</item>
+                    </data>
+                </block>
             </parameter>
         </parameters>
     </widget>

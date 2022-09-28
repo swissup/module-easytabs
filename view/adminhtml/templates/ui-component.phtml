@@ -1,3 +1,6 @@
+<?php
+    $htmlId = uniqid('ui-component-');
+?>
 <style type="text/css">
 [data-index=widget_options] input[type="number"] {
     max-width: 8rem;
@@ -9,14 +12,22 @@
     max-height: 20em;
 }
 </style>
-<script type="text/x-magento-init">
-{
-    "*": {
-        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
-    }
-}
+
+<script type="text/javascript">
+    require([
+        'Magento_Ui/js/lib/view/utils/async',
+        'Magento_Ui/js/core/app'
+    ], function ($, app) {
+        app(<?= $block->getJsLayout() ?>);
+        $.async({
+            selector: '#<?= $htmlId ?>'
+        }, (el) => {
+           $(el).applyBindings();
+        });
+    });
 </script>
-<div class="admin__field-control control">
+
+<div id="<?= $htmlId ?>" class="admin__field-control control">
 <!-- ko scope: '<?= $block->getScopeName() ?>' -->
     <!-- ko template: getTemplate() --><!-- /ko -->
 <!-- /ko -->

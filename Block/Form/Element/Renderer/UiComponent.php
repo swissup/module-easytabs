@@ -3,8 +3,8 @@
 namespace Swissup\Easytabs\Block\Form\Element\Renderer;
 
 use Magento\Framework\App\ObjectManager;
-use Magento\Framework\View\Element\Template;
 use Magento\Framework\Data\Form\Element\AbstractElement;
+use Swissup\Easytabs\Block\Adminhtml\Widget\Template;
 
 class UiComponent extends Template
 {
@@ -65,8 +65,8 @@ class UiComponent extends Template
     public function prepareElementHtml(AbstractElement $element)
     {
         $this->initJsLayout($element);
-        $element->setData('after_element_html', $this->toHtml());
-        return $element;
+
+        return parent::prepareElementHtml($element);
     }
 
     /**

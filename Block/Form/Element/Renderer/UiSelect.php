@@ -23,6 +23,10 @@ class UiSelect extends UiComponent
             $value = [];
         }
 
+        if (!is_array($value)) {
+            $value = explode(',', $value);
+        }
+
         $element->setValue($value);
 
         return parent::initJsLayout($element);
