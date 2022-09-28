@@ -25,4 +25,17 @@ class WidgetTabs extends Tabs implements \Magento\Widget\Block\BlockInterface
 
         return $layout ?: 'collapsed';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getJsWidgetOptions()
+    {
+        $options = parent::getJsWidgetOptions();
+        if ($this->isAccordion()) {
+            $options[$this->getTabsLayout()]['active'] = $this->getData('active_tabs');
+        }
+
+        return $options;
+    }
 }

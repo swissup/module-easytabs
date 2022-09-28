@@ -14,6 +14,10 @@
                 <label translate="true">Layout</label>
                 <description></description>
             </parameter>
+            <parameter name="active_tabs" xsi:type="text" visible="true">
+                <label translate="true">Open initially</label>
+                <description>For accordion layout only! Tab's index opened by default. Index starts with "0". All closed when value is "-1". </description>
+            </parameter>
             <parameter name="template" xsi:type="text" visible="false">
                 <label translate="true">Template</label>
                 <value>Swissup_Easytabs::tabs.phtml</value>
