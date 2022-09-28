@@ -42,7 +42,7 @@
         <parameters>
             <parameter name="widget_identifier" xsi:type="block" required="true" visible="true">
                 <label translate="true">Attribute Code</label>
-                <block class="Swissup\Easytabs\Block\Form\Element\Renderer\UiComponent">
+                <block class="Swissup\Easytabs\Block\Form\Element\Renderer\UiSelect">
                     <data>
                         <item name="component_config" xsi:type="array">
                             <item name="component" xsi:type="string">Swissup_Easytabs/js/form/element/ui-select</item>
