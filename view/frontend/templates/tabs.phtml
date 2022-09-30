@@ -67,7 +67,10 @@
 <script type="text/x-magento-init">
 {
     "#<?= $htmlId ?>": {
-        "Swissup_Easytabs/js/tabs-updater": {"aliases": <?= json_encode($listenProductTabs); ?>}
+        "Swissup_Easytabs/js/tabs-updater": <?= json_encode([
+            'aliases' => $listenProductTabs,
+            'url' => $block->getAjaxUrl('tab_alias')
+        ]); ?>
     }
 }
 </script>

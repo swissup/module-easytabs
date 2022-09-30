@@ -9,25 +9,27 @@ define([
 
         options: {
             aliases: [],
+            url: '',
             swatchOptionsSelector: '.product-options-wrapper [data-role=swatch-options]',
             configurableOptionsSelector: '#product_addtocart_form .field.configurable'
         },
 
-        _update: function (productId, parentId) {
+        _update: function (productId) {
             const me = this;
-            const $el = $(me.element);
 
             me.options.aliases.forEach((alias) => {
                 const $tabTitle = $(document.getElementById(`tab-label-${alias}-title`));
-                const url = `${BASE_URL}easytabs/index/index/id/${productId}/parent_id/${parentId}/tab/${alias}`;
+                const $tabItemTitle = $tabTitle.closest('.item.title');
+
+                var url = me.options.url.replace('/tab_alias/', `/${alias}/`);
+
+                if (productId)
+                    url = url.replace('/id/', '/parent_id/') + `id/${productId}/`;
 
                 $tabTitle.attr('data-ajaxurl', url);
-                if ($tabTitle.closest('.item.title').hasClass('active'))
-                    $el.find('[data-role="content"]').each((index, content) => {
-                        if ($(content).attr('id') === alias) {
-                            $el.tabs('activate', index);
-                        }
-                    });
+                $tabItemTitle.attr('data-loaded', false);
+                if ($tabItemTitle.hasClass('active'))
+                    me._activateTab(alias);
             });
         },
 
@@ -41,13 +43,8 @@ define([
                 const $swatches = $(event.currentTarget);
                 const swatchRenderer = $swatches.data('mageSwatchRenderer') || $swatches.data('mage-SwatchRenderer');
 
-                var productId, parentId;
-
-                if (swatchRenderer) {
-                    parentId = swatchRenderer.options.jsonConfig.productId;
-                    productId = swatchRenderer.getProduct() || parentId;
-                    me._update(productId, parentId);
-                }
+                if (swatchRenderer)
+                    me._update(swatchRenderer.getProduct());
             });
 
             // listen configurable option change
@@ -55,10 +52,27 @@ define([
                 const $productForm = $('#product_addtocart_form');
                 const configurable = $productForm.data('mageConfigurable');
 
-                if (configurable) {
-                    parentId = configurable.options.spConfig.productId;
-                    productId = configurable.simpleProduct || parentId;
-                    me._update(productId, parentId);
+                if (configurable)
+                    me._update(configurable.simpleProduct);
+            });
+        },
+
+        _activateTab: function (alias) {
+            const $tabs = $(this.element);
+
+            var tabsWidget = $tabs.data('swissupTabs');
+
+            if (!tabsWidget)
+                // No instance. Then it can be Breeze-based frontend
+                tabsWidget = $tabs.tabs('instance');
+
+
+            $tabs.find('[data-role="content"]').each((index, content) => {
+                if ($(content).attr('id') === alias) {
+                    if (typeof tabsWidget.activate === 'function')
+                        tabsWidget.activate(index);
+                    else
+                        tabsWidget.collapsibles.eq(index).collapsible('open');
                 }
             });
         },
