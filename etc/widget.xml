@@ -6,7 +6,7 @@
         <label translate="true">Easytabs</label>
         <description><![CDATA[List of tabs from "Swissup" &rarr; "Easytabs" with option 'Hidden on Product'.]]></description>
         <parameters>
-            <parameter name="filter_tabs" xsi:type="block" source_model="Swissup\Easytabs\Model\Config\Source\WidgetTabs" visible="true">
+            <parameter name="filter_tabs" xsi:type="block" visible="true">
                 <label translate="true">Tabs to show</label>
                 <block class="Swissup\Easytabs\Block\Form\Element\Renderer\UiSelect">
                     <data>
@@ -20,7 +20,6 @@
                         <item name="source_model" xsi:type="object">Swissup\Easytabs\Model\Config\Source\WidgetTabs</item>
                     </data>
                 </block>
-                <description></description>
             </parameter>
             <parameter name="tabs_layout" xsi:type="select" source_model="Swissup\Easytabs\Model\Config\Source\Layout" visible="true">
                 <label translate="true">Layout</label>
