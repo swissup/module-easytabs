@@ -17,7 +17,8 @@
             "updated_at": true,
             "widget_tab": true,
             "conditions_serialized": true,
-            "is_ajax": true
+            "is_ajax": true,
+            "can_listen_product": true
         },
         "index": {
             "SWISSUP_EASYTABS_ENTITY_TITLE_BLOCK_WIDGET_TEMPLATE": true

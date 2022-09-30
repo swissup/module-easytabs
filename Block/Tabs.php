@@ -154,7 +154,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
                     $tab->getBlock(),
                     $tab->getWidgetTemplate(),
                     $tab->getData(),
-                    $tab->getIsAjax()
+                    $tab->getIsAjax(),
+                    !!$tab->getCanListenProduct()
                 );
 
                 $unsets = (string) $tab->getWidgetUnset();
@@ -192,7 +193,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
         $block = false,
         $template = false,
         $attributes = [],
-        $isAjax = false
+        $isAjax = false,
+        $canListenProduct = false
     ) {
         if (!$title || ($block && $block !== 'Swissup\Easytabs\Block\Tab\Html' && !$template)) {
             return false;
@@ -244,7 +246,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
             'id' => $attributes['tab_id'] ?? '',
             'alias' => $alias,
             'title' => $title,
-            'is_ajax' => $isAjax
+            'is_ajax' => $isAjax,
+            'can_listen_product' => $canListenProduct
         ];
 
         if (isset($attributes['sort_order'])) {
@@ -457,5 +460,23 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
         }
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getListenProductTabs(): array
+    {
+        return array_reduce(
+            $this->getTabs(),
+            function ($listenTabs, $tab) {
+                if (isset($tab['can_listen_product']) && $tab['can_listen_product']) {
+                    $listenTabs[] = $tab['alias'];
+                }
+
+                return $listenTabs;
+            },
+            []
+        );
     }
 }

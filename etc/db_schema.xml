@@ -18,6 +18,7 @@
     <column xsi:type="boolean" name="widget_tab" nullable="true" comment="Widget Tab"/>
     <column xsi:type="text" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
     <column xsi:type="boolean" name="is_ajax" nullable="true" comment="Is Ajax"/>
+    <column xsi:type="boolean" name="can_listen_product" nullable="true" comment="Update tab content on storefront when product changed"/>
     <constraint xsi:type="primary" referenceId="PRIMARY">
       <column name="tab_id"/>
     </constraint>

@@ -1,10 +1,12 @@
 <?php
-    $isExpanded = $block->isExpanded();
-    $attributes = new \Magento\Framework\DataObject();
     $tabs = $block->prepareTabsData();
     if (!$tabs) {
         return;
     }
+
+    $isExpanded = $block->isExpanded();
+    $attributes = new \Magento\Framework\DataObject();
+    $htmlId = uniqid('swissup-easytabs-');
 ?>
 <div class="product info detailed">
 <?php if ($block->hasToolbar()): ?>
@@ -21,7 +23,7 @@
 
     <div class="product data items <?= $block->getTabsLayoutType() ?>"
          data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}'
-         id="swissup-easy-tabs"
+         id="<?= $htmlId ?>"
          data-content-type="easytabs"
     >
         <?php foreach ($tabs as $_index => $_tab) : ?>
@@ -61,3 +63,12 @@
         <?php endforeach; ?>
     </div>
 </div>
+<?php if ($listenProductTabs = $block->getListenProductTabs()): ?>
+<script type="text/x-magento-init">
+{
+    "#<?= $htmlId ?>": {
+        "Swissup_Easytabs/js/tabs-updater": {"aliases": <?= json_encode($listenProductTabs); ?>}
+    }
+}
+</script>
+<?php endif ?>
