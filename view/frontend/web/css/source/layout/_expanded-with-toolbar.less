@@ -1,12 +1,15 @@
 & when (@media-common = true) {
+& when (@critical = unsure), (@critical) {
     .product.info.detailed {
         .tabs-toolbar {
             display: none;
         }
     }
 }
+}
 
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+& when (@critical = unsure), (@critical) {
     .product.info.detailed {
         .tabs-toolbar {
             .lib-css(background, @easytabs-toolbar__background);
@@ -53,4 +56,5 @@
             }
         }
     }
+}
 }

@@ -1,3 +1,5 @@
+@import '../source/layout/_expanded-with-toolbar.less';
+
 .collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
     &:extend(.breeze-tabs all);
     > [data-role="collapsible"] {
@@ -43,6 +45,23 @@
 @easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
 @easytabs-expanded-title-h2__text-transform: @hero-block-title__text-transform;
 @easytabs-expanded-title-h2__padding: @4 0;
+
+@easytabs-toolbar__background: #fff;
+@easytabs-toolbar__box-shadow: 0 1px 0 @divider__color;
+@easytabs-toolbar__top: 0;
+@easytabs-toolbar__z-index: 99;
+
+@easytabs-toolbar-item__color: currentColor;
+@easytabs-toolbar-item__font-family: @tab-toggler__font-family;
+@easytabs-toolbar-item__font-size: @tab-toggler__font-size;
+@easytabs-toolbar-item__font-weight: @tab-toggler__font-weight;
+@easytabs-toolbar-item__line-height: false;
+@easytabs-toolbar-item__text-transform: @tab-toggler__text-transform;
+@easytabs-toolbar-item__margin: 0;
+@easytabs-toolbar-item__padding: 1rem 2rem;
+
+@easytabs-toolbar-item-active__background: #fff;
+@easytabs-toolbar-item-active__box-shadow: 0 2px 0 currentColor;
 
 & when (@critical) {
     .product.data.items {
@@ -104,6 +123,14 @@
         }
         #product\.info\.description {
             &:extend(.breeze-prose all);
+        }
+    }
+
+    .product.info.detailed .tabs-toolbar {
+        ~ .data.items {
+            > .item.content {
+                scroll-margin-top: 50px;
+            }
         }
     }
 }
