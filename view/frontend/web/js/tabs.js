@@ -100,19 +100,8 @@ define([
                 anchor = anchor === 'review-form' ? 'reviews' : anchor;
                 $('[data-role="content"]', me.element).each((index, el) => {
                     const $el = $(el);
-                    const $toolbar = $(me.element).siblings('.tabs-toolbar');
-
-                    var offset = 40, toolbarCss;
 
                     if ($el.attr('id') === anchor) {
-                        if ($toolbar.length) {
-                            toolbarCss = window.getComputedStyle($toolbar.get(0));
-                            if (toolbarCss.position == 'sticky') {
-                                offset = parseInt(toolbarCss.top);
-                                offset = isNaN(offset) ? 0 : offset;
-                                offset += $toolbar.outerHeight(true);
-                            }
-                        }
                         me.activate(index);
                         _scrollAnimated($el, me._calculateScrollOffset());
                         event.preventDefault();
