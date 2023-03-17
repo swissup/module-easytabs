@@ -7,6 +7,7 @@ use Magento\CatalogRule\Model\Rule\CustomerGroupsOptionsProvider;
 
 class Customer extends \Magento\Rule\Model\Condition\AbstractCondition
 {
+    private $customerGroupsProvider;
     /**
      * {@inheritdoc}
      */

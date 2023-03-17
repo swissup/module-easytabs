@@ -11,6 +11,7 @@ use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory;
  */
 class AbstractMassStatus extends \Magento\Backend\App\Action
 {
+    private $collectionFactory;
     /**
      * Admin resource
      */
