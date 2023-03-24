@@ -205,12 +205,13 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     {
         // OR condition
         $this->addFieldToFilter(
-                'widget_tab',
-                [
-                    ['is' => new \Zend_Db_Expr('NULL')],
-                    ['eq' => 0]
-                ]
-            );
+            'widget_tab',
+            [
+                ['null' => true],
+                ['eq' => 0]
+            ]
+        );
+
         return $this;
     }
 
