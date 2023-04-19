@@ -43,9 +43,9 @@
                 }
             ?>
             <div class="data item title <?= $isExpanded ? 'active' : '' ?>"
-                aria-labeledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
+                aria-labelledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
+                aria-controls="<?= /* @escapeNotVerified */ $alias; ?>"
                 data-role="collapsible"
-                role="tab"
                 id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
             <?php if ($isExpanded): ?>
                 <h2 <?= $attributes->serialize() ?>><?= /* @escapeNotVerified */ $label ?></h2>
