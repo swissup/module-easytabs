@@ -26,41 +26,45 @@
          id="<?= $htmlId ?>"
          data-content-type="easytabs"
     >
-        <?php foreach ($tabs as $_index => $_tab) : ?>
-            <?php
-                $alias = $_tab['alias'];
-                $label = $_tab['title'];
-                $attributes->setData([
-                    'class' => $isExpanded ? 'title' : 'data switch',
-                    'id' => "tab-label-{$alias}-title",
-                    'data-toggle' => 'switch',
-                ]);
-                if ($_tab['is_ajax']) {
-                    $attributes->setData(
-                        'data-ajaxurl',
-                        $block->getAjaxUrl($alias)
-                    );
-                }
-            ?>
-            <div class="data item title <?= $isExpanded ? 'active' : '' ?>"
-                aria-labelledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
-                aria-controls="<?= /* @escapeNotVerified */ $alias; ?>"
-                data-role="collapsible"
-                id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
-            <?php if ($isExpanded): ?>
-                <h2 <?= $attributes->serialize() ?>><?= /* @escapeNotVerified */ $label ?></h2>
-            <?php else: ?>
-                <a <?= $attributes->serialize() ?>
-                    tabindex="-1"
-                    href="#<?= $alias ?>">
-                    <?= /* @escapeNotVerified */ $label ?>
-                </a>
-            <?php endif ?>
-            </div>
-            <div class="data item content" id="<?= /* @escapeNotVerified */ $alias; ?>" data-role="content">
-                <?= /* @escapeNotVerified */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
-            </div>
-        <?php endforeach; ?>
+        <?php if ($block->getTabsLayoutType() == 'collapsed'): ?>
+            <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('tabs/collapsed.phtml')); ?>
+        <?php else: ?>
+            <?php foreach ($tabs as $_index => $_tab) : ?>
+                <?php
+                    $alias = $_tab['alias'];
+                    $label = $_tab['title'];
+                    $attributes->setData([
+                        'class' => $isExpanded ? 'title' : 'data switch',
+                        'id' => "tab-label-{$alias}-title",
+                        'data-toggle' => 'switch',
+                    ]);
+                    if ($_tab['is_ajax']) {
+                        $attributes->setData(
+                            'data-ajaxurl',
+                            $block->getAjaxUrl($alias)
+                        );
+                    }
+                ?>
+                <div class="data item title <?= $isExpanded ? 'active' : '' ?>"
+                    aria-labelledby="tab-label-<?= /* @escapeNotVerified */ $alias ?>-title"
+                    aria-controls="<?= /* @escapeNotVerified */ $alias; ?>"
+                    data-role="collapsible"
+                    id="tab-label-<?= /* @escapeNotVerified */ $alias ?>">
+                <?php if ($isExpanded): ?>
+                    <h2 <?= $attributes->serialize() ?>><?= /* @escapeNotVerified */ $label ?></h2>
+                <?php else: ?>
+                    <a <?= $attributes->serialize() ?>
+                        tabindex="-1"
+                        href="#<?= $alias ?>">
+                        <?= /* @escapeNotVerified */ $label ?>
+                    </a>
+                <?php endif ?>
+                </div>
+                <div class="data item content" id="<?= /* @escapeNotVerified */ $alias; ?>" data-role="content">
+                    <?= /* @escapeNotVerified */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif ?>
     </div>
 </div>
 <?php if ($listenProductTabs = $block->getListenProductTabs()): ?>

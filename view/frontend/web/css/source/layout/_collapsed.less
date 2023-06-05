@@ -1,0 +1,46 @@
+& when (@media-common = true) {
+    .product.data.items {
+        [role=tablist] {
+            display: flex;
+            margin-bottom: -@tab-control__border-width;
+            overflow-x: auto;
+
+            > .item.title {
+                flex-shrink: 0;
+
+            }
+
+            .lib-data-tabs(
+                @_tab-control-padding-right: 2rem,
+                @_tab-control-padding-left: 2rem
+            );
+
+            .item.title a:after {
+                display: none;
+            }
+        }
+
+        > .item.content {
+            .lib-css(background, @tab-content__background-color);
+            padding: @tab-content__padding-top @tab-content__padding-right @tab-content__padding-bottom @tab-content__padding-left;
+
+            ._lib-tab-content-border(
+                @_tab-content-border-top-status: @tab-content__border-top-status,
+                @_tab-content-border: @tab-content__border
+            );
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product.data.items [role=tablist] {
+        float: left;
+        overflow-x: visible;
+
+        > .item.title {
+            > .switch {
+                .lib-css(padding, @tab-control__padding-top @tab-control__padding-right @tab-control__padding-bottom @tab-control__padding-left);
+            }
+        }
+    }
+}
