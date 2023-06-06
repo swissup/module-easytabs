@@ -12,16 +12,15 @@
             > .item.title {
                 flex-shrink: 0;
 
+                a::after {
+                    display: none;
+                }
             }
 
             .lib-data-tabs(
                 @_tab-control-padding-right: 2rem,
                 @_tab-control-padding-left: 2rem
             );
-
-            .item.title a:after {
-                display: none;
-            }
         }
 
         > .item.content {
