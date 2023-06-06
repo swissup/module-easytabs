@@ -2,24 +2,29 @@
 
 .collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
     &:extend(.breeze-tabs all);
-    > [data-role="collapsible"] {
-        &:extend(.breeze-tab-toggler all);
-        &[aria-expanded="true"] {
-            &:extend(.breeze-tab-toggler-active all);
+    > [role=tablist] {
+        > [data-role="collapsible"] {
+            &:extend(.breeze-tab-toggler all);
+            &[aria-expanded="true"] {
+                &:extend(.breeze-tab-toggler-active all);
+            }
+            &:nth-child(1):not([aria-expanded]) {
+                &:extend(.breeze-tab-toggler-active all);
+            }
         }
-        &:nth-child(1):not([aria-expanded]) {
-            &:extend(.breeze-tab-toggler-active all);
+
+        > .data.item.title {
+            border-bottom-color: transparent;
+            .lib-css(border-width, @tab-toggler__horizontal__border-width);
+
+            &[aria-expanded="true"] {
+                .lib-css(border-color, @tab-toggler__horizontal-active__border-color);
+            }
         }
     }
 
     > [data-role="content"] {
-        &:extend(.breeze-tab-content);
-        &[aria-hidden="false"] {
-            &:extend(.breeze-tab-content-active all);
-        }
-        &:nth-child(2):not([aria-hidden]) {
-            &:extend(.breeze-tab-content-active all);
-        }
+        .breeze-tab-content-horizontal();
     }
 }
 
@@ -44,6 +49,9 @@
 @tab-toggler__font-size: false;  // @todo remove after new breeze-blank
 @tab-toggler__font-weight: false;  // @todo remove after new breeze-blank
 @tab-toggler__text-transform: false;  // @todo remove after new breeze-blank
+
+@easytabs-collapsed-title__margin: 0 @3 0 0;
+@easytabs-collapsed-title__desktop__margin: @tab-toggler__horizontal__margin;
 
 @easytabs-expanded-title-h2__font-size: @hero-block-title__font-size;
 @easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
@@ -78,6 +86,28 @@
             }
             > .content {
                 padding: 0 @3;
+            }
+        }
+        &.collapsed {
+            > [role=tablist] {
+                display: flex;
+                overflow-x: auto;
+
+                > .item.title {
+                    flex-shrink: 0;
+                    & when not (@tab-toggler__font-size = false) {
+                        font-size: ~"calc(@{tab-toggler__font-size} - @{1})";
+                    }
+                    .margin(@easytabs-collapsed-title__margin);
+
+                    @media @media-md {
+                        .margin(@easytabs-collapsed-title__desktop__margin);
+                    }
+
+                    &::after {
+                        display: none;
+                    }
+                }
             }
         }
         &.expanded {
