@@ -1,4 +1,7 @@
-<?php $attributes = new \Magento\Framework\DataObject(); ?>
+<?php
+    $attributes = new \Magento\Framework\DataObject();
+    $isFirst = true;
+?>
 <div role="tablist">
     <?php foreach ($tabs as $_tab) : ?>
         <?php
@@ -11,7 +14,7 @@
             ]));
         ?>
         <div id="tab-label-<?= $alias ?>"
-            class="data item title"
+            class="data item title<?= $isFirst ? ' active' : '' ?>"
             aria-labelledby="tab-label-<?= $alias ?>-title"
             aria-controls="<?= $alias; ?>"
             data-role="collapsible"
@@ -20,7 +23,7 @@
                 <?= /* @escapeNotVerified */ $_tab['title'] ?>
             </a>
         </div>
-    <?php endforeach; ?>
+    <?php $isFirst = false; endforeach; ?>
 </div>
 <?php foreach ($tabs as $_tab) :
     $alias = $block->escapeHtmlAttr($_tab['alias']);

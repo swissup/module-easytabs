@@ -1,5 +1,9 @@
 & when (@media-common = true) {
-    .product.data.items {
+    .product.data.items.collapsed {
+        border: 0;
+        margin-left: 0;
+        margin-right: 0;
+
         [role=tablist] {
             display: flex;
             margin-bottom: -@tab-control__border-width;
@@ -33,7 +37,7 @@
 }
 
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
-    .product.data.items [role=tablist] {
+    .product.data.items.collapsed [role=tablist] {
         float: left;
         overflow-x: visible;
 
