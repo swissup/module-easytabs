@@ -59,6 +59,42 @@ define([
         },
 
         /**
+         * {@inheritdoc}
+         */
+        _processPanels: function () {
+            const me = this;
+
+            me._super();
+
+            if (me.options.multipleCollapsible && !me.options.collapsible) {
+                // expanded layout (non collapsible accordion)
+                // accessability tweaks
+                // pattern described at https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
+                me.headers
+                    .attr('role', 'button')
+                    .attr('aria-disabled', true)
+                    .removeAttr('aria-selected');
+                me.contents
+                    .attr('role', 'region');
+                me.element
+                    .removeAttr('role')
+                    .on('dimensionsChanged', () => { me.headers.removeAttr('aria-selected') });
+            } else if (me.options.collapsible) {
+                // accordion layout
+                // accessability tweaks
+                // pattern described at https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
+                me.headers
+                    .attr('role', 'button')
+                    .removeAttr('aria-selected');
+                me.contents
+                    .attr('role', 'region');
+                me.element
+                    .removeAttr('role')
+                    .on('dimensionsChanged', () => { me.headers.removeAttr('aria-selected') });
+            }
+        },
+
+        /**
          * Listen tab content update after Ajax request.
          */
         _bindAfterAjax: function () {
