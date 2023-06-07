@@ -5,32 +5,15 @@ define([
 ], function ($, accordion) {
     'use strict';
 
-    /**
-     * Animated scroll to element
-     *
-     * @param  {jQuery} element
-     * @param  {Number} offset
-     */
-    function _scrollAnimated(element, offset) {
-        $('html, body').animate({
-            scrollTop: element.offset().top - offset
-        }, 200);
-    }
+    const isBreeze = !!$.breezemap;
 
-    /**
-     * @param  {jQuery} context
-     */
-    function _updateFormKey(context)
-    {
-        var inputSelector = 'input[name="form_key"]',
-            formKey;
-
-        formKey = $.mage.cookies.get('form_key');
-        $(inputSelector, context).val(formKey);
-    }
+    if (isBreeze)
+        accordion = 'accordion';
 
     $.widget('swissup.tabs', accordion, {
+        component: 'Swissup_Easytabs/js/tabs',
         options: {
+            collapsible: false,
             externalLink: '[data-action=activate-tab], .action[href*="\\#review"]',
             ajaxUrlElement: '[data-ajaxurl]',
             ajaxUrlAttribute: 'data-ajaxurl',
@@ -42,29 +25,28 @@ define([
          * {@inheritdoc}
          */
         _create: function () {
-            var me = this;
-
-            // Compatibility with old customizations.
-            // Someday can be removed.
-            if (typeof me.options.active === 'number') {
-                me.options.active = [me.options.active];
-            }
+            const me = this;
+            const anchor = window.location.hash.replace('#', '');
 
             me._bindAfterAjax();
             me._super();
-            me.lastOpened = me.getOpened();
-            me.lastOpened.trigger('beforeOpen');
+            me.$lastOpened = me.collapsibles
+                .filter((i, el) =>
+                    $(el).collapsible('option', 'content').attr('aria-hidden') === 'false'
+                );
+            me.$lastOpened.trigger('beforeOpen');
             me._bindExternalLinks();
             me._bindBeforeOpen();
+            me._updateARIA();
+            if (anchor)
+                me.activateById(anchor);
         },
 
         /**
          * {@inheritdoc}
          */
-        _processPanels: function () {
+        _updateARIA: function () {
             const me = this;
-
-            me._super();
 
             if (me.options.multipleCollapsible && !me.options.collapsible) {
                 // expanded layout (non collapsible accordion)
@@ -98,54 +80,55 @@ define([
          * Listen tab content update after Ajax request.
          */
         _bindAfterAjax: function () {
-            var me = this;
+            const me = this;
 
-            $.async(
-                {
-                    selector: '[data-role=content][aria-busy=true] > :first-child',
-                    ctx: me.element.get(0)
-                },
-                function (firstChild) {
-                    var content = $(firstChild).parent();
+            $.async({
+                selector: '[data-role=content][aria-busy=true] > :first-child',
+                ctx: me.element.get(0)
+            }, (firstChild) => {
+                const content = $(firstChild).parent();
 
-                    me._cancelFurtherPromiseCalls(content);
-                    // Trigger mage-init execution.
-                    content.trigger('contentUpdated');
-                    // apply ko binding
-                    content.children().applyBindings();
-                    // Unset height for tab content.
-                    content.css('height', '');
-                    // Trigger event that content is loaded.
-                    content.trigger('easytabs:contentLoaded');
-                    // Update formkey
-                    _updateFormKey(content);
-                }
-            );
+                me._cancelFurtherPromiseCalls(content);
+                // Trigger mage-init execution.
+                content.trigger('contentUpdated');
+                // apply ko binding
+                content.children().applyBindings();
+                // Unset height for tab content.
+                content.css('height', '');
+                // Trigger event that content is loaded.
+                content.trigger('easytabs:contentLoaded');
+                // Update formkey
+                content.find('input[name="form_key"]').val(
+                    $.mage.cookies.get('form_key')
+                );
+            });
+
+            // triggered in breeze only
+            me.element.on('collapsible:afterLoad', (event) => {
+                const $ajaxElement = $(event.target).find(me.options.ajaxUrlElement);
+
+                if (me.options.ajaxContentOnce)
+                    $ajaxElement.removeAttr(me.options.ajaxUrlAttribute);
+            });
         },
 
         /**
          * Listen external link click to activate tab.
          */
         _bindExternalLinks: function () {
-            var me = this;
+            const me = this;
+
+            if (isBreeze) return; // Disable when breeze
 
             $(me.options.externalLink).on('click', function (event) {
                 var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
 
                 // Workaround to open reviews tab when click on link under product image.
                 anchor = anchor === 'review-form' ? 'reviews' : anchor;
-                $('[data-role="content"]', me.element).each((index, el) => {
-                    const $el = $(el);
-
-                    if ($el.attr('id') === anchor) {
-                        me.activate(index);
-                        _scrollAnimated($el, me._calculateScrollOffset());
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
-
-                        return false;
-                    }
-                });
+                if (me.activateById(anchor)) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                };
             });
 
             // force my click listener to run first
@@ -162,21 +145,19 @@ define([
          * Listen tab before open.
          */
         _bindBeforeOpen: function () {
-            var me = this;
+            const me = this;
 
-            me.collapsibles.on('beforeOpen', function (event) {
-                var currentTab = $(event.currentTarget),
-                    height;
+            me.element.on('beforeOpen collapsible:beforeOpen', (event) => {
+                const $tab = $(event.target);
+                const $content = $tab.collapsible('option', 'content');
+                const height = me.$lastOpened.collapsible('option', 'content').outerHeight();
 
-                height = me.getContent(me.lastOpened).outerHeight();
-                me.lastOpened = $(event.currentTarget);
+                me.$lastOpened = $tab;
 
-                if (me.isAjaxTab(currentTab) &&
-                    $(window).width() > 767
-                ) {
+                if (me.isAjaxTab($tab) && $(window).width() > 767) {
                     // Tab has ajax content. Set height for the tab content to
                     // reduce jumps of page content.
-                    me.getContent(currentTab).css('height', height);
+                    $content.css('height', height);
                 }
             });
         },
@@ -196,60 +177,6 @@ define([
         },
 
         /**
-         * {inheritdoc}
-         */
-        _instantiateCollapsible: function (element, index, active, disabled) {
-            var content = this.contents.eq(index),
-                anchor = window.location.hash;
-
-            this._super(element, index, active, disabled);
-
-            // Expand tab and scroll to it.
-            try {
-                if (content.find(anchor).length > 0 ||
-                    content.attr('id') === anchor.replace('#', '')
-                ) {
-                    $(element).collapsible('forceActivate');
-                    _scrollAnimated(
-                        content.find(anchor).length ? content.find(anchor) : content,
-                        this._calculateScrollOffset()
-                    );
-                }
-            } catch (err) {
-                console.warn(err);
-            }
-        },
-
-        /**
-         * Get opened tab.
-         *
-         * @return {jQuery}
-         */
-        getOpened: function () {
-            var me = this;
-
-            return me.collapsibles.filter(function () {
-                return $(this).hasClass(me.options.openedState);
-            });
-        },
-
-        /**
-         * Get content of tab (collapsibles).
-         *
-         * @param  {HTMLElement} element
-         * @return {jQuery}
-         */
-        getContent: function (element) {
-            var collapsible = $(element).data('mageCollapsible');
-
-            if (!collapsible) {
-                return $();
-            }
-
-            return $(collapsible.content);
-        },
-
-        /**
          * Check if tab loads content via ajax.
          *
          * @param  {HTMLElement}  element
@@ -257,6 +184,32 @@ define([
          */
         isAjaxTab: function (element) {
             return !!$(this.options.ajaxUrlElement, element).length;
+        },
+
+        /**
+         * @param  {String}  id
+         * @param  {Boolean} noScrollIntoView
+         * @return {Boolean}
+         */
+        activateById: function (id, noScrollIntoView) {
+            var isActivated = false;
+
+            this.collapsibles
+                .filter((i, tab) => $(tab).collapsible('option', 'content').attr('id') == id)
+                .each((i, tab) => {
+                    const $content = $(tab).collapsible('option', 'content');
+
+                    $(tab).collapsible(isBreeze ? 'open' : 'forceActivate');
+                    isActivated = true;
+                    if (!noScrollIntoView)
+                        window.scrollTo({
+                            left: 0,
+                            top: $content.offset().top - this._calculateScrollOffset(),
+                            behavior: 'smooth'
+                        });
+                });
+
+            return isActivated;
         },
 
         /**
