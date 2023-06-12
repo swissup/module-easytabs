@@ -3,11 +3,18 @@
         border: 0;
         margin-left: 0;
         margin-right: 0;
+        position: relative;
 
         [role=tablist] {
             display: flex;
             margin-bottom: -@tab-control__border-width;
             overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
 
             > .item.title {
                 flex-shrink: 0;
@@ -31,6 +38,46 @@
                 @_tab-content-border-top-status: @tab-content__border-top-status,
                 @_tab-content-border: @tab-content__border
             );
+        }
+
+        > [name=prev],
+        > [name=next] {
+            .lib-css(border, @tab-content__border);
+            .lib-css(height, @easytabs-collapsed-scroll-button__height);
+            .lib-css(padding, @easytabs-collapsed-scroll-button__padding-top @easytabs-collapsed-scroll-button__padding-right @easytabs-collapsed-scroll-button__padding-bottom @easytabs-collapsed-scroll-button__padding-left);
+            .lib-css(top, @easytabs-collapsed-scroll-button__top);
+            border-radius: 0;
+            border-width: 0;
+            box-sizing: content-box;
+            position: absolute;
+            z-index: 99;
+
+        }
+
+        > [name=prev] {
+            & when not (@tab-content__border = false) {
+                .lib-css(border-left-width, @tab-control__border-width);
+            }
+            .lib-icon-font(
+                @_icon-font-content: @icon-prev,
+                @_icon-font-text-hide: true
+            );
+
+            background: linear-gradient(-90deg, transparent 0%, @tab-control__background-color @easytabs-collapsed-scroll-button__padding-right);
+            left: 0;
+        }
+
+        > [name=next] {
+            & when not (@tab-content__border = false) {
+                .lib-css(border-right-width, @tab-control__border-width);
+            }
+            .lib-icon-font(
+                @_icon-font-content: @icon-next,
+                @_icon-font-text-hide: true
+            );
+
+            background: linear-gradient(90deg, transparent 0%, @tab-control__background-color @easytabs-collapsed-scroll-button__padding-left);
+            right: 0;
         }
     }
 }

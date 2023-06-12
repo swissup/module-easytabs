@@ -1,11 +1,23 @@
 define([
     'jquery',
     'mage/accordion',
+    'mage/translate',
     'Magento_Ui/js/lib/view/utils/async'
 ], function ($, accordion) {
     'use strict';
 
     const isBreeze = !!$.breezemap;
+    const buttonsTmpl =
+        '<button name="prev" style="display: none" tabindex="-1" aria-hidden="true">' +
+            '<span>' +
+                $.mage.__('Previous') +
+            '</span>' +
+        '</button>' +
+        '<button name="next" style="display: none" tabindex="-1" aria-hidden="true">' +
+            '<span>' +
+                $.mage.__('Next') +
+            '</span>' +
+        '</button>';
 
     if (isBreeze)
         accordion = 'accordion';
@@ -38,13 +50,21 @@ define([
             me._bindExternalLinks();
             me._bindBeforeOpen();
             me._updateARIA();
+            me.$tablist = me.element.find('[role=tablist]');
+            if (me.$tablist.length) {
+                let resizeCb = me._onTablistResize.bind(me);
+
+                me.element.append(buttonsTmpl);
+                resizeCb();
+                me.tablistResizeObserver = new ResizeObserver(resizeCb);
+                me.tablistResizeObserver.observe(me.$tablist.get(0));
+                me.$tablist.on('scroll.easytabs', resizeCb);
+                me._on({'click [name=next],[name=prev]': '_onTablistScrollButtonClick'});
+            }
             if (anchor)
                 me.activateById(anchor);
         },
 
-        /**
-         * {@inheritdoc}
-         */
         _updateARIA: function () {
             const me = this;
 
@@ -229,6 +249,44 @@ define([
             // that sticky tabs toolbar overlaps with tab content to activat proper title
 
             return offset;
+        },
+
+        _onTablistResize: function () {
+            const tablist = this.$tablist.get(0);
+
+            this.element.find('[name=prev]')[tablist.scrollLeft > 2 ? 'show' : 'hide']();
+            this.element.find('[name=next]')[tablist.scrollWidth - tablist.offsetWidth - tablist.scrollLeft > 2 ? 'show' : 'hide']();
+        },
+
+        _onTablistScrollButtonClick: function (event) {
+            const button = event.target;
+            const tablist = this.$tablist.get(0);
+
+            event.preventDefault();
+            this.collapsibles.each((i, el) => {
+                if (el.offsetLeft < tablist.scrollLeft)
+                    return true;
+
+                if (button.name == 'next') {
+                    tablist.scrollTo({
+                        left: el.offsetLeft + el.offsetWidth - button.offsetWidth,
+                        behavior: 'smooth'
+                    });
+
+                    return false;
+                } else if (button.name == 'prev' && el.previousElementSibling) {
+                    tablist.scrollTo({
+                        left: el.previousElementSibling.offsetLeft - button.offsetWidth,
+                        behavior: 'smooth'
+                    });
+
+                    return false;
+                }
+            });
+        },
+
+        _destroy: function () {
+            this.$tablist.off('scroll.easytabs');
         }
     });
 
