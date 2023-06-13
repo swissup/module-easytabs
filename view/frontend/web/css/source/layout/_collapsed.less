@@ -56,11 +56,15 @@
 
         > [name=prev] {
             & when not (@tab-content__border = false) {
-                .lib-css(border-left-width, @tab-control__border-width);
+                .lib-css(border-width, @tab-control__border-width);
+                border-right-width: 0;
             }
             .lib-icon-font(
                 @_icon-font-content: @icon-prev,
-                @_icon-font-text-hide: true
+                @_icon-font-color: @tab-control__color,
+                @_icon-font-size: @easytabs-collapsed-scroll-button__font-size,
+                @_icon-font-text-hide: true,
+                @_icon-font-position: before
             );
 
             background: linear-gradient(-90deg, transparent 0%, @tab-control__background-color @easytabs-collapsed-scroll-button__padding-right);
@@ -69,11 +73,15 @@
 
         > [name=next] {
             & when not (@tab-content__border = false) {
-                .lib-css(border-right-width, @tab-control__border-width);
+                .lib-css(border-width, @tab-control__border-width);
+                border-left-width: 0;
             }
             .lib-icon-font(
                 @_icon-font-content: @icon-next,
-                @_icon-font-text-hide: true
+                @_icon-font-color: @tab-control__color,
+                @_icon-font-size: @easytabs-collapsed-scroll-button__font-size,
+                @_icon-font-text-hide: true,
+                @_icon-font-position: after
             );
 
             background: linear-gradient(90deg, transparent 0%, @tab-control__background-color @easytabs-collapsed-scroll-button__padding-left);
