@@ -444,6 +444,10 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
                 'active' => [-1],
                 'collapsible' => true,
                 'openedState' => 'active'
+            ],
+            'default' => [
+                'ajaxContent' => true,
+                'openedState' => 'active'
             ]
         ];
     }

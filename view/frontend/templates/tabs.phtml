@@ -31,6 +31,8 @@
             <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/expanded.phtml')); ?>
         <?php elseif ($tabsLayoutType == 'accordion') : ?>
             <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/accordion.phtml')); ?>
+        <?php else : ?>
+            <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/default.phtml')); ?>
         <?php endif ?>
     </div>
 </div>

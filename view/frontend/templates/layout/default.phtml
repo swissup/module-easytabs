@@ -1,0 +1,28 @@
+<?php
+    $attributes = new \Magento\Framework\DataObject();
+    $isFirst = true;
+?>
+<?php foreach ($tabs as $_tab) : ?>
+    <?php
+        $alias = $block->escapeHtmlAttr($_tab['alias']);
+        $attributes->setData(array_filter([
+            'class' => 'data switch',
+            'id' => "tab-label-{$alias}-title",
+            'data-toggle' => 'switch',
+            'data-ajaxurl' => ($_tab['is_ajax'] ? $block->getAjaxUrl($alias) : false)
+        ]));
+    ?>
+    <div id="tab-label-<?= $alias ?>"
+        class="data item title<?= $isFirst ? ' active' : '' ?>"
+        aria-labelledby="tab-label-<?= $alias ?>-title"
+        aria-controls="<?= $alias; ?>"
+        data-role="collapsible"
+    >
+        <a <?= $attributes->serialize() ?> tabindex="-1" href="#<?= $alias ?>">
+            <?= /* @escapeNotVerified */ $_tab['title'] ?>
+        </a>
+    </div>
+    <div id="<?= $alias ?>" class="data item content" data-role="content">
+        <?= /* @escapeNotVerified */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
+    </div>
+<?php $isFirst = false; endforeach; ?>
