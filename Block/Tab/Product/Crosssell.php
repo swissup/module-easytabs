@@ -51,6 +51,8 @@ class Crosssell extends \Magento\Checkout\Block\Cart\Crosssell
                 ObjectManager::getInstance()->create(PreparePostData::class)
             );
         }
+
+        return $this;
     }
 
     private function getProductLinkField(): string

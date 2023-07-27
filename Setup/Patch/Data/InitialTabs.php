@@ -43,6 +43,7 @@ class InitialTabs implements DataPatchInterface, PatchVersionInterface
                 [ 'tab_id' => $entityId, 'store_id' => Store::DEFAULT_STORE_ID ]
             );
         }
+        return $this;
     }
 
     /**

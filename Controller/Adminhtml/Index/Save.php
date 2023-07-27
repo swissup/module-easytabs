@@ -43,7 +43,7 @@ class Save extends \Magento\Backend\App\Action
 
             if (isset($data['rule'])) {
                 $data['conditions'] = $data['rule']['conditions'];
-                unset($data['rule']);
+                unset($data['rule']); // @phpstan-ignore-line
             }
 
             $model->loadPost($data);
