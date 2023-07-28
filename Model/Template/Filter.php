@@ -21,6 +21,7 @@ class Filter extends \Magento\Widget\Model\Template\Filter
         $params = $this->getParameters($construction[2]);
 
         if (isset($params['scope'])) {
+            $scope = $params['scope'];
             $scope = $this->_layout->getBlock($scope);
             $this->setScope($scope);
         }
