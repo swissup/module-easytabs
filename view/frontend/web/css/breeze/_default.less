@@ -1,36 +1,65 @@
 @import '../source/layout/_expanded-with-toolbar.less';
 
+.default[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+    &:extend(.breeze-tabs all);
+    > [data-role="collapsible"] {
+        &:extend(.breeze-tab-toggler all);
+        &[aria-expanded="true"] {
+            &:extend(.breeze-tab-toggler-active all);
+        }
+        &:nth-child(1):not([aria-expanded]) {
+            &:extend(.breeze-tab-toggler-active all);
+        }
+    }
+
+    > [data-role="content"] {
+        &:extend(.breeze-tab-content);
+        &[aria-hidden="false"] {
+            &:extend(.breeze-tab-content-active all);
+        }
+        &:nth-child(2):not([aria-hidden]) {
+            &:extend(.breeze-tab-content-active all);
+        }
+    }
+}
+
 .collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
     &:extend(.breeze-tabs all);
     > [role=tablist] {
         > [data-role="collapsible"] {
-            &:extend(.breeze-tab-toggler all);
-            &[aria-expanded="true"] {
-                &:extend(.breeze-tab-toggler-active all);
-            }
+            &:extend(.breeze-tab-toggler-common all);
+            &:extend(.breeze-tab-toggler-horizontal all);
+            &[aria-expanded="true"],
             &:nth-child(1):not([aria-expanded]) {
-                &:extend(.breeze-tab-toggler-active all);
+                &:extend(.breeze-tab-toggler-common-active all);
+                &:extend(.breeze-tab-toggler-horizontal-active all);
             }
         }
     }
 
     > [data-role="content"] {
-        .breeze-tab-content-horizontal();
+        &:extend(.breeze-tab-content-horizontal all);
     }
 }
 
 .accordion[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
     > .title {
-        &:extend(.breeze-dropdown-toggler);
+        &:extend(.breeze-tab-toggler-common all);
+        &:extend(.breeze-tab-toggler-accordion all);
 
-        &::after {
-            &:extend(.breeze-dropdown-toggler-icon);
-        }
-        ._active&,
         &[aria-expanded="true"] {
-            &::after {
-                &:extend(.breeze-dropdown-toggler-icon-active);
-            }
+            &:extend(.breeze-tab-toggler-common-active all);
+            &:extend(.breeze-tab-toggler-accordion-active all);
+        }
+    }
+}
+
+.collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'],
+.accordion[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+    > [data-role="content"] {
+        .breeze-tab-content-common();
+        &[aria-hidden="false"] {
+            &:extend(.breeze-tab-content-common-active all);
         }
     }
 }
@@ -43,6 +72,7 @@
 
 @easytabs-collapsed-title__margin: 0 @3 0 0;
 @easytabs-collapsed-title__desktop__margin: @tab-toggler__horizontal__margin;
+@easytabs-collapsed-content__padding: false;
 
 @easytabs-expanded-title-h2__font-size: @hero-block-title__font-size;
 @easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
@@ -68,21 +98,23 @@
 
 & when (@critical) {
     .product.data.items {
-        &.accordion {
-            > .title {
-                .breeze-text-lg();
-                font-weight: 500;
-                clear: both;
-                padding: @3 0;
-            }
-            > .content {
-                padding: 0 @3;
+        .item.content {
+            display: none;
+            &:nth-child(2) {
+                display: block;
             }
         }
+
         &.collapsed {
             > [role=tablist] {
                 display: flex;
                 overflow-x: auto;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
 
                 > .item.title {
                     flex-shrink: 0;
@@ -114,6 +146,10 @@
             > [name=next] {
                 display: none !important;
             }
+
+            > [data-role="content"] {
+                .padding(@easytabs-collapsed-content__padding);
+            }
         }
         &.expanded {
             @media @media-md {
@@ -143,6 +179,7 @@
                 visibility: visible;
                 height: auto;
                 opacity: 1;
+                overflow: auto;
                 @media @media-md {
                     padding: @4 0;
                     width: 75%;
