@@ -1,5 +1,12 @@
 & when (@media-common = true) {
     .product.data.items {
+        .item.content {
+            display: none;
+            &:nth-child(2) {
+                display: block;
+            }
+        }
+
         .fieldset .review-legend.legend strong {
             display: inline;
             margin-left: .5em;
