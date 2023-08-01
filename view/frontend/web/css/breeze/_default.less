@@ -73,6 +73,7 @@
 @easytabs-collapsed-title__margin: 0 @3 0 0;
 @easytabs-collapsed-title__desktop__margin: @tab-toggler__horizontal__margin;
 @easytabs-collapsed-content__padding: false;
+@easytabs-collapsed-content__desktop__padding: false;
 
 @easytabs-expanded-title-h2__font-size: @hero-block-title__font-size;
 @easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
@@ -149,6 +150,10 @@
 
             > [data-role="content"] {
                 .padding(@easytabs-collapsed-content__padding);
+
+                @media @media-md {
+                    .padding(@easytabs-collapsed-content__desktop__padding);
+                }
             }
         }
         &.expanded {
