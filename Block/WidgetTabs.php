@@ -9,8 +9,8 @@ class WidgetTabs extends Tabs implements \Magento\Widget\Block\BlockInterface
     protected function _getCollection()
     {
         $collection = parent::_getCollection();
-        $filterTabs = str_replace(' ', '', $this->getFilterTabs());
-        $filterTabs = explode(',', $filterTabs);
+        $filterTabs = explode(',', (string)$this->getFilterTabs());
+        $filterTabs = array_map('trim', $filterTabs);
         $collection->addFieldToFilter('alias', array('in' => $filterTabs));
         $collection->addWidgetTabFilter();
         return $collection;
