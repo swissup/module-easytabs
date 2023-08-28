@@ -97,6 +97,6 @@ class Attribute extends Template
 
         $attribute = $product->getResource()->getAttribute($attributeCode);
 
-        return $attribute->getFrontend()->getLocalizedLabel();
+        return $attribute->getStoreLabel();
     }
 }
