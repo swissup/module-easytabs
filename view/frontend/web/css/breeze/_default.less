@@ -119,9 +119,6 @@
 
                 > .item.title {
                     flex-shrink: 0;
-                    & when not (@tab-toggler__font-size = false) {
-                        font-size: ~"calc(@{tab-toggler__font-size} - @{1})";
-                    }
                     .margin(@easytabs-collapsed-title__margin);
 
                     @media @media-md {
