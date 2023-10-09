@@ -75,10 +75,12 @@
 @easytabs-collapsed-content__padding: false;
 @easytabs-collapsed-content__desktop__padding: false;
 
+@easytabs-expanded__border-top: 1px solid @divider__color;
 @easytabs-expanded-title-h2__font-size: @hero-block-title__font-size;
 @easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
 @easytabs-expanded-title-h2__text-transform: @hero-block-title__text-transform;
 @easytabs-expanded-title-h2__padding: @4 0;
+@easytabs-expanded-content__padding: @easytabs-expanded-title-h2__padding;
 
 @easytabs-toolbar__background: #fff;
 @easytabs-toolbar__box-shadow: 0 1px 0 @divider__color;
@@ -165,7 +167,7 @@
                 }
                 @media @media-md {
                     width: 25%;
-                    border-top: 1px solid @divider__color;
+                    .lib-css(border-top, @easytabs-expanded__border-top);
                 }
 
                 h2 {
@@ -181,11 +183,11 @@
                 visibility: visible;
                 height: auto;
                 opacity: 1;
-                overflow: auto;
+                overflow: visible;
                 @media @media-md {
-                    padding: @4 0;
                     width: 75%;
-                    border-top: 1px solid @divider__color;
+                    .lib-css(padding, @easytabs-expanded-content__padding);
+                    .lib-css(border-top, @easytabs-expanded__border-top);
                 }
             }
             &:first-child > .content {
