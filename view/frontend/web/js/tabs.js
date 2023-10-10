@@ -143,8 +143,6 @@ define([
             $(me.options.externalLink).on('click', function (event) {
                 var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
 
-                // Workaround to open reviews tab when click on link under product image.
-                anchor = anchor === 'review-form' ? 'reviews' : anchor;
                 if (me.activateById(anchor)) {
                     event.preventDefault();
                     event.stopImmediatePropagation();
@@ -207,7 +205,7 @@ define([
         },
 
         /**
-         * @param  {String}  id
+         * @param  {String}  id               Can be tab or any child of content
          * @param  {Boolean} noScrollIntoView
          * @return {Boolean}
          */
@@ -215,18 +213,30 @@ define([
             var isActivated = false;
 
             this.collapsibles
-                .filter((i, tab) => $(tab).collapsible('option', 'content').attr('id') == id)
                 .each((i, tab) => {
                     const $content = $(tab).collapsible('option', 'content');
-
-                    $(tab).collapsible(isBreeze ? 'open' : 'forceActivate');
-                    isActivated = true;
-                    if (!noScrollIntoView)
+                    const $toActivate = $content.attr('id') === id ?
+                        $content :
+                        $content.find('#' + id.replace('.', '\\.'));
+                    const scrollToElement = () => {
                         window.scrollTo({
                             left: 0,
-                            top: $content.offset().top - this._calculateScrollOffset(),
+                            top: $toActivate.offset().top - this._calculateScrollOffset(),
                             behavior: 'smooth'
                         });
+                    };
+
+                    if ($toActivate.length) {
+                        if (!noScrollIntoView)
+                            $(tab).one('dimensionsChanged', scrollToElement);
+
+                        // Fix for reviews tab. Reviews list loads via ajax.
+                        if ($content.find('#product-review-container:empty').length)
+                            $content.one('contentUpdated', scrollToElement);
+
+                        $(tab).collapsible(isBreeze ? 'open' : 'forceActivate');
+                        isActivated = true;
+                    }
                 });
 
             return isActivated;
