@@ -19,6 +19,15 @@ define([
             '</span>' +
         '</button>';
 
+    const forceLoadReviews = (tabId) => {
+        const $tab = $('#' + tabId.replace('.', '\\.'));
+        const role = $tab.attr('role');
+
+        $tab.attr('role', 'tab');
+        $tab.one('contentUpdated', () => { $tab.attr('role', role); });
+        $tab.trigger('beforeOpen');
+    }
+
     if (isBreeze)
         accordion = 'accordion';
 
@@ -121,6 +130,10 @@ define([
                 content.find('input[name="form_key"]').val(
                     $.mage.cookies.get('form_key')
                 );
+
+                // Fix for reviews tab. Reviews list loads via ajax.
+                if (content.find('#product-review-container:empty').length)
+                    forceLoadReviews(content.attr('aria-labelledby'));
             });
 
             // triggered in breeze only
