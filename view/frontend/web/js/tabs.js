@@ -24,7 +24,8 @@ define([
         const role = $tab.attr('role');
 
         $tab.attr('role', 'tab');
-        $tab.one('contentUpdated', () => { $tab.attr('role', role); });
+        $tab.collapsible('option', 'content')
+            .one('contentUpdated', () => { $tab.attr('role', role); });
         $tab.trigger('beforeOpen');
     }
 
