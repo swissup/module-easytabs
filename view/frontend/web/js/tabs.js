@@ -83,9 +83,11 @@ define([
                 // accessability tweaks
                 // pattern described at https://www.w3.org/WAI/ARIA/apg/patterns/accordion/
                 me.headers
-                    .attr('role', 'button')
+                    .attr('role', 'heading')
+                    .attr('aria-level', '2')
                     .attr('aria-disabled', true)
-                    .removeAttr('aria-selected');
+                    .removeAttr('aria-selected')
+                    .removeAttr('tabindex');
                 me.contents
                     .attr('role', 'region');
                 me.element
