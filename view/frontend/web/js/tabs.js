@@ -137,7 +137,7 @@ define([
             });
 
             // triggered in breeze only
-            me.element.on('collapsible:afterLoad', (event) => {
+            me._on('collapsible:afterLoad', (event) => {
                 const $ajaxElement = $(event.target).find(me.options.ajaxUrlElement);
 
                 if (me.options.ajaxContentOnce)
@@ -176,20 +176,23 @@ define([
          * Listen tab before open.
          */
         _bindBeforeOpen: function () {
-            const me = this;
-
-            me.element.on('beforeOpen collapsible:beforeOpen', (event) => {
+            const reducePageJumps = (event) => {
                 const $tab = $(event.target);
                 const $content = $tab.collapsible('option', 'content');
-                const height = me.$lastOpened.collapsible('option', 'content').outerHeight();
+                const height = this.$lastOpened.collapsible('option', 'content').outerHeight();
 
-                me.$lastOpened = $tab;
+                this.$lastOpened = $tab;
 
-                if (me.isAjaxTab($tab) && $(window).width() > 767) {
+                if (this.isAjaxTab($tab) && $(window).width() > 767) {
                     // Tab has ajax content. Set height for the tab content to
                     // reduce jumps of page content.
                     $content.css('height', height);
                 }
+            }
+
+            this._on({
+                'beforeOpen [data-role=collapsible]': reducePageJumps,
+                'collapsible:beforeOpen [data-role=collapsible]': reducePageJumps
             });
         },
 
