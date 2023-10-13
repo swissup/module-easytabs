@@ -76,10 +76,12 @@
 @easytabs-collapsed-content__desktop__padding: false;
 
 @easytabs-expanded__border-top: 1px solid @divider__color;
+@easytabs-expanded-title__width: 25%;
 @easytabs-expanded-title-h2__font-size: @hero-block-title__font-size;
 @easytabs-expanded-title-h2__font-weight: @hero-block-title__font-weight;
 @easytabs-expanded-title-h2__text-transform: @hero-block-title__text-transform;
 @easytabs-expanded-title-h2__padding: @4 0;
+@easytabs-expanded-content__width: 75%;
 @easytabs-expanded-content__padding: @easytabs-expanded-title-h2__padding;
 
 @easytabs-toolbar__background: #fff;
@@ -166,7 +168,7 @@
                     margin-top: @2;
                 }
                 @media @media-md {
-                    width: 25%;
+                    .lib-css(width, @easytabs-expanded-title__width);
                     .lib-css(border-top, @easytabs-expanded__border-top);
                 }
 
@@ -185,7 +187,7 @@
                 opacity: 1;
                 overflow: visible;
                 @media @media-md {
-                    width: 75%;
+                    .lib-css(width, @easytabs-expanded-content__width);
                     .lib-css(padding, @easytabs-expanded-content__padding);
                     .lib-css(border-top, @easytabs-expanded__border-top);
                 }
