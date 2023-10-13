@@ -311,8 +311,9 @@ define([
             });
         },
 
-        _destroy: function () {
+        destroy: function () {
             this.$tablist.off('scroll.easytabs');
+            this._super();
         }
     });
 
