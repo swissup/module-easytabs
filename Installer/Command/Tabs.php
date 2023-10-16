@@ -93,6 +93,9 @@ class Tabs
 
             $data = array_merge([
                 'status' => 1,
+                'widget_tab' => 0,
+                'is_ajax' => 0,
+                'can_listen_product' => 0,
             ], $data);
 
             try {
