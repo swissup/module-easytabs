@@ -191,6 +191,11 @@
                     .lib-css(padding, @easytabs-expanded-content__padding);
                     .lib-css(border-top, @easytabs-expanded__border-top);
                 }
+                &::after {
+                    content: '';
+                    display: table;
+                    clear: both;
+                }
             }
             &:first-child > .content {
                 .block:first-child .block-title,
