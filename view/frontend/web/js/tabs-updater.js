@@ -4,6 +4,14 @@ define([
 ], function ($) {
     'use strict';
 
+    const _getUiWidgetInstance = ($el, widget) => {
+        try {
+            return $el[widget]('instance');
+        } catch (error) {
+            return $el.data(`mage-${widget}`) || $el.data(`mage-${widget}`);
+        }
+    }
+
     $.widget('swissup.tabsUpdater', {
         component: 'Swissup_Easytabs/js/tabs-updater',
 
@@ -41,7 +49,7 @@ define([
             // listen swatch option change
             $(me.options.swatchOptionsSelector).on('change.tabsupdater', (event) => {
                 const $swatches = $(event.currentTarget);
-                const swatchRenderer = $swatches.data('mageSwatchRenderer') || $swatches.data('mage-SwatchRenderer');
+                const swatchRenderer = _getUiWidgetInstance($swatches, 'SwatchRenderer');
 
                 if (swatchRenderer)
                     me._update(swatchRenderer.getProduct());
@@ -50,7 +58,7 @@ define([
             // listen configurable option change
             $(me.options.configurableOptionsSelector).on('change.tabsupdater', (event) => {
                 const $productForm = $('#product_addtocart_form');
-                const configurable = $productForm.data('mageConfigurable');
+                const configurable = _getUiWidgetInstance($productForm, 'configurable');
 
                 if (configurable)
                     me._update(configurable.simpleProduct);
