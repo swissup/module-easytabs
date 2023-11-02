@@ -117,7 +117,6 @@
                 overflow-x: auto;
                 -ms-overflow-style: none;
                 scrollbar-width: none;
-                padding: 4px;
 
                 &::-webkit-scrollbar {
                     display: none;
@@ -125,6 +124,7 @@
 
                 > .item.title {
                     flex-shrink: 0;
+                    outline-offset: -2px;
                     .margin(@easytabs-collapsed-title__margin);
 
                     @media @media-md {
