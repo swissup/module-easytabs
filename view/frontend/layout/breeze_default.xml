@@ -7,9 +7,26 @@
                 <argument name="bundles" xsi:type="array">
                     <item name="default" xsi:type="array">
                         <item name="items" xsi:type="array">
-                            <item name="Swissup_Easytabs/js/tabs" xsi:type="string">Swissup_Easytabs/js/tabs</item>
-                            <item name="Swissup_Easytabs/js/tabs-toolbar" xsi:type="string">Swissup_Easytabs/js/tabs-toolbar</item>
-                            <item name="Swissup_Easytabs/js/tabs-updater" xsi:type="string">Swissup_Easytabs/js/tabs-updater</item>
+                            <item name="Swissup_Easytabs/js/tabs" xsi:type="array">
+                                <item name="path" xsi:type="string">Swissup_Easytabs/js/tabs</item>
+                                <item name="load" xsi:type="array">
+                                    <item name="onRequire" xsi:type="boolean">true</item>
+                                </item>
+                            </item>
+                            <item name="Swissup_Easytabs/js/tabs-toolbar" xsi:type="array">
+                                <item name="path" xsi:type="string">Swissup_Easytabs/js/tabs-toolbar</item>
+                                <item name="load" xsi:type="array">
+                                    <item name="onReveal" xsi:type="array">
+                                        <item name="toolbar" xsi:type="string">.tabs-toolbar</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="Swissup_Easytabs/js/tabs-updater" xsi:type="array">
+                                <item name="path" xsi:type="string">Swissup_Easytabs/js/tabs-updater</item>
+                                <item name="load" xsi:type="array">
+                                    <item name="onRequire" xsi:type="boolean">true</item>
+                                </item>
+                            </item>
                         </item>
                     </item>
                 </argument>
