@@ -1,6 +1,9 @@
 <?php
 namespace Swissup\Easytabs\Block\Tab\Product;
 
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\View\Element\ButtonLockManager;
+
 class Review extends \Magento\Review\Block\Product\Review
 {
     /**
@@ -26,19 +29,24 @@ class Review extends \Magento\Review\Block\Product\Review
 
         $layout = $this->getLayout();
         $blockName = 'easytab.product.' . $this->getNameInLayout();
-        $reviewForm = $layout->createBlock(
-            $formBlock,
-            $blockName,
-            ['data' =>
-                ['jsLayout' =>
-                    ['components' =>
-                        ['review-form' =>
-                            ['component' => 'Magento_Review/js/view/review']
+        $blockArgs = [
+            'data' => [
+                'jsLayout' => [
+                    'components' => [
+                        'review-form' => [
+                            'component' => 'Magento_Review/js/view/review',
                         ]
                     ]
                 ]
             ]
-        );
+        ];
+
+        if (class_exists(ButtonLockManager::class)) {
+            $blockArgs['data']['button_lock_manager'] = ObjectManager::getInstance()
+                ->get(ButtonLockManager::class);
+        }
+
+        $reviewForm = $layout->createBlock($formBlock, $blockName, $blockArgs);
         if ($reviewForm) {
             $this->setChild('review_form', $reviewForm);
             $containerName = $blockName . '.fields.before';
