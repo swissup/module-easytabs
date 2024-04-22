@@ -5,10 +5,7 @@
         <referenceBlock name="breeze.scrollReveal">
             <arguments>
                 <argument name="selectors" xsi:type="array">
-                    <item name="easytabs" xsi:type="string"><![CDATA[
-                        .easytabs-tablist > *,
-                        .product.data.items.expanded > .data.item.content
-                    ]]></item>
+                    <item name="easytabs" xsi:type="string">.easytabs-tablist > *</item>
                 </argument>
             </arguments>
         </referenceBlock>
