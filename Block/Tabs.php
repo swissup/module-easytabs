@@ -293,6 +293,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     public function isEmptyString($content)
     {
+        // remove scripts from content
+        $content = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $content);
         $content = strip_tags(
             $content,
             '<hr><img><iframe><embed><object><video><audio><input><textarea><script><style><link><meta>'
