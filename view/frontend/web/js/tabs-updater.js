@@ -37,7 +37,7 @@ define([
                 $tabTitle.attr('data-ajaxurl', url);
                 $tabItemTitle.attr('data-loaded', false);
                 if ($tabItemTitle.hasClass('active'))
-                    me._activateTab(alias);
+                    me._updateTab(alias);
             });
         },
 
@@ -65,7 +65,7 @@ define([
             });
         },
 
-        _activateTab: function (alias) {
+        _updateTab: function (alias) {
             const $tabs = $(this.element);
 
             var tabsWidget = $tabs.data('swissupTabs');
@@ -77,10 +77,7 @@ define([
 
             $tabs.find('[data-role="content"]').each((index, content) => {
                 if ($(content).attr('id') === alias) {
-                    if (typeof tabsWidget.activate === 'function')
-                        tabsWidget.activate(index);
-                    else
-                        tabsWidget.collapsibles.eq(index).collapsible('open');
+                    tabsWidget.collapsibles.eq(index).data('mageCollapsible')._loadContent();
                 }
             });
         },
