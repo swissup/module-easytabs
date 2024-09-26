@@ -70,11 +70,6 @@ define([
 
             var tabsWidget = $tabs.data('swissupTabs');
 
-            if (!tabsWidget)
-                // No instance. Then it can be Breeze-based frontend
-                tabsWidget = $tabs.tabs('instance');
-
-
             $tabs.find('[data-role="content"]').each((index, content) => {
                 if ($(content).attr('id') === alias) {
                     tabsWidget.collapsibles.eq(index).data('mageCollapsible')._loadContent();

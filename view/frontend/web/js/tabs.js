@@ -29,9 +29,6 @@ define([
         $tab.trigger('beforeOpen');
     }
 
-    if (isBreeze)
-        accordion = 'accordion';
-
     $.widget('swissup.tabs', accordion, {
         component: 'Swissup_Easytabs/js/tabs',
         options: {
