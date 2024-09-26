@@ -72,7 +72,13 @@ define([
 
             $tabs.find('[data-role="content"]').each((index, content) => {
                 if ($(content).attr('id') === alias) {
-                    tabsWidget.collapsibles.eq(index).data('mageCollapsible')._loadContent();
+                    var collapsible = tabsWidget.collapsibles.eq(index).data('mageCollapsible');
+
+                    if (collapsible._loadContent) {
+                        collapsible._loadContent();
+                    } else if (collapsible.loadContent) {
+                        collapsible.loadContent();
+                    }
                 }
             });
         },
