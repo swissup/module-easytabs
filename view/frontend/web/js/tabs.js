@@ -228,6 +228,10 @@ define([
         activateById: function (id, noScrollIntoView) {
             var isActivated = false;
 
+            if (!isNaN(id[0])) {
+                return isActivated;
+            }
+
             this.collapsibles
                 .each((i, tab) => {
                     const $content = $(tab).collapsible('option', 'content');
