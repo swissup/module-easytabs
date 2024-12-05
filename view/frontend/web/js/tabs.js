@@ -45,7 +45,7 @@ define([
          */
         _create: function () {
             const me = this;
-            const anchor = window.location.hash.replace('#', '');
+            const anchor = decodeURI(window.location.hash.replace('#', ''));
 
             me._bindAfterAjax();
             me._super();
