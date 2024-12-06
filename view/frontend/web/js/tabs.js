@@ -235,9 +235,16 @@ define([
             this.collapsibles
                 .each((i, tab) => {
                     const $content = $(tab).collapsible('option', 'content');
-                    const $toActivate = $content.attr('id') === id ?
-                        $content :
-                        $content.find('#' + id.replace('.', '\\.'));
+                    var $toActivate = $content;
+
+                    if ($content.attr('id') !== id) {
+                        try {
+                            $toActivate = $content.find('#' + id.replace('.', '\\.'));
+                        } catch (e) {
+                            return; // hash contains chars that are not supported by query selector.
+                        }
+                    }
+
                     const scrollToElement = () => {
                         window.scrollTo({
                             left: 0,
