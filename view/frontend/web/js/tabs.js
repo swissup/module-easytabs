@@ -165,10 +165,11 @@ define([
             // force my click listener to run first
             // inspired by https://stackoverflow.com/a/13980262
             $(me.options.externalLink).each(function () {
-                var handlers;
+                var handlers = jQuery._data(this).events?.click;
 
-                handlers = jQuery._data(this).events.click;
-                handlers.unshift(handlers.pop());
+                if (handlers) {
+                    handlers.unshift(handlers.pop());
+                }
             });
         },
 
