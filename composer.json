@@ -8,10 +8,10 @@
         "homepage tabs"
     ],
     "type": "magento2-module",
-    "version": "1.12.13",
+    "version": "1.12.14",
     "license": "OSL-3.0",
     "require": {
-        "swissup/module-core": "^1.12.20"
+        "swissup/module-core": "^1.12.21"
     },
     "autoload": {
         "files": [ "registration.php" ],
