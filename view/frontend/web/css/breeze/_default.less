@@ -1,6 +1,6 @@
 @import '../source/layout/_expanded-with-toolbar.less';
 
-.default[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+.default[data-content-type="easytabs"] {
     &:extend(.breeze-tabs all);
     > [data-role="collapsible"] {
         &:extend(.breeze-tab-toggler all);
@@ -23,7 +23,7 @@
     }
 }
 
-.collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+.collapsed[data-content-type="easytabs"] {
     &:extend(.breeze-tabs all);
     > [role=tablist] {
         > [data-role="collapsible"] {
@@ -42,7 +42,7 @@
     }
 }
 
-.accordion[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+.accordion[data-content-type="easytabs"] {
     > .title {
         &:extend(.breeze-tab-toggler-common all);
         &:extend(.breeze-tab-toggler-accordion all);
@@ -54,8 +54,8 @@
     }
 }
 
-.collapsed[data-mage-init*='"Swissup_Easytabs/js/tabs":'],
-.accordion[data-mage-init*='"Swissup_Easytabs/js/tabs":'] {
+.collapsed[data-content-type="easytabs"],
+.accordion[data-content-type="easytabs"] {
     > [data-role="content"] {
         .breeze-tab-content-common();
         &[aria-hidden="false"] {
