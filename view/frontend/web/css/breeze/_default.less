@@ -106,7 +106,9 @@
     .product.data.items {
         .item.content {
             display: none;
-            &:nth-child(2) {
+        }
+        &:not([data-mage-init*='"active":"-1"']) {
+            .item.content:nth-child(2) {
                 display: block;
             }
         }
