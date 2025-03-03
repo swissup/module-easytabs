@@ -39,5 +39,18 @@
                 </argument>
             </arguments>
         </referenceBlock>
+
+        <referenceBlock name="breeze.earlyEventsProxy">
+            <arguments>
+                <argument name="rules" xsi:type="array">
+                    <item name="Swissup_Easytabs/js/tabs" xsi:type="array">
+                        <item name="component" xsi:type="string">Swissup_Easytabs/js/tabs</item>
+                        <item name="events" xsi:type="array">
+                            <item name="0" xsi:type="string">click [data-mage-init*="Swissup_Easytabs/js/tabs"] .data.item.title</item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
     </body>
 </page>
