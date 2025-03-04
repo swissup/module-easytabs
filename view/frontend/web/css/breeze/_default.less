@@ -92,6 +92,7 @@
 @easytabs-expanded-title-h2__padding: @4 0;
 @easytabs-expanded-content__width: 75%;
 @easytabs-expanded-content__padding: @easytabs-expanded-title-h2__padding;
+@easytabs-expanded-content__scroll-margin: 50px 0 0;
 
 @easytabs-toolbar__background: #fff;
 @easytabs-toolbar__box-shadow: 0 1px 0 @divider__color;
@@ -226,7 +227,7 @@
     .product.info.detailed .tabs-toolbar {
         ~ .data.items {
             > .item.content {
-                scroll-margin-top: 50px;
+                .lib-css(scroll-margin, @easytabs-expanded-content__scroll-margin);
             }
         }
     }
