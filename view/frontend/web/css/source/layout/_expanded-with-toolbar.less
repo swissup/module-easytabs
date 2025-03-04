@@ -14,6 +14,8 @@
         .tabs-toolbar {
             .lib-css(background, @easytabs-toolbar__background);
             .lib-css(box-shadow, @easytabs-toolbar__box-shadow);
+            .lib-css(gap, @easytabs-toolbar__gap);
+            .lib-css(justify-content, @easytabs-toolbar__justify-content);
             .lib-css(top, @easytabs-toolbar__top);
             .lib-css(z-index, @easytabs-toolbar__z-index);
             display: flex;
@@ -21,6 +23,7 @@
             text-align: center;
 
             &-item {
+                .lib-css(background, @easytabs-toolbar-item__background);
                 .lib-css(color, @easytabs-toolbar-item__color);
                 .lib-css(font-family, @easytabs-toolbar-item__font-family);
                 .lib-css(font-size, @easytabs-toolbar-item__font-size);
@@ -29,13 +32,14 @@
                 .lib-css(margin, @easytabs-toolbar-item__margin);
                 .lib-css(padding, @easytabs-toolbar-item__padding);
                 .lib-css(text-transform, @easytabs-toolbar-item__text-transform);
+                .lib-css(width, @easytabs-toolbar-item__width);
                 overflow-x: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                width: 100%;
 
                 &.active {
                     .lib-css(background, @easytabs-toolbar-item-active__background);
+                    .lib-css(color, @easytabs-toolbar-item-active__color);
                     .lib-css(box-shadow, @easytabs-toolbar-item-active__box-shadow);
                 }
             }
