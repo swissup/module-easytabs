@@ -176,6 +176,16 @@
             </parameter>
         </parameters>
     </widget>
+    <widget id="easytabs_xml_reference" class="Swissup\Easytabs\Block\Tab\LayoutXmlReference" is_email_compatible="false"
+        placeholder_image="" ttl="86400">
+        <label translate="true">Reference to the Layout XML Block</label>
+        <description>Move existing layout XML block to the tab</description>
+        <parameters>
+            <parameter name="widget_template" xsi:type="text" required="true" visible="true">
+                <label translate="true">Block name in Layout XML</label>
+            </parameter>
+        </parameters>
+    </widget>
     <widget id="easytabs_cms" class="Swissup\Easytabs\Block\Tab\Cms" is_email_compatible="false"
         placeholder_image="" ttl="86400">
         <label translate="true">CMS Static Block</label>
