@@ -34,8 +34,8 @@ class Entity implements ResolverInterface
         Field $field,
         $context,
         ResolveInfo $info,
-        array $value = null,
-        array $args = null
+        ?array $value = null,
+        ?array $args = null
     ) {
         if (!isset($args['alias'])) {
             throw new GraphQlInputException(__('"Tab identifier should be specified'));
