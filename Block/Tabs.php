@@ -21,7 +21,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      * @var array
      */
     protected $blockUnsetTemplate = [
-        'product.reviews.wrapper'
+        'product.reviews.wrapper',
+        'product.review.form'
     ];
 
     /**
