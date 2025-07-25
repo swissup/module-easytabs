@@ -159,7 +159,7 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
                 );
 
                 $unsets = (string) $tab->getWidgetUnset();
-                $unsets = explode(',', $unsets);
+                $unsets = array_map('trim', explode(',', $unsets));
                 $layout = $this->getLayout();
                 foreach ($unsets as $blockName) {
                     $block = $layout->getBlock($blockName);
