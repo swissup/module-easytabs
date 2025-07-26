@@ -61,6 +61,10 @@ class Review extends \Magento\Review\Block\Product\Review
                 $layout->setChild($containerName, $blockName, $blockName);
             });
         }
+        $this->_eventManager->dispatch(
+            'swissup_easytabs_product_review_prepare_layout_after',
+            ['block' => $this, 'layout' => $this->getLayout()]
+        );
 
         return parent::_prepareLayout();
     }
