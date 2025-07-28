@@ -77,7 +77,11 @@ class InitialTabs implements DataPatchInterface, PatchVersionInterface
                 'sort_order' => 20,
                 'status' => 1,
                 'widget_template' => 'Magento_Review::review.phtml',
-                'widget_unset' => 'product.reviews.wrapper' // unset block when page layout is "Product -- Full Width"
+                'widget_unset' => implode(', ', [
+                    'product.reviews.wrapper', // unset block when page layout is "Product -- Full Width"
+                    'product.review.form', // unset review form in Hyva theme
+                    'review_list' // unset review list in Hyva theme
+                ]);
             ]
         ];
     }
