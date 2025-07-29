@@ -81,7 +81,7 @@ class InitialTabs implements DataPatchInterface, PatchVersionInterface
                     'product.reviews.wrapper', // unset block when page layout is "Product -- Full Width"
                     'product.review.form', // unset review form in Hyva theme
                     'review_list' // unset review list in Hyva theme
-                ]);
+                ])
             ]
         ];
     }
