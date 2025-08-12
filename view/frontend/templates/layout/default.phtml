@@ -10,20 +10,20 @@
             'class' => 'data switch',
             'id' => "tab-label-{$alias}-title",
             'data-toggle' => 'switch',
-            'data-ajaxurl' => ($_tab['is_ajax'] ? $block->getAjaxUrl($alias) : false)
+            'data-ajaxurl' => ($_tab['is_ajax'] ? $block->getAjaxUrl($_tab['alias']) : false)
         ]));
     ?>
-    <div id="tab-label-<?= $escaper->escapeHtmlAttr($alias) ?>"
+    <div id="tab-label-<?= /* @noEscape */ $alias ?>"
         class="data item title<?= $isFirst ? ' active' : '' ?>"
-        aria-labelledby="tab-label-<?= $escaper->escapeHtmlAttr($alias) ?>-title"
-        aria-controls="<?= $escaper->escapeHtmlAttr($alias); ?>"
+        aria-labelledby="tab-label-<?= /* @noEscape */ $alias ?>-title"
+        aria-controls="<?= /* @noEscape */ $alias ?>"
         data-role="collapsible"
     >
-        <a <?= /* @noEscape */ $attributes->serialize() ?> tabindex="-1" href="#<?= $escaper->escapeHtmlAttr($alias) ?>">
+        <a <?= /* @noEscape */ $attributes->serialize() ?> tabindex="-1" href="#<?= /* @noEscape */ $alias ?>">
             <?= $escaper->escapeHtml($_tab['title'], ['span']) ?>
         </a>
     </div>
-    <div id="<?= $escaper->escapeHtmlAttr($alias) ?>" class="data item content" data-role="content">
+    <div id="<?= /* @noEscape */ $alias ?>" class="data item content" data-role="content">
         <?= /* @noEscape */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
     </div>
 <?php $isFirst = false; endforeach; ?>
