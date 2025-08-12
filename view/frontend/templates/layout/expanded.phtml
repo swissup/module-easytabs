@@ -16,7 +16,7 @@
         aria-controls="<?= $escaper->escapeHtmlAttr($alias); ?>"
         data-role="collapsible"
     >
-        <h2 <?= $attributes->serialize() ?>><?= $escaper->escapeHtml($_tab['title'], ['span']) ?></h2>
+        <h2 <?= /* @noEscape */ $attributes->serialize() ?>><?= $escaper->escapeHtml($_tab['title'], ['span']) ?></h2>
     </div>
     <div id="<?= $escaper->escapeHtmlAttr($alias); ?>" class="data item content" data-role="content">
         <?= /* @noEscape */ $isAjax ? '' : $_tab['child_html'] ?>

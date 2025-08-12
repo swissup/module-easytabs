@@ -41,7 +41,7 @@
 <script type="text/x-magento-init">
 {
     "#<?= $escaper->escapeJs($htmlId) ?>": {
-        "Swissup_Easytabs/js/tabs-updater": <?= json_encode([
+        "Swissup_Easytabs/js/tabs-updater": <?= /* @noEscape */ json_encode([
             'aliases' => $listenProductTabs,
             'url' => $block->getAjaxUrl('tab_alias')
         ]); ?>

@@ -19,7 +19,7 @@
         aria-controls="<?= $escaper->escapeHtmlAttr($alias); ?>"
         data-role="collapsible"
     >
-        <a <?= $attributes->serialize() ?> tabindex="-1" href="#<?= $escaper->escapeHtmlAttr($alias) ?>">
+        <a <?= /* @noEscape */ $attributes->serialize() ?> tabindex="-1" href="#<?= $escaper->escapeHtmlAttr($alias) ?>">
             <?= $escaper->escapeHtml($_tab['title'], ['span']) ?>
         </a>
     </div>
