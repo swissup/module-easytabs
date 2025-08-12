@@ -1,3 +1,4 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <?php
     $tabs = $block->prepareTabsData();
     if (!$tabs) {
@@ -13,33 +14,33 @@
     <?php foreach ($tabs as $_index => $_tab): ?>
         <a class="tabs-toolbar-item"
             data-action="activate-tab"
-            href="#<?= $_tab['alias'] ?>">
-            <?= /* @escapeNotVerified */ $_tab['title'] ?>
+            href="#<?= $escaper->escapeHtmlAttr($_tab['alias']) ?>">
+            <?= $escaper->escapeHtml($_tab['title'], ['span']) ?>
         </a>
     <?php endforeach ?>
     </div>
 <?php endif ?>
 
-    <div id="<?= $htmlId ?>"
-        class="product data items <?= $tabsLayoutType ?>"
+    <div id="<?= $escaper->escapeHtmlAttr($htmlId) ?>"
+        class="product data items <?= $escaper->escapeHtmlAttr($tabsLayoutType) ?>"
         data-content-type="easytabs"
-        data-mage-init='{"Swissup_Easytabs/js/tabs": <?= $block->getInitOptions() ?>}'
+        data-mage-init='{"Swissup_Easytabs/js/tabs": <?= /* @noEscape */ $block->getInitOptions() ?>}'
     >
         <?php if ($tabsLayoutType == 'collapsed'): ?>
-            <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/collapsed.phtml')); ?>
+            <?= /* @noEscape */ $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/collapsed.phtml')); ?>
         <?php elseif ($tabsLayoutType == 'expanded') : ?>
-            <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/expanded.phtml')); ?>
+            <?= /* @noEscape */ $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/expanded.phtml')); ?>
         <?php elseif ($tabsLayoutType == 'accordion') : ?>
-            <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/accordion.phtml')); ?>
+            <?= /* @noEscape */ $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/accordion.phtml')); ?>
         <?php else : ?>
-            <?= $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/default.phtml')); ?>
+            <?= /* @noEscape */ $block->assign('tabs', $tabs)->fetchView($block->getTemplateFile('layout/default.phtml')); ?>
         <?php endif ?>
     </div>
 </div>
 <?php if ($listenProductTabs = $block->getListenProductTabs()): ?>
 <script type="text/x-magento-init">
 {
-    "#<?= $htmlId ?>": {
+    "#<?= $escaper->escapeJs($htmlId) ?>": {
         "Swissup_Easytabs/js/tabs-updater": <?= json_encode([
             'aliases' => $listenProductTabs,
             'url' => $block->getAjaxUrl('tab_alias')
