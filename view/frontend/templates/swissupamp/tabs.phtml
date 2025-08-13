@@ -1,3 +1,4 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <?php
     $tabs = $block->prepareTabsData();
 ?>
@@ -5,11 +6,11 @@
     <amp-accordion class="collateral-tabs" animate>
     <?php foreach ($tabs as $_index => $_tab) : ?>
         <section expanded>
-            <h4 id="#product_tabs_<?= $_tab['alias'] ?>" class="tab">
-                <?= $_tab['title']?>
+            <h4 id="#product_tabs_<?= $escaper->escapeHtmlAttr($_tab['alias']) ?>" class="tab">
+                <?= $escaper->escapeHtml($_tab['title'], ['span'])?>
             </h4>
-            <div id="product_tabs_<?= $_tab['alias'] ?>_contents" class="tab-container">
-                <div class="tab-content"><?= $_tab['child_html']; ?></div>
+            <div id="product_tabs_<?= $escaper->escapeHtmlAttr($_tab['alias']) ?>_contents" class="tab-container">
+                <div class="tab-content"><?= /* @noEscape */ $_tab['child_html']; ?></div>
             </div>
         </section>
     <?php endforeach; ?>

@@ -1,3 +1,4 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <?php
     $attributes = new \Magento\Framework\DataObject();
     $isFirst = true;
@@ -5,22 +6,22 @@
 <div class="easytabs-tablist" role="tablist">
     <?php foreach ($tabs as $_tab) : ?>
         <?php
-            $alias = $block->escapeHtmlAttr($_tab['alias']);
+            $alias = $escaper->escapeHtmlAttr($_tab['alias']);
             $attributes->setData(array_filter([
                 'class' => 'data switch',
                 'id' => "tab-label-{$alias}-title",
                 'data-toggle' => 'switch',
-                'data-ajaxurl' => ($_tab['is_ajax'] ? $block->getAjaxUrl($alias) : false)
+                'data-ajaxurl' => ($_tab['is_ajax'] ? $block->getAjaxUrl($_tab['alias']) : false)
             ]));
         ?>
-        <div id="tab-label-<?= $alias ?>"
+        <div id="tab-label-<?= /* @noEscape */ $alias ?>"
             class="data item title<?= $isFirst ? ' active' : '' ?>"
-            aria-labelledby="tab-label-<?= $alias ?>-title"
-            aria-controls="<?= $alias; ?>"
+            aria-labelledby="tab-label-<?= /* @noEscape */ $alias ?>-title"
+            aria-controls="<?= /* @noEscape */ $alias ?>"
             data-role="collapsible"
         >
-            <a <?= $attributes->serialize() ?> tabindex="-1" href="#<?= $alias ?>">
-                <?= /* @escapeNotVerified */ $_tab['title'] ?>
+            <a <?= /* @noEscape */ $attributes->serialize() ?> tabindex="-1" href="#<?= /* @noEscape */ $alias ?>">
+                <?= $escaper->escapeHtml($_tab['title'], ['span']) ?>
             </a>
         </div>
     <?php $isFirst = false; endforeach; ?>
@@ -28,7 +29,7 @@
 <?php foreach ($tabs as $_tab) :
     $alias = $block->escapeHtmlAttr($_tab['alias']);
 ?>
-    <div id="<?= $alias ?>" class="data item content" data-role="content">
-        <?= /* @escapeNotVerified */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
+    <div id="<?= $escaper->escapeHtmlAttr($alias) ?>" class="data item content" data-role="content">
+        <?= /* @noEscape */ $_tab['is_ajax'] ? '' : $_tab['child_html'] ?>
     </div>
 <?php endforeach; ?>

@@ -1,3 +1,4 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <?php
     $htmlId = uniqid('ui-component-');
 ?>
@@ -18,17 +19,17 @@
         'Magento_Ui/js/lib/view/utils/async',
         'Magento_Ui/js/core/app'
     ], function ($, app) {
-        app(<?= $block->getJsLayout() ?>);
+    app(<?= /* @noEscape */ $block->getJsLayout() ?>);
         $.async({
-            selector: '#<?= $htmlId ?>'
+            selector: '#<?= $escaper->escapeHtmlAttr($htmlId) ?>'
         }, (el) => {
            $(el).applyBindings();
         });
     });
 </script>
 
-<div id="<?= $htmlId ?>" class="admin__field-control control">
-<!-- ko scope: '<?= $block->getScopeName() ?>' -->
+<div id="<?= $escaper->escapeHtmlAttr($htmlId) ?>" class="admin__field-control control">
+<!-- ko scope: '<?= $escaper->escapeHtmlAttr($block->getScopeName()) ?>' -->
     <!-- ko template: getTemplate() --><!-- /ko -->
 <!-- /ko -->
 </div>

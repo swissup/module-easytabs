@@ -1,11 +1,12 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <?php foreach ($block->getAttributeCodes() as $attributeCode):
     $html = $block->renderAttribute($attributeCode);
     if (!$html) {
         continue;
     }
 ?>
-    <div class="product attibute <?= $attributeCode ?>">
-        <div class="label"><?= $block->renderAttributeLabel($attributeCode) ?></div>
-        <div class="content"><?= $html ?></div>
+    <div class="product attibute <?= $escaper->escapeHtmlAttr($attributeCode) ?>">
+        <div class="label"><?= $escaper->escapeHtml($block->renderAttributeLabel($attributeCode)) ?></div>
+        <div class="content"><?= /* @noEscape */ $html ?></div>
     </div>
 <?php endforeach; ?>

@@ -1,3 +1,4 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <script type="text/javascript">
 require([
     'knockout',
@@ -8,7 +9,7 @@ require([
         blockComponent,
         htmlComponent,
         initialValues,
-        description = <?= $block->getDescriptionsJson() ?>;
+        description = <?= /* @noEscape */ $block->getDescriptionsJson() ?>;
 
     function loaderShow() {
         $('body').trigger('processStart');
@@ -97,7 +98,7 @@ require([
             initialValues = $.extend({}, registry.get(htmlComponent.provider).data);
             initialValues.block = initialValues['tab_id'] ? initialValues.block : '';
             // Initialize Ajax call for html content
-            htmlComponent.url = '<?= $this->getUrl("easytabs/index/loadOptions") ?>';
+            htmlComponent.url = '<?= $escaper->escapeJs($this->getUrl("easytabs/index/loadOptions")) ?>';
             htmlComponent.initAjaxConfig();
             $.extend(htmlComponent.ajaxConfig.data, {
                 isAjax: 'true',
