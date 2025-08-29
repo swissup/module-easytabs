@@ -165,7 +165,11 @@
 
             > [name=prev],
             > [name=next] {
-                display: none !important;
+                position: absolute;
+                visibility: hidden;
+                pointer-events: none;
+                width: 0;
+                height: 0;
             }
 
             > [data-role="content"] {
