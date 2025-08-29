@@ -62,7 +62,6 @@ define([
                 let resizeCb = me._onTablistResize.bind(me);
 
                 me.element.append(buttonsTmpl);
-                resizeCb();
                 me.tablistResizeObserver = new ResizeObserver(resizeCb);
                 me.tablistResizeObserver.observe(me.$tablist.get(0));
                 me.$tablist.on('scroll.easytabs', resizeCb);
