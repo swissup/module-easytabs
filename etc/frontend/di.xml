@@ -6,6 +6,7 @@
             <argument name="attributeRenderer" xsi:type="array">
                 <item name="general" xsi:type="object">Swissup\Easytabs\Model\Product\Attribute\Renderer\General</item>
                 <item name="media_image" xsi:type="object">Swissup\Easytabs\Model\Product\Attribute\Renderer\MediaImage</item>
+                <item name="categories" xsi:type="object">Swissup\Easytabs\Model\Product\Attribute\Renderer\Categories</item>
             </argument>
         </arguments>
     </type>
