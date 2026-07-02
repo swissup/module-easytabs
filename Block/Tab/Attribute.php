@@ -76,7 +76,27 @@ class Attribute extends Template
             return '';
         }
 
+        if ($attributeCode === 'category_ids') {
+            $categories = $product->getCategoryCollection()
+                ->addAttributeToSelect('name')
+                ->addAttributeToFilter('is_active', 1);
+
+            if (!$categories->getSize()) {
+                return '';
+            }
+
+            $categoryNames = [];
+            foreach ($categories as $category) {
+                $categoryNames[] = $category->getName();
+            }
+
+            return $this->escapeHtml(implode(', ', $categoryNames));
+        }
+
         $attribute = $product->getResource()->getAttribute($attributeCode);
+        if (!$attribute) {
+            return '';
+        }
         $type = $attribute->getFrontend()->getInputType();
         $renderer = $this->getData("attributeRenderer/{$type}")
             ?: $this->getData('attributeRenderer/general');
