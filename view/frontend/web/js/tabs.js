@@ -74,6 +74,12 @@ define([
         _updateARIA: function () {
             const me = this;
 
+            if (me.options.collapsible || me.options.multipleCollapsible) {
+                // Breeze prepends <div role="tablist" aria-owns="..."> for tab layouts.
+                // Headers below are not tabs anymore, so it breaks aria-required-children.
+                me.element.children('[role=tablist][aria-owns]').remove();
+            }
+
             if (me.options.multipleCollapsible && !me.options.collapsible) {
                 // expanded layout (non collapsible accordion)
                 // accessability tweaks
