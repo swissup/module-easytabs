@@ -11,6 +11,7 @@ use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
 use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory as TabsCollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Widget\Model\Template\FilterEmulate;
+use Magento\Store\Model\Store;
 
 /**
  * tab entity data provider
@@ -91,14 +92,28 @@ class Entity
             ->addStoreFilter($storeId)
             ->addFieldToFilter('alias', $identifier);
 
-        // Multiple tabs can have same alias. Use first one matching
-        // tab conditions (customer group, etc.) like on storefront.
+        // Multiple tabs can have same alias. Pick the same tab as storefront
+        // (Block\Tabs::_buildTabs): matching tab conditions (customer group, etc.),
+        // store view specific first, then default store view level.
         $customer = $this->customerFactory->create()->setGroupId($customerGroupId);
+        $candidates = [];
         foreach ($collection as $entity) {
             $entity->setCustomer($customer);
-            if ($entity->validate($entity)) {
-                return $this->convertData($entity);
+            if (!$entity->validate($entity)) {
+                continue;
             }
+
+            $stores = (array)$entity->getData('store_id');
+            if (in_array($storeId, $stores)) {
+                $candidates[$storeId] = $entity;
+            } elseif (in_array(Store::DEFAULT_STORE_ID, $stores)) {
+                $candidates[Store::DEFAULT_STORE_ID] = $entity;
+            }
+        }
+
+        $entity = $candidates[$storeId] ?? ($candidates[Store::DEFAULT_STORE_ID] ?? null);
+        if ($entity) {
+            return $this->convertData($entity);
         }
 
         throw new NoSuchEntityException(
