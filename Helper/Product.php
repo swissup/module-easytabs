@@ -2,9 +2,6 @@
 
 namespace Swissup\Easytabs\Helper;
 
-use Magento\Catalog\Model\ResourceModel\Product\Relation;
-use Magento\Framework\App\ObjectManager;
-
 class Product extends \Magento\Catalog\Helper\Product
 {
     /**
@@ -19,13 +16,11 @@ class Product extends \Magento\Catalog\Helper\Product
         // fall back to parent_id, and only when it is their real parent.
         if (!$canShow && is_object($product) && $product->isVisibleInCatalog()) {
             $parentId = (int)$this->_request->getParam('parent_id');
-            $parentIds = $parentId
-                ? ObjectManager::getInstance()->get(Relation::class)
-                    ->getRelationsByChildren([$product->getId()])
-                : [];
-
-            if (in_array($parentId, $parentIds[$product->getId()] ?? [])) {
-                $canShow = parent::canShow($parentId, $where);
+            if ($parentId && parent::canShow($parentId, $where)) {
+                $parent = $this->productRepository->getById($parentId);
+                // [group => [childId => childId]] for configurable, grouped and bundle.
+                $childIds = $parent->getTypeInstance()->getChildrenIds($parentId, false);
+                $canShow = in_array($product->getId(), array_merge([], ...array_values($childIds)));
             }
         }
 

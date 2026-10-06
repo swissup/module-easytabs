@@ -6,7 +6,9 @@ namespace Swissup\Easytabs\Model\Resolver\DataProvider;
 use Magento\Cms\Api\BlockRepositoryInterface;
 use Magento\Cms\Api\Data\BlockInterface;
 use Swissup\Easytabs\Api\Data\EntityInterface;
-use Swissup\Easytabs\Api\GetEntityByAliasInterface;
+use Swissup\Easytabs\Model\Entity as TabModel;
+use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
+use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory as TabsCollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Widget\Model\Template\FilterEmulate;
 
@@ -18,9 +20,9 @@ class Entity
     const CONTENT = 'content';
 
     /**
-     * @var GetEntityByAliasInterface
+     * @var TabsCollectionFactory
      */
-    private $entityByAlias;
+    private $tabsCollectionFactory;
 
     /**
      * @var FilterEmulate
@@ -49,7 +51,7 @@ class Entity
 
     /**
      *
-     * @param GetEntityByAliasInterface $entityByAlias
+     * @param TabsCollectionFactory $tabsCollectionFactory
      * @param FilterEmulate $widgetFilter
      * @param BlockRepositoryInterface $blockRepository
      * @param \Magento\Framework\App\State $appState
@@ -57,14 +59,14 @@ class Entity
      * @param \Magento\Customer\Model\CustomerFactory $customerFactory
      */
     public function __construct(
-        GetEntityByAliasInterface $entityByAlias,
+        TabsCollectionFactory $tabsCollectionFactory,
         FilterEmulate $widgetFilter,
         BlockRepositoryInterface $blockRepository,
         \Magento\Framework\App\State $appState,
         \Magento\Framework\View\Element\BlockFactory $blockFactory,
         \Magento\Customer\Model\CustomerFactory $customerFactory
     ) {
-        $this->entityByAlias = $entityByAlias;
+        $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->widgetFilter = $widgetFilter;
         $this->blockRepository = $blockRepository;
         $this->appState = $appState;
@@ -83,17 +85,25 @@ class Entity
      */
     public function getDataByAlias(string $identifier, int $storeId, int $customerGroupId = 0): array
     {
-        $entity = $this->entityByAlias->execute($identifier, $storeId);
+        $collection = $this->tabsCollectionFactory->create()
+            ->addOrder(EntityInterface::SORT_ORDER, TabsCollection::SORT_ORDER_DESC)
+            ->addStatusFilter(TabModel::STATUS_ENABLED)
+            ->addStoreFilter($storeId)
+            ->addFieldToFilter('alias', $identifier);
 
-        // Apply tab conditions (customer group, etc.) like on storefront.
-        $entity->setCustomer($this->customerFactory->create()->setGroupId($customerGroupId));
-        if (!$entity->validate($entity)) {
-            throw new NoSuchEntityException(
-                __('The tab entity with the "%1" alias doesn\'t exist.', $identifier)
-            );
+        // Multiple tabs can have same alias. Use first one matching
+        // tab conditions (customer group, etc.) like on storefront.
+        $customer = $this->customerFactory->create()->setGroupId($customerGroupId);
+        foreach ($collection as $entity) {
+            $entity->setCustomer($customer);
+            if ($entity->validate($entity)) {
+                return $this->convertData($entity);
+            }
         }
 
-        return $this->convertData($entity);
+        throw new NoSuchEntityException(
+            __('The tab entity with the "%1" alias doesn\'t exist.', $identifier)
+        );
     }
 
     /**
