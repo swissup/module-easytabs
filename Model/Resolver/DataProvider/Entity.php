@@ -43,25 +43,33 @@ class Entity
     private $blockFactory;
 
     /**
+     * @var \Magento\Customer\Model\CustomerFactory
+     */
+    private $customerFactory;
+
+    /**
      *
      * @param GetEntityByAliasInterface $entityByAlias
      * @param FilterEmulate $widgetFilter
      * @param BlockRepositoryInterface $blockRepository
      * @param \Magento\Framework\App\State $appState
      * @param \Magento\Framework\View\Element\BlockFactory $blockFactory
+     * @param \Magento\Customer\Model\CustomerFactory $customerFactory
      */
     public function __construct(
         GetEntityByAliasInterface $entityByAlias,
         FilterEmulate $widgetFilter,
         BlockRepositoryInterface $blockRepository,
         \Magento\Framework\App\State $appState,
-        \Magento\Framework\View\Element\BlockFactory $blockFactory
+        \Magento\Framework\View\Element\BlockFactory $blockFactory,
+        \Magento\Customer\Model\CustomerFactory $customerFactory
     ) {
         $this->entityByAlias = $entityByAlias;
         $this->widgetFilter = $widgetFilter;
         $this->blockRepository = $blockRepository;
         $this->appState = $appState;
         $this->blockFactory = $blockFactory;
+        $this->customerFactory = $customerFactory;
     }
 
     /**
@@ -69,12 +77,21 @@ class Entity
      *
      * @param string $identifier
      * @param int $storeId
+     * @param int $customerGroupId
      * @return array
      * @throws NoSuchEntityException
      */
-    public function getDataByAlias(string $identifier, int $storeId): array
+    public function getDataByAlias(string $identifier, int $storeId, int $customerGroupId = 0): array
     {
         $entity = $this->entityByAlias->execute($identifier, $storeId);
+
+        // Apply tab conditions (customer group, etc.) like on storefront.
+        $entity->setCustomer($this->customerFactory->create()->setGroupId($customerGroupId));
+        if (!$entity->validate($entity)) {
+            throw new NoSuchEntityException(
+                __('The tab entity with the "%1" alias doesn\'t exist.', $identifier)
+            );
+        }
 
         return $this->convertData($entity);
     }

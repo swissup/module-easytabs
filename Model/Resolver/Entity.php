@@ -44,9 +44,13 @@ class Entity implements ResolverInterface
         $data = [];
         try {
             if (isset($args['alias'])) {
+                $extensionAttributes = $context->getExtensionAttributes();
                 $data = $this->entityDataProvider->getDataByAlias(
                     (string)$args['alias'],
-                    (int)$context->getExtensionAttributes()->getStore()->getId()
+                    (int)$extensionAttributes->getStore()->getId(),
+                    method_exists($extensionAttributes, 'getCustomerGroupId')
+                        ? (int)$extensionAttributes->getCustomerGroupId()
+                        : 0
                 );
             }
         } catch (NoSuchEntityException $e) {
