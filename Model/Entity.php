@@ -451,6 +451,10 @@ class Entity extends \Magento\Rule\Model\AbstractModel
      */
     public function getCustomer()
     {
+        if ($customer = $this->getData('customer')) {
+            return $customer;
+        }
+
         if (!$this->customerSession) {
             return null;
         }

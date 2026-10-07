@@ -6,9 +6,12 @@ namespace Swissup\Easytabs\Model\Resolver\DataProvider;
 use Magento\Cms\Api\BlockRepositoryInterface;
 use Magento\Cms\Api\Data\BlockInterface;
 use Swissup\Easytabs\Api\Data\EntityInterface;
-use Swissup\Easytabs\Api\GetEntityByAliasInterface;
+use Swissup\Easytabs\Model\Entity as TabModel;
+use Swissup\Easytabs\Model\ResourceModel\Entity\Collection as TabsCollection;
+use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory as TabsCollectionFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Widget\Model\Template\FilterEmulate;
+use Magento\Store\Model\Store;
 
 /**
  * tab entity data provider
@@ -18,9 +21,9 @@ class Entity
     const CONTENT = 'content';
 
     /**
-     * @var GetEntityByAliasInterface
+     * @var TabsCollectionFactory
      */
-    private $entityByAlias;
+    private $tabsCollectionFactory;
 
     /**
      * @var FilterEmulate
@@ -43,25 +46,33 @@ class Entity
     private $blockFactory;
 
     /**
+     * @var \Magento\Customer\Model\CustomerFactory
+     */
+    private $customerFactory;
+
+    /**
      *
-     * @param GetEntityByAliasInterface $entityByAlias
+     * @param TabsCollectionFactory $tabsCollectionFactory
      * @param FilterEmulate $widgetFilter
      * @param BlockRepositoryInterface $blockRepository
      * @param \Magento\Framework\App\State $appState
      * @param \Magento\Framework\View\Element\BlockFactory $blockFactory
+     * @param \Magento\Customer\Model\CustomerFactory $customerFactory
      */
     public function __construct(
-        GetEntityByAliasInterface $entityByAlias,
+        TabsCollectionFactory $tabsCollectionFactory,
         FilterEmulate $widgetFilter,
         BlockRepositoryInterface $blockRepository,
         \Magento\Framework\App\State $appState,
-        \Magento\Framework\View\Element\BlockFactory $blockFactory
+        \Magento\Framework\View\Element\BlockFactory $blockFactory,
+        \Magento\Customer\Model\CustomerFactory $customerFactory
     ) {
-        $this->entityByAlias = $entityByAlias;
+        $this->tabsCollectionFactory = $tabsCollectionFactory;
         $this->widgetFilter = $widgetFilter;
         $this->blockRepository = $blockRepository;
         $this->appState = $appState;
         $this->blockFactory = $blockFactory;
+        $this->customerFactory = $customerFactory;
     }
 
     /**
@@ -69,14 +80,45 @@ class Entity
      *
      * @param string $identifier
      * @param int $storeId
+     * @param int $customerGroupId
      * @return array
      * @throws NoSuchEntityException
      */
-    public function getDataByAlias(string $identifier, int $storeId): array
+    public function getDataByAlias(string $identifier, int $storeId, int $customerGroupId = 0): array
     {
-        $entity = $this->entityByAlias->execute($identifier, $storeId);
+        $collection = $this->tabsCollectionFactory->create()
+            ->addOrder(EntityInterface::SORT_ORDER, TabsCollection::SORT_ORDER_DESC)
+            ->addStatusFilter(TabModel::STATUS_ENABLED)
+            ->addStoreFilter($storeId)
+            ->addFieldToFilter('alias', $identifier);
 
-        return $this->convertData($entity);
+        // Multiple tabs can have same alias. Pick the same tab as storefront
+        // (Block\Tabs::_buildTabs): matching tab conditions (customer group, etc.),
+        // store view specific first, then default store view level.
+        $customer = $this->customerFactory->create()->setGroupId($customerGroupId);
+        $candidates = [];
+        foreach ($collection as $entity) {
+            $entity->setCustomer($customer);
+            if (!$entity->validate($entity)) {
+                continue;
+            }
+
+            $stores = (array)$entity->getData('store_id');
+            if (in_array($storeId, $stores)) {
+                $candidates[$storeId] = $entity;
+            } elseif (in_array(Store::DEFAULT_STORE_ID, $stores)) {
+                $candidates[Store::DEFAULT_STORE_ID] = $entity;
+            }
+        }
+
+        $entity = $candidates[$storeId] ?? ($candidates[Store::DEFAULT_STORE_ID] ?? null);
+        if ($entity) {
+            return $this->convertData($entity);
+        }
+
+        throw new NoSuchEntityException(
+            __('The tab entity with the "%1" alias doesn\'t exist.', $identifier)
+        );
     }
 
     /**

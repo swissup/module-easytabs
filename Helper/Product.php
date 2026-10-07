@@ -11,11 +11,16 @@ class Product extends \Magento\Catalog\Helper\Product
     {
         $canShow = parent::canShow($product, $where);
 
-        if (!$canShow) {
+        // isVisibleInCatalog() checks status (enabled), not visibility.
+        // So only enabled products hidden by visibility setting (e.g. "Not Visible Individually")
+        // fall back to parent_id, and only when it is their real parent.
+        if (!$canShow && is_object($product) && $product->isVisibleInCatalog()) {
             $parentId = (int)$this->_request->getParam('parent_id');
-
-            if ($parentId) {
-                $canShow = parent::canShow($parentId, $where);
+            if ($parentId && parent::canShow($parentId, $where)) {
+                $parent = $this->productRepository->getById($parentId);
+                // [group => [childId => childId]] for configurable, grouped and bundle.
+                $childIds = $parent->getTypeInstance()->getChildrenIds($parentId, false);
+                $canShow = in_array($product->getId(), array_merge([], ...array_values($childIds)));
             }
         }
 
