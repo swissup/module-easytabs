@@ -111,6 +111,20 @@ define([
         },
 
         /**
+         * {@inheritdoc}
+         */
+        _instantiateCollapsible: function (element, index, active, disabled) {
+            this._super(element, index, active, disabled);
+
+            if (this.options.multipleCollapsible && !this.options.collapsible) {
+                // expanded layout: collapsible removes aria-level and makes heading focusable
+                this.headers.eq(index)
+                    .attr('aria-level', '2')
+                    .removeAttr('tabindex');
+            }
+        },
+
+        /**
          * Listen tab content update after Ajax request.
          */
         _bindAfterAjax: function () {
