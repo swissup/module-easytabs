@@ -2,6 +2,7 @@
 
 namespace Swissup\Easytabs\Model\Rule\Condition;
 
+use Magento\Customer\Api\Data\GroupInterface;
 use Magento\Rule\Model\Condition\Context;
 use Magento\CatalogRule\Model\Rule\CustomerGroupsOptionsProvider;
 
@@ -91,7 +92,14 @@ class Customer extends \Magento\Rule\Model\Condition\AbstractCondition
             return true;
         }
 
-        return parent::validate($tab->getCustomer());
+        // Guest customer model from session has no group_id. Treat it as NOT LOGGED IN.
+        // Do not use getGroupId(): Customer model falls back to the default (General) group.
+        if ($customer->getData('group_id') === null) {
+            $customer = clone $customer;
+            $customer->setGroupId(GroupInterface::NOT_LOGGED_IN_ID);
+        }
+
+        return parent::validate($customer);
     }
 
     /**
