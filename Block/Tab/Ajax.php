@@ -13,6 +13,13 @@ class Ajax extends Tabs
     {
         $collection = parent::_getCollection();
         $collection->addFieldToFilter('alias', $this->getTab());
+
+        // Without product only widget tabs are allowed (widget on non-product page).
+        // Product tabs require product, otherwise product conditions are skipped.
+        if (!(int)$this->getProductId()) {
+            $collection->addWidgetTabFilter();
+        }
+
         return $collection;
     }
 
@@ -36,7 +43,9 @@ class Ajax extends Tabs
      */
     public function getTab()
     {
-        return $this->getRequest()->getParam('tab');
+        $tab = $this->getRequest()->getParam('tab');
+
+        return is_string($tab) ? $tab : '';
     }
 
     /**

@@ -113,7 +113,7 @@ class Entity
 
         $entity = $candidates[$storeId] ?? ($candidates[Store::DEFAULT_STORE_ID] ?? null);
         if ($entity) {
-            return $this->convertData($entity);
+            return $this->convertData($entity, $storeId);
         }
 
         throw new NoSuchEntityException(
@@ -125,10 +125,11 @@ class Entity
      * Convert data
      *
      * @param EntityInterface $entity
+     * @param int $storeId
      * @return array
      * @throws NoSuchEntityException
      */
-    private function convertData(EntityInterface $entity)
+    private function convertData(EntityInterface $entity, int $storeId)
     {
         if (false === $entity->getStatus()) {
             throw new NoSuchEntityException();
@@ -146,6 +147,15 @@ class Entity
                     $blockId = trim($blockId, "\"\'");
 
                     $blockModel = $this->blockRepository->getById($blockId);
+
+                    // Do not expose disabled blocks or blocks from other store views.
+                    $blockStores = array_map('intval', (array)$blockModel->getStoreId());
+                    if (!$blockModel->isActive()
+                        || !array_intersect([$storeId, Store::DEFAULT_STORE_ID], $blockStores)
+                    ) {
+                        $renderedContent = '';
+                        break;
+                    }
 
                     $renderedContent = $this->widgetFilter
 //                        ->setStoreId($storeId)

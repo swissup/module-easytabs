@@ -1,6 +1,7 @@
 <?php
 namespace Swissup\Easytabs\Controller\Adminhtml;
 
+use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
@@ -9,7 +10,7 @@ use Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory;
 /**
  * Class AbstractMassStatus
  */
-class AbstractMassStatus extends \Magento\Backend\App\Action
+class AbstractMassStatus extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
     private $collectionFactory;
     /**

@@ -63,6 +63,7 @@ class EasytabsActions extends Column
                                 ]
                             ),
                             'label' => __('Delete'),
+                            'post' => true,
                             'confirm' => [
                                 'title' => __('Delete'),
                                 'message' => __('Are you sure you want to do this?')

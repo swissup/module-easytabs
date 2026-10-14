@@ -2,8 +2,9 @@
 namespace Swissup\Easytabs\Controller\Adminhtml\Index;
 
 use Magento\Backend\Model\Session;
+use Magento\Framework\App\Action\HttpPostActionInterface;
 
-class Save extends \Magento\Backend\App\Action
+class Save extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
     /**
      * Admin resource

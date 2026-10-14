@@ -38,23 +38,42 @@ class Index extends \Magento\Framework\App\Action\Action implements ViewInterfac
     }
 
     /**
-     * @return \Magento\Framework\View\Result\Layout
+     * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
+        $tab = $this->_request->getParam('tab');
+        if (!is_string($tab) || $tab === '') {
+            return $this->noRoute();
+        }
+
+        $pathAlias = $this->_request->getParam('path_alias', '');
         $this->_request->setAlias(
             UrlInterface::REWRITE_REQUEST_PATH_ALIAS,
-            $this->decoder->decode($this->_request->getParam('path_alias', ''))
+            $this->decoder->decode(is_string($pathAlias) ? $pathAlias : '')
         );
-        $this->_initProduct();
+
+        // Product requested but not available (disabled, not visible, wrong website).
+        // Do not render tabs without product: product conditions would be skipped.
+        if ((int)$this->_request->getParam('id') && !$this->_initProduct()) {
+            return $this->noRoute();
+        }
 
         return $this->resultFactory->create(ResultFactory::TYPE_LAYOUT);
     }
 
     /**
+     * @return \Magento\Framework\Controller\Result\Forward
+     */
+    private function noRoute()
+    {
+        return $this->resultFactory->create(ResultFactory::TYPE_FORWARD)->forward('noroute');
+    }
+
+    /**
      * Initialize requested product object
      *
-     * @return ModelProduct
+     * @return ModelProduct|false
      */
     protected function _initProduct()
     {

@@ -4,6 +4,11 @@ namespace Swissup\Easytabs\Controller\Adminhtml\Index;
 class LoadOptions extends \Magento\Backend\App\Action
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Easytabs::easytabs_save';
+
+    /**
      * Ajax responder for loading plugin options form
      *
      * @return void
@@ -24,7 +29,11 @@ class LoadOptions extends \Magento\Backend\App\Action
                 }
             }
 
+            // Form name is rendered into html attributes. Allow safe values only.
             $formName = $this->getRequest()->getParam('form_name');
+            if (!is_string($formName) || !preg_match('/^[a-zA-Z0-9_]+$/', $formName)) {
+                $formName = '';
+            }
             $optionsBlock->setFormName($formName);
             $this->_view->renderLayout();
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
