@@ -45,7 +45,13 @@ define([
          */
         _create: function () {
             const me = this;
-            const anchor = decodeURI(window.location.hash.replace('#', ''));
+            let anchor = window.location.hash.replace('#', '');
+
+            try {
+                anchor = decodeURI(anchor);
+            } catch (e) {
+                // malformed URI sequence (e.g. "#100%"), use raw hash.
+            }
 
             me._bindAfterAjax();
             me._super();
