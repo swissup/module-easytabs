@@ -71,6 +71,22 @@ define([
                 me.activateById(anchor);
         },
 
+        /**
+         * Breeze instantiates collapsibles lazily (on reveal or on external
+         * link click). Collapsible creation resets header attributes
+         * (aria-level, tabindex), so apply ARIA tweaks once again after it.
+         *
+         * {@inheritdoc}
+         */
+        _callCollapsible: function () {
+            const isFirstCall = !this._callCollapsibleDone;
+
+            this._super();
+
+            if (isBreeze && isFirstCall)
+                this._updateARIA();
+        },
+
         _updateARIA: function () {
             const me = this;
 
@@ -94,7 +110,8 @@ define([
                     .attr('role', 'region');
                 me.element
                     .removeAttr('role')
-                    .on('dimensionsChanged', () => { me.headers.removeAttr('aria-selected') });
+                    .off('dimensionsChanged.easytabsAria')
+                    .on('dimensionsChanged.easytabsAria', () => { me.headers.removeAttr('aria-selected') });
             } else if (me.options.collapsible) {
                 // accordion layout
                 // accessability tweaks
@@ -106,21 +123,8 @@ define([
                     .attr('role', 'region');
                 me.element
                     .removeAttr('role')
-                    .on('dimensionsChanged', () => { me.headers.removeAttr('aria-selected') });
-            }
-        },
-
-        /**
-         * {@inheritdoc}
-         */
-        _instantiateCollapsible: function (element, index, active, disabled) {
-            this._super(element, index, active, disabled);
-
-            if (this.options.multipleCollapsible && !this.options.collapsible) {
-                // expanded layout: collapsible removes aria-level and makes heading focusable
-                this.headers.eq(index)
-                    .attr('aria-level', '2')
-                    .removeAttr('tabindex');
+                    .off('dimensionsChanged.easytabsAria')
+                    .on('dimensionsChanged.easytabsAria', () => { me.headers.removeAttr('aria-selected') });
             }
         },
 
