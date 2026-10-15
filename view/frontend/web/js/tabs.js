@@ -20,7 +20,7 @@ define([
         '</button>';
 
     const forceLoadReviews = (tabId) => {
-        const $tab = $('#' + tabId.replace('.', '\\.'));
+        const $tab = $(document.getElementById(tabId));
         const role = $tab.attr('role');
 
         $tab.attr('role', 'tab');
@@ -182,8 +182,8 @@ define([
 
             if (isBreeze) return; // Disable when breeze
 
-            $(me.options.externalLink).on('click', function (event) {
-                var anchor = $(this).attr('href').replace(/^.*?(#|$)/, '');
+            $(me.options.externalLink).on('click' + me.eventNamespace, function (event) {
+                var anchor = ($(this).attr('href') || '').replace(/^.*?(#|$)/, '');
 
                 if (me.activateById(anchor)) {
                     event.preventDefault();
@@ -269,7 +269,7 @@ define([
 
                     if ($content.attr('id') !== id) {
                         try {
-                            $toActivate = $content.find('#' + id.replace('.', '\\.'));
+                            $toActivate = $content.find('#' + CSS.escape(id));
                         } catch (e) {
                             return; // hash contains chars that are not supported by query selector.
                         }
@@ -326,7 +326,7 @@ define([
         },
 
         _onTablistScrollButtonClick: function (event) {
-            const button = event.target;
+            const button = $(event.target).closest('[name=next],[name=prev]').get(0);
             const tablist = this.$tablist.get(0);
 
             event.preventDefault();
@@ -354,6 +354,9 @@ define([
 
         destroy: function () {
             this.$tablist.off('scroll.easytabs');
+            this.tablistResizeObserver?.disconnect();
+            this.element.children('[name=prev],[name=next]').remove();
+            $(this.options.externalLink).off('click' + this.eventNamespace);
             this._super();
         }
     });
