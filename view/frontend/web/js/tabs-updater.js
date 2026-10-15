@@ -84,8 +84,8 @@ define([
         },
 
         _destroy: function () {
-            $(me.options.swatchOptionsSelector).off('change.tabsupdater');
-            $(me.options.configurableOptionsSelector).off('change.tabsupdater');
+            $(this.options.swatchOptionsSelector).off('change.tabsupdater');
+            $(this.options.configurableOptionsSelector).off('change.tabsupdater');
         }
     });
 
