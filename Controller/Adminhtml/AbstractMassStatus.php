@@ -48,13 +48,6 @@ class AbstractMassStatus extends \Magento\Backend\App\Action implements HttpPost
     protected $status = 1;
 
     /**
-     * Tab type: 0 - product, 1 - widget
-     *
-     * @var int
-     */
-    protected $type = 0;
-
-    /**
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
@@ -75,11 +68,6 @@ class AbstractMassStatus extends \Magento\Backend\App\Action implements HttpPost
     public function execute()
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
-        if ($this->type == 1) {
-            $collection->addWidgetTabFilter();
-        } else {
-            $collection->addProductTabFilter();
-        }
 
         foreach ($collection as $item) {
             $item->setStatus($this->status);
