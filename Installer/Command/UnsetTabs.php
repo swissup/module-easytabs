@@ -63,6 +63,8 @@ class UnsetTabs
             $collection->walk('afterLoad');
 
             foreach ($collection as $tab) {
+                // Collection doesn't unserialize fields. Do it to prevent double encoding on save.
+                $tab->getResource()->unserializeFields($tab);
                 if ($isSingleStoreMode) {
                     $tab->setStatus(0);
                 } else {

@@ -75,6 +75,8 @@ class Tabs
                 ->addStoreFilter($request->getStoreIds());
 
             foreach ($tabs as $tab) {
+                // Collection doesn't unserialize fields. Do it to prevent double encoding on save.
+                $tab->getResource()->unserializeFields($tab);
                 $storesToLeave = array_diff($tab->getStores(), $request->getStoreIds());
 
                 if (count($storesToLeave) && !$isSingleStoreMode) {
