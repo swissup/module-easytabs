@@ -89,7 +89,9 @@ class Entity extends \Magento\Rule\Model\AbstractModel
      */
     public function getIdentities()
     {
-        return [self::CACHE_TAG . '_' . $this->getId()];
+        // Generic tag: new/enabled tab, changed stores or conditions may affect
+        // pages that do not contain this tab yet.
+        return [self::CACHE_TAG, self::CACHE_TAG . '_' . $this->getId()];
     }
 
     /**

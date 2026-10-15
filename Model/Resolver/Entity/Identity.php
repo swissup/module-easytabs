@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Swissup\Easytabs\Model\Resolver\Entity;
 
 use Swissup\Easytabs\Api\Data\EntityInterface;
+use Swissup\Easytabs\Model\Resolver\DataProvider\Entity as EntityDataProvider;
 use Magento\Framework\GraphQl\Query\Resolver\IdentityInterface;
 
 /**
@@ -22,7 +23,13 @@ class Identity implements IdentityInterface
      */
     public function getIdentities(array $resolvedData): array
     {
-        return empty($resolvedData[EntityInterface::TAB_ID]) ?
-            [] : [$this->cacheTag, sprintf('%s_%s', $this->cacheTag, $resolvedData[EntityInterface::TAB_ID])];
+        if (empty($resolvedData[EntityInterface::TAB_ID])) {
+            return [];
+        }
+
+        return array_merge(
+            [$this->cacheTag, sprintf('%s_%s', $this->cacheTag, $resolvedData[EntityInterface::TAB_ID])],
+            $resolvedData[EntityDataProvider::IDENTITIES] ?? []
+        );
     }
 }

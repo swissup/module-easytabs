@@ -458,7 +458,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      */
     public function getIdentities()
     {
-        $result = [];
+        // Generic tag lets new or enabled tabs appear on cached pages.
+        $result = [TabModel::CACHE_TAG];
 
         foreach ($this->getTabs() as $tab) {
             $result[] = TabModel::CACHE_TAG . '_' . $tab['id'];

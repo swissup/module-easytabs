@@ -21,6 +21,11 @@ class Entity
     const CONTENT = 'content';
 
     /**
+     * Cache tags of content used by tab (not exposed in schema)
+     */
+    const IDENTITIES = 'identities';
+
+    /**
      * @var TabsCollectionFactory
      */
     private $tabsCollectionFactory;
@@ -134,6 +139,7 @@ class Entity
         if (false === $entity->getStatus()) {
             throw new NoSuchEntityException();
         }
+        $identities = [];
         $tabContentBlock = $entity->getBlock();
         switch ($tabContentBlock) {
                 case \Swissup\Easytabs\Block\Tab\Html::class:
@@ -157,6 +163,7 @@ class Entity
                         break;
                     }
 
+                    $identities = $blockModel->getIdentities();
                     $renderedContent = $this->widgetFilter
 //                        ->setStoreId($storeId)
                         ->filter($blockModel->getContent());
@@ -187,6 +194,7 @@ class Entity
             EntityInterface::TAB_ID => (int) $entity->getTabId(),
             EntityInterface::ALIAS => $entity->getAlias(),
             self::CONTENT => $renderedContent,
+            self::IDENTITIES => $identities,
         ];
         return $data;
     }
