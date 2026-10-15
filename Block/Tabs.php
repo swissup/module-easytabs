@@ -42,6 +42,13 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     private $tabBlocks = [];
 
     /**
+     * Tabs are built already (result can be empty: no tabs match conditions)
+     *
+     * @var bool
+     */
+    private $isTabsBuilt = false;
+
+    /**
      * Get tabs collection
      * @var \Swissup\Easytabs\Model\ResourceModel\Entity\CollectionFactory
      */
@@ -118,7 +125,8 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
      * Build tabs. It does not rebuild existing ones.
      */
     private function _buildTabs() {
-        if (!$this->_tabs) {
+        if (!$this->isTabsBuilt && !$this->_tabs) {
+            $this->isTabsBuilt = true;
             $collection = $this->_getCollection();
 
             $storeId = $this->_storeManager->getStore()->getId();
