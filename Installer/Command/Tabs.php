@@ -5,6 +5,17 @@ namespace Swissup\Easytabs\Installer\Command;
 class Tabs
 {
     /**
+     * Blocks that render a product list. They cost more to render than the rest
+     * of the tabs together and sit below the fold, so new tabs built from them
+     * are lazy loaded. A definition that sets is_ajax itself still wins.
+     */
+    private const AJAX_BY_DEFAULT_BLOCKS = [
+        \Magento\Catalog\Block\Product\ProductList\Related::class,
+        \Magento\Catalog\Block\Product\ProductList\Upsell::class,
+        \Swissup\Easytabs\Block\Tab\Product\Crosssell::class,
+    ];
+
+    /**
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
@@ -96,7 +107,7 @@ class Tabs
             $data = array_merge([
                 'status' => 1,
                 'widget_tab' => 0,
-                'is_ajax' => 0,
+                'is_ajax' => $this->getDefaultIsAjax($data),
                 'can_listen_product' => 0,
             ], $data);
 
@@ -109,6 +120,17 @@ class Tabs
                 $this->logger->warning($e->getMessage());
             }
         }
+    }
+
+    /**
+     * @param array $data
+     * @return int
+     */
+    private function getDefaultIsAjax(array $data)
+    {
+        $block = ltrim((string) ($data['block'] ?? ''), '\\');
+
+        return (int) in_array($block, self::AJAX_BY_DEFAULT_BLOCKS, true);
     }
 
     /**
