@@ -1,6 +1,7 @@
 <?php
 namespace Swissup\Easytabs\Block;
 
+use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Url\EncoderInterface;
@@ -374,12 +375,28 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
     /**
      * Prepare tabs data for template
      *
+     * @param  bool $renderAjaxTabs Render ajax tabs too (output cannot load them later)
      * @return array
      */
-    public function prepareTabsData()
+    public function prepareTabsData($renderAjaxTabs = false)
     {
         $tabs = [];
         foreach ($this->getTabs() as $_index => $_tab) {
+            if ($_tab['is_ajax'] && !$renderAjaxTabs) {
+                $hasContent = $this->hasAjaxTabContent($_tab['alias']);
+
+                if ($hasContent === false) {
+                    continue;
+                }
+
+                if ($hasContent === true) {
+                    $_tab['child_html'] = '';
+                    $_tab['title'] = $this->getTabTitle($_tab);
+                    $tabs[$_index] = $_tab;
+                    continue;
+                }
+            }
+
             if (!($childHtml = $this->getChildTabHtml($_tab['alias']))
                 || $this->isEmptyString($childHtml)) {
                 continue;
@@ -391,6 +408,42 @@ class Tabs extends \Magento\Framework\View\Element\Template implements IdentityI
         }
 
         return $tabs;
+    }
+
+    /**
+     * Whether an ajax tab has something to show, without rendering its template.
+     *
+     * The layout templates discard child_html of an ajax tab, but it is still
+     * needed to decide whether to drop the tab as empty. Product list blocks
+     * (related, upsell, cross-sell) carry most of the rendering cost and can
+     * answer that from their item count instead.
+     *
+     * @param  string $alias
+     * @return bool|null Null when emptiness cannot be told without rendering
+     */
+    private function hasAjaxTabContent($alias)
+    {
+        $block = $this->tabBlocks[$alias] ?? $this->getChildBlock($alias);
+
+        if (!$block || !method_exists($block, 'getItems')) {
+            return null;
+        }
+
+        try {
+            $items = $block->getItems();
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        if ($items instanceof AbstractDb) {
+            return $items->getSize() > 0;
+        }
+
+        if (is_array($items) || $items instanceof \Countable) {
+            return count($items) > 0;
+        }
+
+        return null;
     }
 
     /**
